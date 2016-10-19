@@ -1,2 +1,2 @@
-# SandApp
-[ABP16] Una aplicación móvil destinada a Smart Beaches.
+# SchoolApp
+[ABP16] Una aplicación móvil destinada a mejorar la calidad educativa.
