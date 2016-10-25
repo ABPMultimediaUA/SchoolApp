@@ -1,0 +1,7 @@
+- Diseño de la Base de Datos Definitivo
+- Mockups (Cuántos? Antonio dice 40)
+- Bajar imágen Linux para ir poniendo sobre ella el servidor HTTP, MySQL Workbench o HeidiSQL o lo que haga falta y todo lo que vaya haciendo falta.
+- Diseñar logo de la aplicación (SchoolApp)
+- Subtareas de project y repartirlas
+- Manu sube el puto logo de cerberus
+- Terminar el diagrama de clases
