@@ -29,3 +29,10 @@ Test de carga --> Sobrecargar el servidor a ver que pasa
 Test Unitarios --> TestNG y Mockito gastaríamos
 
 Test Unitarios (Base de Datos) --> dbUnit (Como JUnit/TestNG para bases de datos)
+
+
+
+
+Guice/EJB --> Capa Negocio
+JPA/Hibernate --> Capa Persistencia
+SQL --> Capa Datos
