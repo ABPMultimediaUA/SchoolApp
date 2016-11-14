@@ -1,0 +1,31 @@
+Metodos de revision de codigo   --> Code Review, todos revisan una clase que haya hecho uno y mejoran
+			        --> Peer Review, pasalo al de al lado y revisais
+
+Metricas			--> Google Analytics
+
+Cucumber/Selenium // Gherkin - Para test funcionales
+
+Integración continua --> Jenkins
+Evaluación/Inspección de código fuente continua -->SonarQube
+
+PMD --> Analizador estático de código para detectar código duplicado, código muerto, y sobrecomplejidad de métodos
+(if innecesarios, bucles muy costosos, etc.)
+
+Checkstyle --> Automatiza revisión código y formatea según estándar Java
+
+FindBugs --> Busca bugs
+
+Cobertura --> Como IntelliJ lo hace, no hace falta este
+
+
+
+
+Test Unitarios/Test integración/Test funcionales
+
+Test de regresión --> Que no la hayamos cagado
+
+Test de carga --> Sobrecargar el servidor a ver que pasa
+
+Test Unitarios --> TestNG y Mockito gastaríamos
+
+Test Unitarios (Base de Datos) --> dbUnit (Como JUnit/TestNG para bases de datos)
