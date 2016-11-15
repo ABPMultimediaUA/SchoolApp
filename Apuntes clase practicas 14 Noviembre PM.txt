@@ -1,0 +1,10 @@
+16/11 - Fin iteración 2 del Hito 1
+
+Para entonces es OBLIGATORIO* tener el plan detallado de las iteraciones 3,4 y 5
+	Este plan detallado tendrá 
+	- Duraciones
+	- Procedencias
+	- Recursos
+
+Es muy recomendable tener también el plan de riesgos del documento de planificación
+Acordarse informes de Iteración
