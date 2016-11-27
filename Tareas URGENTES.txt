@@ -1,7 +1,10 @@
-- Diseño de la Base de Datos Definitivo
-- Mockups (Cuántos? Antonio dice 40)
+﻿- Diseño de la Base de Datos Definitivo
 - Bajar imagen Linux para ir poniendo sobre ella el servidor HTTP, MySQL Workbench o HeidiSQL o lo que haga falta y todo lo que vaya haciendo falta.
-- Diseñar logo de la aplicación (SchoolApp)
-- Subtareas de project y repartirlas
-- Manu sube el puto logo de cerberus
-- Terminar el diagrama de clases
+- Diseñar logo de la aplicación (Alpha-SchoolApp)
+- Presentacion PM
+- Documento Tema 8 - 12/01/2017 Entrega
+- Diagrama de flujo de interfaces
+- Diagarama de clases
+- Terminar de instalar programas y que todo funcione bien
+- Subtareas de TAG
+- Documento Iteracion 3 - 30/11/2016 Entrega
