@@ -234,28 +234,13 @@ UNLOCK TABLES;
 --
 
 DROP TABLE IF EXISTS `centro_has_curso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `centro_has_curso` (
-  `Centro_idCentro` int(11) NOT NULL,
-  `Curso_idCurso` int(11) NOT NULL,
-  PRIMARY KEY (`Centro_idCentro`,`Curso_idCurso`),
-  KEY `fk_Centro_has_Curso_Curso1_idx` (`Curso_idCurso`),
-  KEY `fk_Centro_has_Curso_Centro1_idx` (`Centro_idCentro`),
-  CONSTRAINT `fk_Centro_has_Curso_Centro1` FOREIGN KEY (`Centro_idCentro`) REFERENCES `centro` (`idCentro`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Centro_has_Curso_Curso1` FOREIGN KEY (`Curso_idCurso`) REFERENCES `curso` (`idCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+
 
 --
 -- Dumping data for table `centro_has_curso`
 --
 
-LOCK TABLES `centro_has_curso` WRITE;
-/*!40000 ALTER TABLE `centro_has_curso` DISABLE KEYS */;
-INSERT INTO `centro_has_curso` VALUES (1,1);
-/*!40000 ALTER TABLE `centro_has_curso` ENABLE KEYS */;
-UNLOCK TABLES;
+
 
 --
 -- Table structure for table `chat`
@@ -417,15 +402,27 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `curso`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `curso` (
-  `idCurso` int(11) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) DEFAULT NULL,
-  `grupo` varchar(45) DEFAULT NULL,
-  `Profesor_idProfesor` int(11) NOT NULL,
-  PRIMARY KEY (`idCurso`),
-  KEY `fk_Curso_Profesor1_idx` (`Profesor_idProfesor`),
-  CONSTRAINT `fk_Curso_Profesor1` FOREIGN KEY (`Profesor_idProfesor`) REFERENCES `profesor` (`idProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+CREATE TABLE `curso` ( `idCurso` INT(11) NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NULL DEFAULT NULL,
+  `grupo` VARCHAR(45) NULL DEFAULT NULL,
+  `Profesor_idProfesor` INT(11) NOT NULL,
+  `centro_idCentro` INT(11) NOT NULL,
+  PRIMARY KEY (`idCurso`, `centro_idCentro`),
+  INDEX `fk_Curso_Profesor1_idx` (`Profesor_idProfesor` ASC),
+  INDEX `fk_curso_centro1_idx` (`centro_idCentro` ASC),
+  CONSTRAINT `fk_Curso_Profesor1`
+    FOREIGN KEY (`Profesor_idProfesor`)
+    REFERENCES `alpha`.`profesor` (`idProfesor`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_curso_centro1`
+    FOREIGN KEY (`centro_idCentro`)
+    REFERENCES `alpha`.`centro` (`idCentro`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+AUTO_INCREMENT = 13
+DEFAULT CHARACTER SET = utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -434,7 +431,7 @@ CREATE TABLE `curso` (
 
 LOCK TABLES `curso` WRITE;
 /*!40000 ALTER TABLE `curso` DISABLE KEYS */;
-INSERT INTO `curso` VALUES (1,'Primero','A',1),(2,'Primero','B',2),(3,'Segundo','A',3),(4,'Segundo','B',4),(5,'Tercero','A',5),(6,'Tercero','B',6),(7,'Cuarto','A',7),(8,'Cuarto','B',8),(9,'Quinto','A',9),(10,'Quinto','B',10),(11,'Sexto','A',11),(12,'Sexto','B',12);
+INSERT INTO `curso` VALUES (1,'Primero','A',1,1),(2,'Primero','B',2,1),(3,'Segundo','A',3,1),(4,'Segundo','B',4,1),(5,'Tercero','A',5,1),(6,'Tercero','B',6,1),(7,'Cuarto','A',7,1),(8,'Cuarto','B',8,1),(9,'Quinto','A',9,1),(10,'Quinto','B',10,1),(11,'Sexto','A',11,1),(12,'Sexto','B',12,1);
 /*!40000 ALTER TABLE `curso` ENABLE KEYS */;
 UNLOCK TABLES;
 
