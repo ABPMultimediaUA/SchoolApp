@@ -1,1 +1,1 @@
-SELECT * FROM johto.comunicado;
+SELECT * FROM johto.curso;
