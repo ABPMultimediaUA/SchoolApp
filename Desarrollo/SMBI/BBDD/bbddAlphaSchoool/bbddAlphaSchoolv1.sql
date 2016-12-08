@@ -1,0 +1,1 @@
+SELECT * FROM johto.comunicado;
