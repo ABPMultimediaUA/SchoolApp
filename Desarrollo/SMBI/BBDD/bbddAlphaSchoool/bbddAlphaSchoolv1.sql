@@ -67,7 +67,7 @@ CREATE TABLE `alumno` (
   `dni` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`idAlumno`),
   KEY `fk_Alumno_InformeAlumno1_idx` (`InformeAlumno_numExpediente`),
-  CONSTRAINT `fk_Alumno_InformeAlumno1` FOREIGN KEY (`InformeAlumno_numExpediente`) REFERENCES `informealumno` (`numExpediente`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `fk_Alumno_InformeAlumno1` FOREIGN KEY (`InformeAlumno_numExpediente`) REFERENCES `expediente` (`numExpediente`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -176,7 +176,7 @@ DROP TABLE IF EXISTS `asistencia`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `asistencia` (
   `idAsistencia` int(11) NOT NULL,
-  `falta` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `falta` tinyint(1) DEFAULT NULL,
   `fecha` datetime NOT NULL,
   `descripcion` varchar(45) DEFAULT NULL,
   `Asignatura_has_Curso_has_Alumno_idAsignatura` int(11) NOT NULL,
@@ -194,7 +194,7 @@ CREATE TABLE `asistencia` (
 
 LOCK TABLES `asistencia` WRITE;
 /*!40000 ALTER TABLE `asistencia` DISABLE KEYS */;
-INSERT INTO `asistencia` VALUES (1,'false','2016-12-09 18:44:00',NULL,1,1,1),(2,'true','2016-12-08 18:45:00','No vino a clase',3,1,2);
+INSERT INTO `asistencia` VALUES (1,0,'2016-12-09 01:03:58','No ha faltado a clase :)',1,1,1);
 /*!40000 ALTER TABLE `asistencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -230,19 +230,6 @@ INSERT INTO `centro` VALUES (1,'Vasco Núñez de Balboa','Avenida de Galileo 13'
 UNLOCK TABLES;
 
 --
--- Table structure for table `centro_has_curso`
---
-
-DROP TABLE IF EXISTS `centro_has_curso`;
-
-
---
--- Dumping data for table `centro_has_curso`
---
-
-
-
---
 -- Table structure for table `chat`
 --
 
@@ -266,7 +253,6 @@ CREATE TABLE `chat` (
 
 LOCK TABLES `chat` WRITE;
 /*!40000 ALTER TABLE `chat` DISABLE KEYS */;
-INSERT INTO `chat` VALUES (1,1);
 /*!40000 ALTER TABLE `chat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -373,7 +359,7 @@ CREATE TABLE `comunicado` (
   `idcomunicado` int(11) NOT NULL AUTO_INCREMENT,
   `tipo` varchar(45) DEFAULT NULL,
   `texto` longtext,
-  `firmado` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL,
+  `firmado` varchar(45) DEFAULT NULL,
   `Asignatura_has_Curso_Asignatura_idAsignatura` int(11) NOT NULL,
   `Asignatura_has_Curso_Curso_idCurso` int(11) NOT NULL,
   `Alumno_idAlumno` int(11) NOT NULL,
@@ -402,27 +388,18 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `curso`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `curso` ( `idCurso` INT(11) NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NULL DEFAULT NULL,
-  `grupo` VARCHAR(45) NULL DEFAULT NULL,
-  `Profesor_idProfesor` INT(11) NOT NULL,
-  `centro_idCentro` INT(11) NOT NULL,
-  PRIMARY KEY (`idCurso`, `centro_idCentro`),
-  INDEX `fk_Curso_Profesor1_idx` (`Profesor_idProfesor` ASC),
-  INDEX `fk_curso_centro1_idx` (`centro_idCentro` ASC),
-  CONSTRAINT `fk_Curso_Profesor1`
-    FOREIGN KEY (`Profesor_idProfesor`)
-    REFERENCES `alpha`.`profesor` (`idProfesor`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_curso_centro1`
-    FOREIGN KEY (`centro_idCentro`)
-    REFERENCES `alpha`.`centro` (`idCentro`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 13
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE `curso` (
+  `idCurso` int(11) NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) DEFAULT NULL,
+  `grupo` varchar(45) DEFAULT NULL,
+  `Profesor_idProfesor` int(11) NOT NULL,
+  `centro_idCentro` int(11) NOT NULL,
+  PRIMARY KEY (`idCurso`,`centro_idCentro`),
+  KEY `fk_Curso_Profesor1_idx` (`Profesor_idProfesor`),
+  KEY `fk_curso_centro1_idx` (`centro_idCentro`),
+  CONSTRAINT `fk_Curso_Profesor1` FOREIGN KEY (`Profesor_idProfesor`) REFERENCES `profesor` (`idProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_curso_centro1` FOREIGN KEY (`centro_idCentro`) REFERENCES `centro` (`idCentro`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -466,6 +443,29 @@ INSERT INTO `examen` VALUES (1,'2016-12-08 18:57:59',5,1,1,1);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `expediente`
+--
+
+DROP TABLE IF EXISTS `expediente`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `expediente` (
+  `numExpediente` int(11) NOT NULL,
+  PRIMARY KEY (`numExpediente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `expediente`
+--
+
+LOCK TABLES `expediente` WRITE;
+/*!40000 ALTER TABLE `expediente` DISABLE KEYS */;
+INSERT INTO `expediente` VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10),(11),(12),(13),(14),(15);
+/*!40000 ALTER TABLE `expediente` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `foro`
 --
 
@@ -494,26 +494,30 @@ INSERT INTO `foro` VALUES (1,'Los ecosistemas',1,1);
 UNLOCK TABLES;
 
 --
--- Table structure for table `informealumno`
+-- Table structure for table `material`
 --
 
-DROP TABLE IF EXISTS `informealumno`;
+DROP TABLE IF EXISTS `material`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `informealumno` (
-  `numExpediente` int(11) NOT NULL,
-  PRIMARY KEY (`numExpediente`)
+CREATE TABLE `material` (
+  `idmaterial` int(11) NOT NULL,
+  `contenido` longblob NOT NULL,
+  `asignatura_has_curso_Asignatura_idAsignatura` int(11) NOT NULL,
+  `asignatura_has_curso_Curso_idCurso` int(11) NOT NULL,
+  PRIMARY KEY (`idmaterial`,`asignatura_has_curso_Asignatura_idAsignatura`,`asignatura_has_curso_Curso_idCurso`),
+  KEY `fk_material_asignatura_has_curso1_idx` (`asignatura_has_curso_Asignatura_idAsignatura`,`asignatura_has_curso_Curso_idCurso`),
+  CONSTRAINT `fk_material_asignatura_has_curso1` FOREIGN KEY (`asignatura_has_curso_Asignatura_idAsignatura`, `asignatura_has_curso_Curso_idCurso`) REFERENCES `asignatura_has_curso` (`Asignatura_idAsignatura`, `Curso_idCurso`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `informealumno`
+-- Dumping data for table `material`
 --
 
-LOCK TABLES `informealumno` WRITE;
-/*!40000 ALTER TABLE `informealumno` DISABLE KEYS */;
-INSERT INTO `informealumno` VALUES (1),(2),(3),(4),(5),(6),(7),(8),(9),(10);
-/*!40000 ALTER TABLE `informealumno` ENABLE KEYS */;
+LOCK TABLES `material` WRITE;
+/*!40000 ALTER TABLE `material` DISABLE KEYS */;
+/*!40000 ALTER TABLE `material` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -547,6 +551,35 @@ INSERT INTO `mencion` VALUES (1,'Premio por excelecia','por su sobresaliente lab
 UNLOCK TABLES;
 
 --
+-- Table structure for table `mensaje`
+--
+
+DROP TABLE IF EXISTS `mensaje`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `mensaje` (
+  `idmensaje` int(11) NOT NULL,
+  `texto` longtext NOT NULL,
+  `fecha` datetime NOT NULL,
+  `chat_Profesor_idProfesor` int(11) NOT NULL,
+  `chat_Padre_Alumno_idAlumno` int(11) NOT NULL,
+  `profesor` tinyint(1) NOT NULL,
+  PRIMARY KEY (`idmensaje`,`chat_Profesor_idProfesor`,`chat_Padre_Alumno_idAlumno`),
+  KEY `fk_mensaje_profesor_chat1_idx` (`chat_Profesor_idProfesor`,`chat_Padre_Alumno_idAlumno`),
+  CONSTRAINT `fk_mensaje_profesor_chat1` FOREIGN KEY (`chat_Profesor_idProfesor`, `chat_Padre_Alumno_idAlumno`) REFERENCES `chat` (`Profesor_idProfesor`, `Padre_Alumno_idAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mensaje`
+--
+
+LOCK TABLES `mensaje` WRITE;
+/*!40000 ALTER TABLE `mensaje` DISABLE KEYS */;
+/*!40000 ALTER TABLE `mensaje` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `padre`
 --
 
@@ -561,6 +594,8 @@ CREATE TABLE `padre` (
   `user` varchar(45) NOT NULL,
   `Alumno_idAlumno` int(11) NOT NULL,
   `dni` varchar(20) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `telefono` int(11) DEFAULT NULL,
   PRIMARY KEY (`Alumno_idAlumno`),
   CONSTRAINT `fk_Padre_Alumno1` FOREIGN KEY (`Alumno_idAlumno`) REFERENCES `alumno` (`idAlumno`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -572,7 +607,7 @@ CREATE TABLE `padre` (
 
 LOCK TABLES `padre` WRITE;
 /*!40000 ALTER TABLE `padre` DISABLE KEYS */;
-INSERT INTO `padre` VALUES (1,'Rodolfo','Summers','1234','102Summers',1,NULL);
+INSERT INTO `padre` VALUES (1,'Rodolfo','Summers','1234','rudolf',1,'45825463T','lejia@neutrex.com',654654654);
 /*!40000 ALTER TABLE `padre` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -585,8 +620,11 @@ DROP TABLE IF EXISTS `profesor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `profesor` (
   `idProfesor` int(11) NOT NULL,
-  `nombre` varchar(45) DEFAULT NULL,
+  `nombre` varchar(45) NOT NULL,
   `apellidos` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `dni` varchar(45) NOT NULL,
+  `telefono` int(11) DEFAULT NULL,
   PRIMARY KEY (`idProfesor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -597,7 +635,7 @@ CREATE TABLE `profesor` (
 
 LOCK TABLES `profesor` WRITE;
 /*!40000 ALTER TABLE `profesor` DISABLE KEYS */;
-INSERT INTO `profesor` VALUES (1,'Diego','Mendoza'),(2,'Bernardo','Galipienso'),(3,'Luisa','Ramos'),(4,'Juan','Salazar'),(5,'Angustias','López'),(6,'Josefa','Saramago'),(7,'Guillermo','Mata'),(8,'Carmen','San Diego'),(9,'Matilde','Salvador i Segarra'),(10,'Antonio','García Cayuelas'),(11,'Olegario','Do Marco Seller'),(12,'Margarita','Sastre'),(13,'Miguel','Serrano'),(14,'Santiago','Colomar'),(15,'Pep','Llorens');
+INSERT INTO `profesor` VALUES (1,'Diego','Mendoza','dm1@alu.ua.es','4545647P',666666666),(2,'Bernardo','Galipienso','bg2@alu.ua.es','85285285J',666666666),(3,'Luisa','Ramos','bg2@alu.ua.es','85285285J',666666666),(4,'Juan','Salazar','bg2@alu.ua.es','85285285J',666666666),(5,'Angustias','López','bg2@alu.ua.es','85285285J',666666666),(6,'Josefa','Saramago','bg2@alu.ua.es','85285285J',666666666),(7,'Guillermo','Mata','bg2@alu.ua.es','85285285J',666666666),(8,'Carmen','San Diego','bg2@alu.ua.es','85285285J',666666666),(9,'Matilde','Salvador i Segarra','bg2@alu.ua.es','85285285J',666666666),(10,'Antonio','García Cayuelas','bg2@alu.ua.es','85285285J',666666666),(11,'Olegario','Do Marco Seller','bg2@alu.ua.es','85285285J',666666666),(12,'Margarita','Sastre','bg2@alu.ua.es','85285285J',666666666),(13,'Miguel','Serrano','bg2@alu.ua.es','85285285J',666666666),(14,'Santiago','Colomar','bg2@alu.ua.es','85285285J',666666666),(15,'Pep','Llorens','bg2@alu.ua.es','85285285J',666666666);
 /*!40000 ALTER TABLE `profesor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -612,7 +650,7 @@ CREATE TABLE `tarea` (
   `idTareas` int(11) NOT NULL,
   `descripcion` varchar(45) NOT NULL,
   `fecha_limite` datetime DEFAULT NULL,
-  `completada` varchar(45) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `completada` tinyint(1) NOT NULL,
   `Asignatura_has_Curso_has_Alumno_idAsignatura` int(11) NOT NULL,
   `Asignatura_has_Curso_has_Alumno_idCurso` int(11) NOT NULL,
   `Asignatura_has_Curso_has_Alumno_idAlumno` int(11) NOT NULL,
@@ -628,7 +666,7 @@ CREATE TABLE `tarea` (
 
 LOCK TABLES `tarea` WRITE;
 /*!40000 ALTER TABLE `tarea` DISABLE KEYS */;
-INSERT INTO `tarea` VALUES (1,'Describir el ecosistema del gusano de seda','2016-12-08 23:20:56','false',1,1,1);
+INSERT INTO `tarea` VALUES (1,'Describir el ecosistema del gusano de seda','2016-12-08 23:20:56',0,1,1,1);
 /*!40000 ALTER TABLE `tarea` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -664,4 +702,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-08 22:24:34
+-- Dump completed on 2016-12-09  1:35:40
