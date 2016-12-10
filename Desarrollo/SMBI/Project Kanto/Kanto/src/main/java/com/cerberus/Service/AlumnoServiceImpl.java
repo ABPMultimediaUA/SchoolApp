@@ -1,6 +1,6 @@
 package com.cerberus.Service;
 
-import com.cerberus.Controller.AlumnoController;
+import com.cerberus.Store.AlumnoStore;
 import com.cerberus.Model.Alumno;
 
 import javax.ejb.Stateless;
@@ -24,7 +24,7 @@ public class AlumnoServiceImpl implements AlumnoService{
 
     //Inyectamos el controlador
     @Inject
-    private AlumnoController alumnoController;
+    private AlumnoStore alumnoStore;
 
     //Definimos el EntityManager
     @PersistenceContext(unitName = "KantoJPA")
@@ -37,18 +37,18 @@ public class AlumnoServiceImpl implements AlumnoService{
     //Operaciones CRUD basicas que tendran todas las clases relacionadas con entidades de la BD
 
     public void addAlumno(Alumno alumno) {
-        alumnoController.addAlumno(alumno, entityManager);
+        alumnoStore.addAlumno(alumno, entityManager);
     }
 
     public boolean updateAlumno(Alumno alumnoOld, Alumno alumnoNew) {
-        return alumnoController.updateAlumno(alumnoOld, alumnoNew, entityManager);
+        return alumnoStore.updateAlumno(alumnoOld, alumnoNew, entityManager);
     }
 
     public boolean deleteAlumno(Alumno alumno) {
-        return alumnoController.deleteAlumno(alumno, entityManager);
+        return alumnoStore.deleteAlumno(alumno, entityManager);
     }
 
     public List<Alumno> findAlumnoAll() {
-        return alumnoController.findAlumnoAll(entityManager);
+        return alumnoStore.findAlumnoAll(entityManager);
     }
 }

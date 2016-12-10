@@ -2,7 +2,6 @@ package com.cerberus;
 
 import com.cerberus.Model.Alumno;
 import com.cerberus.Service.AlumnoService;
-import com.cerberus.AsignaturaTest;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;

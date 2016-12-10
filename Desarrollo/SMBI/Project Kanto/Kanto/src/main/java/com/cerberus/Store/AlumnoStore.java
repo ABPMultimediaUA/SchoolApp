@@ -1,4 +1,4 @@
-package com.cerberus.Controller;
+package com.cerberus.Store;
 
 import com.cerberus.Model.Alumno;
 
@@ -18,9 +18,9 @@ import java.util.List;
  */
 
 @ApplicationScoped
-public class AlumnoController {
+public class AlumnoStore {
 
-    public AlumnoController(){}
+    public AlumnoStore(){}
 
     public void addAlumno(Alumno alumno, EntityManager entityManager){
 
