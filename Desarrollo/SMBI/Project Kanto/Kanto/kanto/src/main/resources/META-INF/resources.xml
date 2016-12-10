@@ -1,0 +1,8 @@
+<resources>
+    <Resource id="jdbc/MySQLDB" type="DataSource">
+        JdbcDriver com.mysql.jdbc.Driver
+        JdbcUrl jdbc:mysql://localhost/kanto
+        UserName    root
+        Password    1234
+    </Resource>
+</resources>
