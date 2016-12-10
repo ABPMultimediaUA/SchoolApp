@@ -1,7 +1,7 @@
 <resources>
     <Resource id="jdbc/MySQLDB" type="DataSource">
         JdbcDriver com.mysql.jdbc.Driver
-        JdbcUrl jdbc:mysql://localhost/kanto
+        JdbcUrl jdbc:mysql://localhost/alpha
         UserName    root
         Password    1234
     </Resource>
