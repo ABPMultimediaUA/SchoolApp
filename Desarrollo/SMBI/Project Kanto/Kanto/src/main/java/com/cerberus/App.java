@@ -33,7 +33,7 @@ import static org.testng.Assert.assertTrue;
  */
 public class App 
 {
-
+    /*
 
     //Para pruebas en las que necesitemos un Logger, tenemos importado desde el pom de Maven Log4J
     //En el caso que quisieramos almacenar los resultados de las consultas en un archivo de logs y no por consola
@@ -128,5 +128,5 @@ public class App
             ejbContainer.close();
         }
     }
-    
+    */
 }
