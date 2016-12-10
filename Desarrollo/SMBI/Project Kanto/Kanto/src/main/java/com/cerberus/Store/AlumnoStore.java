@@ -36,6 +36,12 @@ public class AlumnoStore {
         Alumno aUpdatear = entityManager.find(Alumno.class, alumnoOld.getDni());
 
         if(aUpdatear!=null){
+            aUpdatear.setTelefono(alumnoNew.getTelefono());
+            aUpdatear.setUser(alumnoNew.getUser());
+            aUpdatear.setPassword(alumnoNew.getPassword());
+            aUpdatear.setIdAlumno(alumnoNew.getIdAlumno());
+            aUpdatear.setExpediente(alumnoNew.getExpediente());
+            aUpdatear.setEmail(alumnoNew.getEmail());
             aUpdatear.setDni(alumnoNew.getDni());
             aUpdatear.setNombre(alumnoNew.getNombre());
             aUpdatear.setApellidos(alumnoNew.getApellidos());
