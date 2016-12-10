@@ -21,29 +21,55 @@ public class Alumno {
 
     //Primary Key
     @Id
-    @Column(name = "DNI", nullable = false)
-    private String dni;
-    @Column(name = "NOMBRE", nullable = false)
+    @Column(name = "idAlumno", nullable = false)
+    private Integer idAlumno;
+    @Column(name = "InformeAlumno_numExpediente", nullable = false)
+    private Integer expediente;
+    @Column(name = "nombre", nullable = false)
     private String nombre;
-    @Column(name = "APELLIDOS", nullable = false)
+    @Column(name = "apellidos") //No deberia ser no nulo?
     private String apellidos;
+    @Column(name = "user", nullable = false)
+    private String user;
+    @Column(name = "password", nullable = false)
+    private String password;
+    @Column(name = "email") //No deberia ser no nulo tmb?
+    private String email;
+    @Column(name = "telefono")
+    private String telefono;
+    @Column(name = "dni")
+    private String dni;
 
     public Alumno(){
 
     }
 
-    public Alumno(String dni, String nombre, String apellidos){
-        this.dni = dni;
+    public Alumno(Integer idAlumno, Integer expediente, String nombre, String apellidos, String user, String password, String email, String telefono, String dni) {
+        this.idAlumno = idAlumno;
+        this.expediente = expediente;
         this.nombre = nombre;
         this.apellidos = apellidos;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
+        this.user = user;
+        this.password = password;
+        this.email = email;
+        this.telefono = telefono;
         this.dni = dni;
+    }
+
+    public Integer getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(Integer idAlumno) {
+        this.idAlumno = idAlumno;
+    }
+
+    public Integer getExpediente() {
+        return expediente;
+    }
+
+    public void setExpediente(Integer expediente) {
+        this.expediente = expediente;
     }
 
     public String getNombre() {
@@ -62,6 +88,46 @@ public class Alumno {
         this.apellidos = apellidos;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
     /**
      * @Override method to String(). Preferimos que nos devuelva la informacion de las variables de instancia
      * del objeto a simplemente su posicion en memoria.
@@ -70,9 +136,12 @@ public class Alumno {
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("Alumno{")
-                .append(" DNI=").append(dni)
+                .append(" id=").append(idAlumno)
+                .append(", num. exp.=").append(expediente)
                 .append(", nombre=").append(nombre)
                 .append(", apellidos=").append(apellidos)
+                .append(", user=").append(user)
+                .append(", pass=").append(password)
                 .append(" }");
         return sb.toString();
     }
