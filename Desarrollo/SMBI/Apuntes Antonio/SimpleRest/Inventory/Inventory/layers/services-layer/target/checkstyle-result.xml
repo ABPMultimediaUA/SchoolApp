@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.11.2">
+<file name="C:\Users\admin\Desktop\Inventory  [CI BROKEN]\Inventory  [CI BROKEN]\layers\services-layer\src\main\java\com\everis\javaschool\inventory\ParentInventoryController.java">
+</file>
+<file name="C:\Users\admin\Desktop\Inventory  [CI BROKEN]\Inventory  [CI BROKEN]\layers\services-layer\src\main\java\com\everis\javaschool\inventory\ShopInventoryController.java">
+</file>
+<file name="C:\Users\admin\Desktop\Inventory  [CI BROKEN]\Inventory  [CI BROKEN]\layers\services-layer\src\main\java\com\everis\javaschool\inventory\StoreInventoryController.java">
+</file>
+</checkstyle>
