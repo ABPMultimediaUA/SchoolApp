@@ -1,11 +1,11 @@
 
 var LIBS={
-  degToRad: function(angle){
-    return(angle*Math.PI/180);
+  degToRad: function(angulo){
+    return(angulo*Math.PI/180);
   },
   
-  get_projection: function(angle, a, zMin, zMax) {
-    var tan=Math.tan(LIBS.degToRad(0.5*angle)),
+  get_projection: function(angulo, a, zMin, zMax) {
+    var tan=Math.tan(LIBS.degToRad(0.5*angulo)),
         A=-(zMax+zMin)/(zMax-zMin),
           B=(-2*zMax*zMin)/(zMax-zMin);
     
@@ -16,17 +16,17 @@ var LIBS={
       0, 0,         B, 0
     ];
   },
-  
+  //Matriz de identidad
   get_I4: function() {
     return [1,0,0,0,
             0,1,0,0,
             0,0,1,0,
             0,0,0,1];
   },
-  
-  rotateX: function(m, angle) {
-    var c=Math.cos(angle);
-    var s=Math.sin(angle);
+  //Movimiento de la matriz de rotación m con angulo angulo alrededor eje X
+  rotateX: function(m, angulo) {
+    var c=Math.cos(angulo);
+    var s=Math.sin(angulo);
     var mv1=m[1], mv5=m[5], mv9=m[9];
     m[1]=m[1]*c-m[2]*s;
     m[5]=m[5]*c-m[6]*s;
@@ -36,10 +36,10 @@ var LIBS={
     m[6]=m[6]*c+mv5*s;
     m[10]=m[10]*c+mv9*s;
   },
-  
-  rotateY: function(m, angle) {
-    var c=Math.cos(angle);
-    var s=Math.sin(angle);
+  //Movimiento de la matriz de rotación m con angulo angulo alrededor eje Y
+  rotateY: function(m, angulo) {
+    var c=Math.cos(angulo);
+    var s=Math.sin(angulo);
     var mv0=m[0], mv4=m[4], mv8=m[8];
     m[0]=c*m[0]+s*m[2];
     m[4]=c*m[4]+s*m[6];
@@ -49,10 +49,10 @@ var LIBS={
     m[6]=c*m[6]-s*mv4;
     m[10]=c*m[10]-s*mv8;
   },
-  
-  rotateZ: function(m, angle) {
-    var c=Math.cos(angle);
-    var s=Math.sin(angle);
+  //Movimiento de la matriz de rotación m con angulo angulo alrededor eje Z
+  rotateZ: function(m, angulo) {
+    var c=Math.cos(angulo);
+    var s=Math.sin(angulo);
     var mv0=m[0], mv4=m[4], mv8=m[8];
     m[0]=c*m[0]-s*m[1];
     m[4]=c*m[4]-s*m[5];
@@ -62,7 +62,7 @@ var LIBS={
     m[5]=c*m[5]+s*mv4;
     m[9]=c*m[9]+s*mv8;
   },
-  
+  //Matriz de movimento de traslación m en tiempo t a lo largo del eje Z
   translateZ: function(m, t){
     m[14]+=t;
   }
