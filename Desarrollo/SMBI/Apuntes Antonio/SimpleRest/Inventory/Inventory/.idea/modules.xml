@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/packaging/ear/ear.iml" filepath="$PROJECT_DIR$/packaging/ear/ear.iml" />
+      <module fileurl="file://$PROJECT_DIR$/test/functional-test/functional-test.iml" filepath="$PROJECT_DIR$/test/functional-test/functional-test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/inventory-parent.iml" filepath="$PROJECT_DIR$/inventory-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/layers/model-layer/model-layer.iml" filepath="$PROJECT_DIR$/layers/model-layer/model-layer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/layers/services-layer/services-layer.iml" filepath="$PROJECT_DIR$/layers/services-layer/services-layer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/layers/store-layer/store-layer.iml" filepath="$PROJECT_DIR$/layers/store-layer/store-layer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/layers/web-layer/web-layer.iml" filepath="$PROJECT_DIR$/layers/web-layer/web-layer.iml" />
+    </modules>
+  </component>
+</project>
+

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>inventory-parent</artifactId>
+        <groupId>com.everis.javaschool</groupId>
+        <version>1.0-SNAPSHOT</version>
+        <relativePath>../../</relativePath>
+    </parent>
+
+    <artifactId>ear</artifactId>
+    <name>Inventory - Packaging</name>
+    <packaging>ear</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>web-layer</artifactId>
+            <version>${parent.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>services-layer</artifactId>
+            <version>${parent.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>store-layer</artifactId>
+            <version>${parent.version}</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>model-layer</artifactId>
+            <version>${parent.version}</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <finalName>inventory</finalName>
+                    <modules>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>web-layer</artifactId>
+                            <contextRoot>/inventory</contextRoot>
+                            <bundleFileName>web-layer.war</bundleFileName>
+                        </webModule>
+                        <jarModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>services-layer</artifactId>
+                            <bundleFileName>services-layer.jar</bundleFileName>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>store-layer</artifactId>
+                            <bundleFileName>store-layer.jar</bundleFileName>
+                        </jarModule>
+                        <jarModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>model-layer</artifactId>
+                            <bundleFileName>model-layer.jar</bundleFileName>
+                        </jarModule>
+                    </modules>
+                    <jboss>
+                        <loader-repository>
+                            com.vriera:loader=inventory.ear
+                        </loader-repository>
+                    </jboss>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
