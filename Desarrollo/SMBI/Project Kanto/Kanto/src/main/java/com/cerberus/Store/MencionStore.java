@@ -28,10 +28,6 @@ public class MencionStore {
         if(aUpdatear!=null){
             aUpdatear.setIdMencion(mencionNew.getIdMencion());
             aUpdatear.setTitulo(mencionNew.getTitulo());
-            aUpdatear.setDescripcion(mencionNew.getDescripcion());
-            aUpdatear.setIdAsignatura(mencionNew.getIdAsignatura());
-            aUpdatear.setIdCurso(mencionNew.getIdCurso());
-            aUpdatear.setIdAlumno(mencionNew.getIdAlumno());
             control = true;
         }
 

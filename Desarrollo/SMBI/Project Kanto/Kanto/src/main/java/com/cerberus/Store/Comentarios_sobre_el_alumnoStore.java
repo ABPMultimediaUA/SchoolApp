@@ -29,9 +29,6 @@ public class Comentarios_sobre_el_alumnoStore {
             aUpdatear.setIdComentarios_sobre_el_alumno(comentarios_sobre_el_alumnoNew.getIdComentarios_sobre_el_alumno());
             aUpdatear.setTitulo(comentarios_sobre_el_alumnoNew.getTitulo());
             aUpdatear.setTexto(comentarios_sobre_el_alumnoNew.getTexto());
-            aUpdatear.setIdAsignatura(comentarios_sobre_el_alumnoNew.getIdAsignatura());
-            aUpdatear.setIdCurso(comentarios_sobre_el_alumnoNew.getIdCurso());
-            aUpdatear.setIdAlumno(comentarios_sobre_el_alumnoNew.getIdAlumno());
             control = true;
         }
 
