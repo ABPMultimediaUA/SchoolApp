@@ -29,9 +29,6 @@ public class ExamenStore {
             aUpdatear.setIdExamen(examenNew.getIdExamen());
             aUpdatear.setFecha(examenNew.getFecha());
             aUpdatear.setNota(examenNew.getNota());
-            aUpdatear.setIdAsignatura(examenNew.getIdAsignatura());
-            aUpdatear.setIdCurso(examenNew.getIdCurso());
-            aUpdatear.setIdAlumno(examenNew.getIdAlumno());
 
             control = true;
         }
