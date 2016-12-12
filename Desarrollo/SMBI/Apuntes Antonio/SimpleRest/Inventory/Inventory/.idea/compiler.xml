@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <option name="DEFAULT_COMPILER" value="Javac" />
+    <resourceExtensions />
+    <wildcardResourcePatterns>
+      <entry name="!?*.java" />
+      <entry name="!?*.form" />
+      <entry name="!?*.class" />
+      <entry name="!?*.groovy" />
+      <entry name="!?*.scala" />
+      <entry name="!?*.flex" />
+      <entry name="!?*.kt" />
+      <entry name="!?*.clj" />
+    </wildcardResourcePatterns>
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="false">
+        <processorPath useClasspath="true" />
+      </profile>
+      <profile default="false" name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="true" />
+        <module name="Dependency Injection - Web layer" />
+        <module name="ear" />
+        <module name="functional-test" />
+        <module name="model-layer" />
+        <module name="model2-layer" />
+        <module name="service-layer" />
+        <module name="services-layer" />
+        <module name="store-layer" />
+        <module name="web-layer" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="Dependency Injection" target="1.6" />
+      <module name="Dependency Injection - Web layer" target="1.6" />
+      <module name="dependency-injection" target="1.6" />
+      <module name="ear" target="1.7" />
+      <module name="functional-test" target="1.6" />
+      <module name="Inventary" target="1.7" />
+      <module name="inventory-parent" target="1.7" />
+      <module name="model-layer" target="1.7" />
+      <module name="model2-layer" target="1.7" />
+      <module name="service-layer" target="1.6" />
+      <module name="services-layer" target="1.7" />
+      <module name="store-layer" target="1.7" />
+      <module name="web-layer" target="1.7" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
+

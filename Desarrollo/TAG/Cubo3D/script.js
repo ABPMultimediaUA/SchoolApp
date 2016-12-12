@@ -71,18 +71,18 @@ gl_FragColor = vec4(vColor, 1.); //Asignamos el color a vColor a valor 1, lo vue
   GL.useProgram(SHADER_PROGRAM);
 
   /*========================= THE CUBE ========================= */
-  //POINTS :
+  //PUNTOS :
   var cubo_vertices=[
   //Primera columna son los vértices del cubo en X, Y, Z y la segunda el color de cada vértice
     //Cara trasera en color amarillo
     -1,-1,-1,     1,1,0,
-    1,-1,-1,     1,1,0,
-    1, 1,-1,     1,1,0,
+    1,-1,-1,      1,1,0,
+    1, 1,-1,      1,1,0,
     -1, 1,-1,     1,1,0,
     //Cara delantera en azul 
     -1,-1, 1,     0,0,1,
-    1,-1, 1,     0,0,1,
-    1, 1, 1,     0,0,1,
+    1,-1, 1,      0,0,1,
+    1, 1, 1,      0,0,1,
     -1, 1, 1,     0,0,1,
     //Cara izquierda en cyan
     -1,-1,-1,     0,1,1,
@@ -90,29 +90,27 @@ gl_FragColor = vec4(vColor, 1.); //Asignamos el color a vColor a valor 1, lo vue
     -1, 1, 1,     0,1,1,
     -1,-1, 1,     0,1,1,
     //Cara derecha en rojo
-    1,-1,-1,     1,0,0,
-    1, 1,-1,     1,0,0,
-    1, 1, 1,     1,0,0,
-    1,-1, 1,     1,0,0,
+    1,-1,-1,      1,0,0,
+    1, 1,-1,      1,0,0,
+    1, 1, 1,      1,0,0,
+    1,-1, 1,      1,0,0,
     //Cara de abajo en rosa
     -1,-1,-1,     1,0,1,
     -1,-1, 1,     1,0,1,
-    1,-1, 1,     1,0,1,
-    1,-1,-1,     1,0,1,
+    1,-1, 1,      1,0,1,
+    1,-1,-1,      1,0,1,
     //Cara de arriba en verde
     -1, 1,-1,     0,1,0,
     -1, 1, 1,     0,1,0,
-    1, 1, 1,     0,1,0,
-    1, 1,-1,     0,1,0
+    1, 1, 1,      0,1,0,
+    1, 1,-1,      0,1,0
 
   ];
 
   //Vertex Buffer Object
   var CUBO_VERTICES= GL.createBuffer ();
   GL.bindBuffer(GL.ARRAY_BUFFER, CUBO_VERTICES);
-  GL.bufferData(GL.ARRAY_BUFFER,
-                new Float32Array(cubo_vertices),
-    GL.STATIC_DRAW);
+  GL.bufferData(GL.ARRAY_BUFFER, new Float32Array(cubo_vertices), GL.STATIC_DRAW);
 
   //Caras del cubo :
   var cubo_caras = [
@@ -138,9 +136,7 @@ gl_FragColor = vec4(vColor, 1.); //Asignamos el color a vColor a valor 1, lo vue
   ];
   var CUBO_CARAS= GL.createBuffer ();
   GL.bindBuffer(GL.ELEMENT_ARRAY_BUFFER, CUBO_CARAS);
-  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER,
-                new Uint16Array(cubo_caras),
-    GL.STATIC_DRAW);
+  GL.bufferData(GL.ELEMENT_ARRAY_BUFFER, new Uint16Array(cubo_caras), GL.STATIC_DRAW);
 
   /*========================= MATRIZ ========================= */
   //Variables de libs.js
