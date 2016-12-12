@@ -1,0 +1,82 @@
+﻿BASE DE DATOS SCHOOL APP
+DESCRIPCIÓN DE LAS ENTIDADES
+
+
+ALUMNO
+Cuenta vinculada al estudiante
+
+PADRE
+Cuenta vinculada al estudiante con permisos y opciones diferentes,
+adaptada para los padres del alumno.
+
+EXPEDIENTE
+Nº del expediente del alumno.
+
+CENTRO
+Centro educativo que contrata el servicio.
+
+TIPOCENTRO
+Especifica si el centro es una academia, colegio, instituto...
+
+ADMINISTRADOR
+Se encarga de administrar los datos de la aplicación en el centro.
+
+CURSO
+Cada curso se corresponde con el conjunto de estudiantes pertenceciente
+al mismo curso académico y al mismo grupo.
+
+ASIGNATURA
+Materias impartidas en el centro educativo
+
+PROFESOR
+Docente del centro educativo. Puede impartir materias
+y tutorizar cursos.
+
+CHAT
+Es la relación directa entre el padre y el profesor.
+
+MENSAJE
+Esta entidad recoge la información que intercambian los padres y los profesores
+en el chat.
+
+ASIGNATURA_HAS_CURSO
+Se refiere a la asignatura de un curso concreto. Por ejemplo, Conocimiento
+Del Medio de 2ºA.
+
+COMUNICADO
+Un comunicado puede ser  un requirimiento de autorización o justificante, u otro tipo de nota informativa que afecte a todas los alumnos de una clase concreta.
+Este comunicado va dirigido a los padres y equivale a las circulares que los alumnos deben llevar firmadas a clase por sus padres.
+
+MATERIAL
+Contiene material asociado a la asignatura.
+
+FORO
+Se crean para debatir temas sobre la asignatura correspondiente.
+
+COMENTARIOS_PROFESOR
+Información sobre los comentarios que escriben los profesores
+en el foro.
+
+COMENTARIOS_ALUMNO
+Información sobre los comentarios que escriben los alumnos en el foro.
+
+ASIGNATURA_HAS_CURSO_HAS_ALUMNO
+Se refiere al progreso de un alumno en una asignatura durante un curso 
+concreto. Por ejemplo "Antonio Martínez de 4ºB en Matemáticas".
+
+EXAMEN
+Examen a realizar por los alumnos.
+
+TAREA
+Deberes a realizar por los alumnos.
+
+MENCION
+"Premios honoríficos" otorgados a los alumnos que consigan objetivos específicos
+en una asignatura durante el curso. 
+
+ASISTENCIA
+Recoge el historial de asistencia de un estudiante a una asignatura durante el curso.
+
+COMENTARIOS_SOBRE_EL_ALUMNO
+Comunica a los padres información sobre sus hijos (comportamiento, patrones preocupantes de conducta...) en una asignatura y curso concretos.
+
