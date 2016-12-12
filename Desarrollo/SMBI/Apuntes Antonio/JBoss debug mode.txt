@@ -1,0 +1,13 @@
+
+Pasar JBoss a modo debug:
+
+1.- En standalone.bat, que está en la carpeta bin, añadir al principio las líneas
+
+set DEBUG_MODE=true
+set DEBUG_PORT=8787
+set SERVER_OPTS=%*
+
+2.- En el IntelliJ en el cuadradito del play, edit configuration
+añades una nueva
+un remote
+y lo único que tienes que cambiar es el puerto para que coincida, para que funcione le das al debug y eso está esperando una petición rest
