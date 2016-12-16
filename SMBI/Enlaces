@@ -1,3 +1,31 @@
-https://es.wikipedia.org/wiki/Arquitectura_de_software
+<!DOCTYPE html>
+<html lang="es">
+    <header>
+        <title>Angular APP JSON</title>    
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    </header>
+    <body>
 
-Aunque sea Wikipedia viene muy bien explicado
+    <section ng-app="myApp" ng-controller="myCtrl as ctrl">
+        <article ng-repeat="country in ctrl.countries">
+            <h1>{{ country.name }} ({{ country.alpha2Code }})</h1>
+            <p>Capital: {{ country.capital }}</p>
+            <p>Subregión: {{ country.subregion }}</p>
+            <p>Región: {{ country.region }}</p>
+            <p>Población: {{ country.population }}</p>
+            <p>Gentilicio: {{ country.demonym }}</p>
+        </article> 
+    </section>
+    <script>
+    var app = angular.module('myApp', []);
+    app.controller('myCtrl', function($scope, $http) {
+        var self = this;
+        $http.get("http://restcountries.eu/rest/v1/region/europe")
+        .then(function(response) {
+            self.countries = angular.fromJson(response.data);
+        });
+    });
+    </script>
+    </body>
+</html>
