@@ -1,0 +1,4 @@
+
+1.- Definir la API Rest a partir del ejemplo de Inventory y de restapplication. Hacerlo todo desde caché
+2.- Cuando Diego conteste a la duda de la BD, definir mejor las claves ajenas.
+3.- Júntese 1 y 2 y que se haga la magia :^)

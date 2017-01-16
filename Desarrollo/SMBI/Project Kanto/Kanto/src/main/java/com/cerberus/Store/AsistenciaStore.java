@@ -30,9 +30,6 @@ public class AsistenciaStore {
             aUpdatear.setFecha(asistenciaNew.getFecha());
             aUpdatear.setDescripcion(asistenciaNew.getDescripcion());
             aUpdatear.setFalta(asistenciaNew.getFalta());
-            aUpdatear.setIdAsignatura(asistenciaNew.getIdAsignatura());
-            aUpdatear.setIdCurso(asistenciaNew.getIdCurso());
-            aUpdatear.setIdAlumno(asistenciaNew.getIdAlumno());
             control = true;
         }
 

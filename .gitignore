@@ -3,3 +3,9 @@ Entrega/~$-TEMA 8.docx
 ~$reas ABP_Semana_11 a 18.docx
 ~$xto exposición v1.docx
 *.iml
+**/target/**
+**eclipse**
+*.project
+*.classpath
+*.swp
+**/.idea/**

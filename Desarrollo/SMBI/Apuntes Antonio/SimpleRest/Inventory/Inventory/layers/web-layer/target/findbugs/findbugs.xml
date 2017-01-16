@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BugCollection version='2.0.3' threshold='low' effort='max'><Error></Error><Project><SrcDir>C:\Users\Ricardo\Documents\GitHub\Desarrollo\SMBI\Apuntes Antonio\SimpleRest\Inventory\Inventory\layers\web-layer\src\main\java</SrcDir><SrcDir>C:\Users\Ricardo\Documents\GitHub\Desarrollo\SMBI\Apuntes Antonio\SimpleRest\Inventory\Inventory\layers\web-layer\src\test\java</SrcDir></Project></BugCollection>

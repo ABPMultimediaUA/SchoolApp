@@ -30,9 +30,6 @@ public class TareaStore {
             aUpdatear.setFecha_limite(tareaNew.getFecha_limite());
             aUpdatear.setDescripcion(tareaNew.getDescripcion());
             aUpdatear.setCompletada(tareaNew.getCompletada());
-            aUpdatear.setIdAsignatura(tareaNew.getIdAsignatura());
-            aUpdatear.setIdCurso(tareaNew.getIdCurso());
-            aUpdatear.setIdAlumno(tareaNew.getIdAlumno());
             control = true;
         }
 
