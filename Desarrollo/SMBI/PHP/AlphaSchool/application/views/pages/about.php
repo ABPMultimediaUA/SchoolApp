@@ -1,1 +1,0 @@
-Manuel Romero Martínez

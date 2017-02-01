@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.everis.restapplication</groupId>
+        <artifactId>restapplication-parent</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>restapplication</artifactId>
+    <name>restapplication</name>
+    <packaging>ear</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>web-layer</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <configuration>
+                    <finalName>${project.name}</finalName>
+                    <archive>
+                        <manifestEntries>
+                            <dependencies>
+                                org.slf4j
+                            </dependencies>
+                        </manifestEntries>
+                    </archive>
+                    <!--<version>6</version>-->
+                    <initializeInOrder>true</initializeInOrder>
+                    <modules>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
+                            <artifactId>web-layer</artifactId>
+                            <contextRoot>/restapplication</contextRoot>
+                            <bundleFileName>restapplication-services.war</bundleFileName>
+                        </webModule>
+                    </modules>
+                    <jboss>
+                        <loader-repository>com.everis:loader=${project.name}.ear</loader-repository>
+                    </jboss>
+                </configuration>
+                <artifactId>maven-ear-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <version>7.6.Final</version>
+                <configuration>
+                    <filename>${project.name}.ear</filename>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
