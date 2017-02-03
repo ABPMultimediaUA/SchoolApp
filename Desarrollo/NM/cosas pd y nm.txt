@@ -1,0 +1,30 @@
+
+	TRAILERS
+
+ - Trailer similar a SophiaSquare
+ - Algo de como los padres con la aplicación están más contentos.
+ - Padres, alumnos, profesor, 
+
+
+	MAKING OF
+	
+ - Enseñar la preproducción (storyboards, grabación), que se vea la producción,
+   trabajando en el video y tal, y finalmente enseñar como hemos hecho la postproducción,
+   enseñando como hemos hecho x efectos en after effects. Voz en off explicando
+
+
+KPIS PROVISIONALES
+
+ - Por cada rol de usuario, medir qué servicios (Consultar notas, mensajes, materiales)
+   son los más empleados por los clientes.
+
+ - Por cada asignatura, datos de aprobados/suspensos (Qué asignatura tiene mayor tasa
+   de aprobados)
+
+ - Por localización geográfica, cosas (De ahí se puede sacar algo para tag también)
+
+ - Redes sociales (Medir RT, FAV, Me gusta, etc.) De ahí también ver la cantidad de
+   visitas a la web de alphaschool que salen de Twitter, por ejemplo.
+
+ - Medición de foros (Sin concretar aún) (Porcentaje de participación alumnos/profesores)
+   Votos útiles para una pregunta, etc.
