@@ -1,8 +1,8 @@
 
 function Node() {
-	this.entity = ?;
+	this.entity = []; //No estoy del todo seguro de como deberia definir aqui entity
 	this.children = [];
-	this.father = ?;
+	this.father = []; //Lo mismo aqui
 	this.localMatrix = m4.identity();
 	this.worldMatrix = m4.identity();
 }
@@ -45,6 +45,10 @@ Node.prototype.draw = function() {
 	this.Entity.endDraw();
 }
 
+Node.prototype.setEntity = function(entity) {
+	this.Entity = entity;
+}
+
 //Aqui falta un getter/setter de la propia entidad, un draw a la entidad asociada
 //y
 
@@ -58,11 +62,11 @@ function Entity() {
 }
 
 Entity.prototype.beginDraw = function() {
-	alert('Beginning the draw process');
+	alert('Beginning the draw process (Entity)');
 };
 
 Entity.prototype.endDraw = function() {
-	alert('Ending the draw process');
+	alert('Ending the draw process (Entity)');
 };
 
 
@@ -70,13 +74,17 @@ Entity.prototype.endDraw = function() {
 
 function Transform() {
 	Entity.call(this);
+	alert('I am the alert from the transform entity type');
 }
 function Luz() {
 	Entity.call(this);
+	alert('I am the alert from the luz entity type');
 }
 function Camara() {
 	Entity.call(this);
+	alert('I am the alert from the camara entity type');
 }
 function Malla() {
 	Entity.call(this);
+	alert('I am the alert from the malla entity type');
 }
