@@ -40,7 +40,10 @@ Node.prototype.removeChildren = function(childToRemove) {
 	}
 }
 
-Node.
+Node.prototype.draw = function() {
+	this.Entity.beginDraw();
+	this.Entity.endDraw();
+}
 
 //Aqui falta un getter/setter de la propia entidad, un draw a la entidad asociada
 //y
