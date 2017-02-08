@@ -1,15 +1,18 @@
+//http://stackoverflow.com/questions/1595611/how-to-properly-create-a-custom-object-in-javascript
 
 function Node() {
-	this.entity = []; //No estoy del todo seguro de como deberia definir aqui entity
+	this.entity = ""; //No estoy del todo seguro de como deberia definir aqui entity
 	this.children = [];
-	this.father = []; //Lo mismo aqui
-	this.localMatrix = m4.identity();
-	this.worldMatrix = m4.identity();
+	this.parent = ""; //Lo mismo aqui
+	//this.localMatrix = m4.identity();
+	//this.worldMatrix = m4.identity();
 }
 
 Node.prototype.setParent = function(parent) {
 	//Separarnos del parent si tenemos uno
-	if (this.parent) {
+	alert('Hola');
+	if (this.parent != "") {
+		alert('Esto no deberia salir nunca');
 		var nodox = this.parent.children.indexOf(this);
 		if(nodox >= 0) {
 			this.parent.children.splice(nodox, 1);
@@ -18,16 +21,18 @@ Node.prototype.setParent = function(parent) {
 	
 	//Si no tenemos parent, nos anyadimos el parent pasado por parametro
 	if(parent) {
-		//Hacemos el append al padre para que el padre tenga a este nodo como su hijo
-		parent.children.append(this);
+		//Hacemos el push al padre para que el padre tenga a este nodo como su hijo
+		parent.children.push(this);
+		alert('Esto si deberia salir');
 	}
 	//Setteamos este nodo para que tenga como padre al padre por parametro
 	this.parent = parent;
+	alert('Esto tambien');
 }
 
 Node.prototype.addChildren = function(childToAdd) {
 	if(childToAdd) {
-		this.children.append(childToAdd)
+		this.children.push(childToAdd)
 	}
 }
 
@@ -41,24 +46,25 @@ Node.prototype.removeChildren = function(childToRemove) {
 }
 
 Node.prototype.draw = function() {
-	this.Entity.beginDraw();
-	this.Entity.endDraw();
+	//Habria que hacer que las alertas de las entidades asociadas al nodo saltaran aqui
+	//y no en el constructor de las susodichas entidades, no?
+	if(this.entity != ""){
+		this.entity.beginDraw();
+		this.entity.endDraw();
+	}
 }
 
 Node.prototype.setEntity = function(entity) {
-	this.Entity = entity;
+	this.entity = entity;
 }
-
-//Aqui falta un getter/setter de la propia entidad, un draw a la entidad asociada
-//y
-
 
 
 //"Clase" de la que derivan todas las entidades
 
 function Entity() {
-	this.beginDraw();
-	this.endDraw();
+	//Tengo dudas sobre como crearia una clase virtual de C++ en Javascript
+	//Creo que no es necesario declarar aqui ninguna funcion, que con lo que hay abajo:
+	//Entity.call(this), ya hace la llamada a los alert desde las implementaciones de la clase virtual.
 }
 
 Entity.prototype.beginDraw = function() {
