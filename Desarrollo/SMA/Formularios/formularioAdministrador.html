@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+<head>
+  <title>Administrador Post</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <!-- LOAD BOOTSTRAP CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- LOAD JQUERY -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <!-- LOAD ANGULAR -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+
+  
+        <style>
+            .ng-valid.ng-dirty{
+                border-color: green;
+            }
+            .ng-invalid.ng-dirty{
+                border-color: red;
+            }
+        </style>
+</head>
+<!-- apply the module and controller to our body so angular is applied to that -->
+<body>
+<div class="container">
+<div class="col-md-6 col-md-offset-3">
+
+  <!-- PAGE TITLE -->
+  <div class="page-header">
+    <h1><span class="glyphicon glyphicon-education"></span> Formulario añadir administrador</h1>
+  </div>
+
+  <div ng-app = "mainApp" ng-controller = "adminController">
+    <!-- FORM  -->
+    <form name = "adminForm" ng-submit="processForm()" novalidate>
+      <div id="meter-group" class="form-group">
+        <administrador name = "salida"> </administrador>
+      </div>
+      <!-- NAME -->
+      <div id="name-group" class="form-group">
+        <label>Nombre</label>
+        <input type="text" name="nombre" class="form-control" placeholder = "Nombre" ng-model="formData.nombre" required>
+          <span style = "color:red" ng-show = "adminForm.nombre.$dirty && adminForm.nombre.$invalid">
+            <span ng-show = "adminForm.nombre.$error.required">El nombre es obligatorio.</span>
+          </span>
+      </div>
+
+      <!-- APELLIDOS -->
+      <div id="superhero-group" class="form-group">
+        <label>Apellidos</label>
+        <input type="text" name="apellidos" class="form-control" placeholder = "Apellidos" ng-model="formData.apellidos">
+      </div>
+
+      <!-- USUARIO -->
+      <div id="usuario-group" class="form-group">
+        <label>Usuario</label>
+        <input type="text" name="usuario" class="form-control" placeholder="Usuario" ng-model="formData.user" length = "9" required>
+        <span style = "color:red" ng-show = "adminForm.usuario.$dirty && adminForm.usuario.$invalid">
+            <span ng-show = "adminForm.usuario.$error.required">El usuario es obligatorio.</span>
+          </span>
+      </div>
+
+      <!-- CONTRASEÑA -->
+      <div id="password-group" class="form-group">
+        <label>Contraseña</label>
+        <input type="password" name="password" class="form-control" placeholder="Contraseña" ng-model="formData.password" required>
+        <span style = "color:red" ng-show = "adminForm.password.$dirty && adminForm.password.$invalid">
+            <span ng-show = "adminForm.password.$error.required">La contraseña es obligatoria.</span>
+          </span>
+      </div>
+
+      <!-- EMAIL -->
+      <div id="email-group" class="form-group">
+        <label>E-mail</label>
+        <input type="text" name="email" class="form-control" placeholder="E-mail" ng-model="formData.email" required>
+        <span style = "color:red" ng-show = "adminForm.email.$dirty && adminForm.email.$invalid">
+            <span ng-show = "adminForm.email.$error.required">El E-mail es obligatorio.</span>
+            <span ng-show = "adminForm.email.$error.email">Email no válido.</span>
+          </span>
+      </div>
+
+      <!-- TELEFONO -->
+      <div id="telefono-group" class="form-group">
+        <label>Teléfono</label>
+        <input type="text" name="telefono" class="form-control" placeholder="Teléfono" ng-model="formData.telefono">
+      </div>
+
+      <!-- DNI -->
+      <div id="dni-group" class="form-group">
+        <label>DNI</label>
+        <input type="text" name="dni" class="form-control" placeholder="DNI" ng-model="formData.dni" required>
+        <span style = "color:red" ng-show = "adminForm.dni.$dirty && adminForm.dni.$invalid">
+            <span ng-show = "adminForm.dni.$error.required">El DNI es obligatorio.</span>
+          </span>
+      </div>
+
+      <!-- ID -->
+      <div id="idAdministrador-group" class="form-group">
+        <label>ID de administrador</label>
+        <input type="text" name="idAdministrador" class="form-control" placeholder="ID" ng-model="formData.idAdministrador" required>
+        <span style = "color:red" ng-show = "adminForm.idAdministrador.$dirty && adminForm.idAdministrador.$invalid">
+            <span ng-show = "adminForm.idAdministrador.$error.required">El ID del administrador es obligatorio.</span>
+          </span>
+      </div> 
+
+      <!-- SUBMIT BUTTON -->
+      <button  type = "submit" ng-disabled="!(!!formData.nombre) || !(!!formData.user)  || !(!!formData.password) || !(!!formData.email) || !(!!formData.idAdministrador)" class="btn btn-success btn-lg btn-block">
+         <span class="glyphicon glyphicon-flash"></span>Submit!
+      </button>
+    </form>
+  </div>
+
+</div>
+</div>
+
+<!-- PROCESS FORM WITH AJAX (NEW) -->
+  <script>
+
+     var mainApp = angular.module("mainApp", []);
+
+     
+
+     mainApp.directive('administrador', function() {
+              var directive = {};
+              directive.restrict = 'E';
+              directive.template = "<b>{{administrador.texto}}</b>";
+              
+              directive.scope = {
+                 administrador : "=name"
+              }
+              return directive;
+      });
+         
+         mainApp.controller('adminController', function($scope, $http) {
+          $scope.json2 = {};
+          $scope.salida = {};
+          $scope.formData = {}; 
+          $scope.processForm = function(){
+           
+
+          $http({
+              method  : 'POST',
+              url     : 'http://localhost/prueba_api/alpha2/index.php/administrador/administrador',
+              data    : $.param($scope.formData),  // pass in data as strings
+              headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+          })
+            .success(function(data) {
+              //Prueba REST /*
+              $scope.json2 = data;
+              if($scope.json2.length == 0){
+               // $scope.salida.texto = $scope.json2[i];
+              };
+              if($scope.json2.length == 1){
+               $scope.salida.texto = $scope.json2[0];
+              };
+            });
+
+          }
+            
+
+                 
+         });
+
+    
+
+  </script>
+</body>
+</html>

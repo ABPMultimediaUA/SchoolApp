@@ -1,0 +1,164 @@
+<!doctype html>
+<html>
+<head>
+  <title>Comunicado</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <!-- LOAD BOOTSTRAP CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- LOAD JQUERY -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <!-- LOAD ANGULAR -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+
+  
+        <style>
+            .ng-valid.ng-dirty{
+                border-color: green;
+            }
+            .ng-invalid.ng-dirty{
+                border-color: red;
+            }
+        </style>
+</head>
+<!-- apply the module and controller to our body so angular is applied to that -->
+<body>
+<div class="container">
+<div class="col-md-6 col-md-offset-3">
+
+  <!-- PAGE TITLE -->
+  <div class="page-header">
+    <h1><span class="glyphicon glyphicon-education"></span> Formulario añadir comunicado</h1>
+  </div>
+
+  <div ng-app = "mainApp" ng-controller = "alumnoController">
+    <!-- FORM -->
+    <form name = "padreForm" ng-submit="processForm()" novalidate>
+      <div id="meter-group" class="form-group">
+        <alias name = "salida"> </alias>
+      </div>
+      <!-- FECHA -->
+      <div id="tipo-group" class="form-group">
+        <label>Tipo</label>
+        <input type="date" name="tipo" class="form-control" placeholder = "Tipo" ng-model="formData.tipo">
+      </div>
+
+      <!-- TEXTO -->
+      <div id="texto-group" class="form-group">
+        <label>Texto</label>
+        <input type="text" name="texto" class="form-control" placeholder = "Texto" ng-model="formData.texto">
+      </div>
+
+      <!-- ID COMUNICADO -->
+      <div id="idComunicado-group" class="form-group">
+        <label>ID comunicado</label>
+        <input type="text" name="idComunicado" class="form-control" placeholder="ID" ng-model="formData.idComunicado" required>
+        <span style = "color:red" ng-show = "padreForm.idComunicado.$dirty && padreForm.idComunicado.$invalid">
+            <span ng-show = "padreForm.idComunicado.$error.required">El ID es obligatorio.</span>
+          </span>
+      </div>
+
+      <!-- FIRMADO -->
+      <div id="firmado-group" class="form-group">
+        <label>Firmado</label>
+        <input type="text" name="firmado" class="form-control" placeholder = "Firmado" ng-model="formData.firmado">
+      </div>
+
+      <!-- ID ALUMNO -->
+      <div id="idAlumno-group" class="form-group">
+        <label>ID alumno</label>
+        <input type="text" name="idAlumno" class="form-control" placeholder="ID" ng-model="formData.Alumno_idAlumno" required>
+        <span style = "color:red" ng-show = "padreForm.idAlumno.$dirty && padreForm.idAlumno.$invalid">
+            <span ng-show = "padreForm.idAlumno.$error.required">El alumno es obligatorio.</span>
+          </span>
+      </div>  
+
+      <!-- ID CURSO -->
+      <div id="idCurso-group" class="form-group">
+        <label>ID curso</label>
+        <input type="text" name="idCurso" class="form-control" placeholder="ID" ng-model="formData.Asignatura_has_Curso_Curso_idCurso" required>
+        <span style = "color:red" ng-show = "padreForm.idCurso.$dirty && padreForm.idCurso.$invalid">
+            <span ng-show = "padreForm.idCurso.$error.required">El curso es obligatorio.</span>
+          </span>
+      </div>
+
+      <!-- ID ASIGNATURA -->
+      <div id="idAsignatura-group" class="form-group">
+        <label>ID asigntura</label>
+        <input type="text" name="idAsignatura" class="form-control" placeholder="ID" ng-model="formData.Asignatura_has_Curso_Asignatura_idAsignatura" required>
+        <span style = "color:red" ng-show = "padreForm.idAsignatura.$dirty && padreForm.idAsignatura.$invalid">
+            <span ng-show = "padreForm.idAsignatura.$error.required">La asignatura es obligatoria.</span>
+          </span>
+      </div>
+
+      <!-- SUBMIT BUTTON -->
+      <button  type = "submit" ng-disabled="!(!!formData.idComunicado) || !(!!formData.formData.Alumno_idAlumno) || !(!!formData.formData.Asignatura_has_Curso_Curso_idCurso) || !(!!formData.formData.Asignatura_has_Curso_Asignatura_idAsignatura)" class="btn btn-success btn-lg btn-block">
+         <span class="glyphicon glyphicon-flash"></span>Submit!  
+      </button>
+    </form>
+  </div>
+</div>
+</div>
+
+<!-- PROCESS FORM WITH AJAX (NEW) -->
+  <script>
+
+     var mainApp = angular.module("mainApp", []);
+
+    mainApp.directive('alias', function() {
+            var directive = {};
+            directive.restrict = 'E';
+            directive.template = "<b>{{alias.texto}}</b>";
+            
+            directive.scope = {
+               alias : "=name"
+            }
+            return directive;
+    });
+         
+         mainApp.controller('alumnoController', function($scope, $http) {
+          $scope.json2 = {};
+          $scope.salida = {};
+          $scope.formData = {}; 
+          $scope.processForm = function(){
+           
+
+          $http({
+              method  : 'POST',
+              url     : 'http://localhost/prueba_api/alpha2/index.php/comunicado/comunicado',
+              data    : $.param($scope.formData),  // pass in data as strings
+              headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+          })
+                .success(function(data) {
+                  //Prueba REST /*
+                  $scope.json2 = data;
+                  if($scope.json2.length == 0){
+                   // $scope.salida.texto = $scope.json2[i];
+                  };
+                  if($scope.json2.length == 1){
+                    $scope.salida.texto = $scope.json2[0];
+                  };
+                  if($scope.json2.length == 2){
+                    $scope.salida.texto = $scope.json2[0] + "" + $scope.json2[1] ;
+                  };
+                  if($scope.json2.length == 3){
+                    $scope.salida.texto = $scope.json2[0] + "" + $scope.json2[1] + "" + $scope.json2[2];
+                  };
+                  if($scope.json2.length == 4){
+                    $scope.salida.texto = $scope.json2[0] + "" + $scope.json2[1] + "" + $scope.json2[2] + "" + $scope.json2[3];
+                  };
+                });
+
+          }
+            
+
+                 
+         });
+
+    
+
+  </script>
+</body>
+</html>
