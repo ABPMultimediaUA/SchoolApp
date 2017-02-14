@@ -1,7 +1,7 @@
 //http://stackoverflow.com/questions/1595611/how-to-properly-create-a-custom-object-in-javascript
 
-function Node() {
-	this.entity = ""; //No estoy del todo seguro de como deberia definir aqui entity
+function Node(entidad) {
+	this.entity = entidad; //No estoy del todo seguro de como deberia definir aqui entity
 	this.children = [];
 	this.parent = ""; //Lo mismo aqui
 	//this.localMatrix = m4.identity();
@@ -23,11 +23,11 @@ Node.prototype.setParent = function(parent) {
 	if(parent) {
 		//Hacemos el push al padre para que el padre tenga a este nodo como su hijo
 		parent.children.push(this);
-		alert('Esto si deberia salir');
+		alert('El padre asigna al hijo');
 	}
 	//Setteamos este nodo para que tenga como padre al padre por parametro
 	this.parent = parent;
-	alert('Esto tambien');
+	alert('El hijo asigna al padre');
 }
 
 Node.prototype.addChildren = function(childToAdd) {
@@ -68,7 +68,7 @@ Node.prototype.setEntity = function(entity) {
 
 var Entity = function() {
 	if (this.constructor === Entity) {
-		throw new Error("Clase abstracta instanciada");	
+		alert("Clase abstracta instanciada");	
 	}
 };
 
@@ -86,7 +86,7 @@ Entity.prototype.endDraw = function() {
 //Entidad Transform - "Hereda" de Entity
 
 var Transform = function() {
-	Entity.apply(this, "Transformacion");
+	Entity.apply(this, []);
 };
 
 Transform.prototype = Object.create(Entity.prototype);
@@ -103,7 +103,7 @@ Transform.prototype.endDraw = function() {
 //Entidad Luz - "Hereda" de Entity
 
 var Luz = function() {
-	Entity.apply(this, "Luz");
+	Entity.apply(this, []);
 };
 
 Luz.prototype = Object.create(Entity.prototype);
@@ -120,7 +120,7 @@ Luz.prototype.endDraw = function() {
 //Entidad Camara - "Hereda" de Entity
 
 var Camara = function() {
-	Entity.apply(this, "Camara");
+	Entity.apply(this, []);
 };
 
 Camara.prototype = Object.create(Entity.prototype);

@@ -25,6 +25,25 @@ Ahora realizamos las llamadas al draw de ambas entidades
 */
 
 var malla1 = new Malla();
+var luz1 = new Luz();
+var transform1 = new Transform();
+var malla2 = new Malla();
 
-malla1.beginDraw();
-malla1.endDraw();
+var chachiNodo = new Node(luz1);
+var chachiNodoHijo = new Node(malla1);
+
+chachiNodoHijo.setParent(chachiNodo);
+
+chachiNodo.draw();
+
+//Preorder traversal
+
+/*this.preorder = function(){
+		this.visited();
+		if(this.firstChild != null){
+			this.firstChild.preorder();
+		}
+		if(this.nextSibling != null){
+			this.nextSibling.preorder();
+		}
+	}*/
