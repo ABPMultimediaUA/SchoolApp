@@ -1,0 +1,11 @@
+Arbol de la escena: Tipos de datos para entidades de tipo transformacion(Traslacion, rotacion y escalado relativos y absolutos. Otras transformaciones). Salida en modo texto.
+
+ - ¿Qué hay que hacer?
+
+	Tenemos que crear una escena, con una malla que carguemos por JSON o lo que sea, preferiblemente, o creando una malla así incrustada como en el entregable de Richi.
+	En esa escena tendremos que realizar una serie de transformaciones básicas, como las de la práctica de GC (Rotación, escalado, etc.).
+	Las matrices que hacen eso no las tenemos que hacer nosotros, podemos gastar la librería glMatrix que nos ayuda a hacerlo.
+	El resultado final tiene que ser una escena en la que, cambiando las funciones que se ejecuten, haya objetos rotando, más o menos grandes, etc.
+	No tengo claro si hay que incluir esto en el árbol de la escena, si da tiempo preguntar, si no nada.
+
+IMPORTANTE: Hay que arreglar lo del Entregable 2. Podemos gastar THREE para la carga de objetos en JSON, pero para renderizarlos hay que gastar lo del entregable 1.
