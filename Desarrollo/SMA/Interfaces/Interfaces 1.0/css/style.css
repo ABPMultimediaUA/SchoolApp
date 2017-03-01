@@ -135,3 +135,9 @@ footer {
         height: 70%;
     }
 }
+
+@media(min-width:1900px) {
+    .container{
+        min-width: 1500px;
+    }
+}
