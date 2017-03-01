@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+    <header>
+        <title>Página Angular</title>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    </header>
+    <body>
+        <H1>AlphaSchool</H1>
+        <div id="contenido">
+            <h1>comentario_alumno</h1>
+            <p>¡Bienvenido a AlphaSchool!</p>
+            <p>Introduce el número de ID del comentario_alumno que deseas eliminar</p>
+        </div>
+        <section id="seccion" ng-app='myApp' ng-controller='myCtrl as ctrl'>
+            <input type="number" id="num" >
+            <button type="" ng-click="reload()">Borrar</button>
+                   <article name = "alias">   
+                   </article>  
+        </section>
+
+
+
+
+            <script>
+                var item = sessionStorage.getItem("id");
+                if(item!=null){
+                    document.getElementById("num").value=item;
+                } 
+
+                var id=document.getElementById("num").value;
+                var id2 = document.getElementById("num").value;
+                var aux = document.getElementById("num").value;
+                var bool = false;
+
+                if(id==null||id<=0){
+                    id="";
+                    bool = true;
+                }else{
+                    id="id/"+id;
+                    bool = false;
+                }
+
+
+                var app = angular.module('myApp', []);
+                
+                app.controller('myCtrl', function($scope, $http) { 
+                    if(bool == false){
+                        var self = this;
+                        $http({
+                            url: "http://localhost/prueba_api/alpha2/index.php/comentario_alumno/comentario_alumno/"+id, 
+                            method: "DELETE",
+                            params: {id: id}
+                        })
+                        .then(function(response) {
+                            alert("Destruido")
+                                
+                            
+                        });
+                    }
+
+                    $scope.reload = function() {  
+                        sessionStorage.setItem("id", document.getElementById("num").value);
+                        location.reload();   
+                    }
+                });
+
+
+            
+            </script>
+        </body>
+    </html>

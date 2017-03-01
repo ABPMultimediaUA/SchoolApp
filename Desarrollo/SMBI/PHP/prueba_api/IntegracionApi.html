@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+</head>
+<body>
+
+
+<style type="text/css" media="screen">
+	body{font-family: 'Roboto';}
+	.box{position:relative;
+		display: -webkit-flex; /* Safari */ /* Safari 6.1+ */
+    display: flex;left:90px;
+	border-left: solid black;}
+
+    .minibox{position:relative; left:340px;
+		display: -webkit-flex; /* Safari *//* Safari 6.1+ */
+    display: flex;}
+
+    .minibox p{ 
+    	margin-right: 50px;
+    }
+
+	h3{text-align: center;}
+	.get{color:#33CC22; margin:20px; border-top: solid white; }
+	p {text-align: center;}
+	.post{color:blue;}
+	.put{color:indigo;}
+	.delete{color:red;}
+	#admin{background-color: rgba(80,150,50,0.1); border-bottom:  solid black;}
+	#profesor{background-color: rgba(150,90,50,0.1); border-bottom:  solid black;}
+	#alumno{background-color: rgba(50,80,150,0.1); border-bottom:  solid black;}
+	#padre{background-color: rgba(80,80,150,0.1);border-bottom:  solid black; border-right: solid black;}
+	#login{background-color: rgba(90,90,80,0.1);border-bottom:  solid black; padding-left:20px;
+			padding-right: 20px;}
+	#header{text-align: center; border-bottom: solid black;}
+	#getcalls{border-top: solid #44DD33; border-bottom: solid #44DD33; }
+	#postcalls{border-top: solid blue;border-bottom: solid blue; }
+	#putcalls{border-top: solid indigo;border-bottom: solid indigo; }
+	#deletecalls{border-top: solid red;border-bottom: solid red; }
+	footer{background-color: #AAAAAA; padding:20px; }
+	footer p{text-align: left; margin-left: 20px}
+</style>
+
+<header id="header">
+	<p><h1>INTEGRACIÓN BACKEND-FRONTEND</h1></p>
+	<p><h1> SMA </h1></p>
+	<p><h1> Alpha School</h1></p>
+	<div class="minibox">
+		<p id="getcalls">LLAMADAS GET</p>
+		<p id="postcalls">LLAMADAS POST</p>
+		<p id="putcalls">LLAMADAS PUT</p>
+		<p id="deletecalls">LLAMADAS DELETE</p>
+	</div>
+</header><!-- /header -->
+
+
+	<div class="box" >
+		<div id="login"  >
+			<h3>LOGIN</h3>
+			<div class="get">
+				<p>Alumno</p>
+			</div>
+			<div class="get">
+				<p>Padre</p>
+			</div>
+			<div class="get">
+				<p>Profesor</p>
+			</div>
+			<div class="get">
+				<p>Administrador</p>
+			</div>
+		</div>
+
+		<div class="role" id="admin" >
+			<h3>ADMINISTRADOR</h3>
+			<div class="get">
+				<p>Cursos</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Asignaturas</p>
+				<div class="post">
+					<span>Nueva</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			
+			<div class="get">
+				<p>Mensajes</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Alumnos</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Padre</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Profesor</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Comunicado</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Foro</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+
+				<div class="get">
+					<p>Comentarios de alumno</p>
+					<div class="post">
+						<span>Nuevo</span>
+					</div>
+					<div class="put">
+						<span>Modificar</span>
+					</div>
+					<div class="delete">
+						<span>Eliminar</span>
+					</div>
+				</div>
+
+				<div class="get">
+					<p>Comentarios de profesor</p>
+					<div class="post">
+						<span>Nuevo</span>
+					</div>
+					<div class="put">
+						<span>Modificar</span>
+					</div>
+					<div class="delete">
+						<span>Eliminar</span>
+					</div>
+				</div>
+
+			</div>
+			<div class="get">
+				<p>Expediente</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Comentarios sobre el alumno</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Examen</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Tarea</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Material</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Menciones</p>
+				<div class="post">
+					<span>Nueva</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Asistencia</p>
+				<div class="post">
+					<span>Nueva</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			
+		</div>
+
+		<div class="role" id="alumno">
+			<h3>ALUMNO</h3>
+			<div class="get">
+				<p>Tareas</p>
+			</div>
+			<div class="get">
+				<p>Asistencia</p>
+			</div>
+			<div class="get">
+				<p>Exámenes</p>
+			</div>
+			<div class="get">
+				<p>Padres</p>
+			</div>
+			<div class="get">
+				<p>Profesores</p>
+			</div>
+			<div class="get">
+				<p>Asignaturas</p>
+			</div>
+			<div class="get">
+				<p>Centro</p>
+			</div>
+			<div class="get">
+				<p>Curso</p>
+			</div>
+			<div class="get">
+				<p>Foros</p>
+				<div class="post">
+					<span>Comentar</span>
+				</div>
+				<div class="put">
+					<span>Modificar comentario</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar comentario</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Menciones</p>
+			</div>
+			<div class="get">
+				<p>Comentarios sobre el alumno</p>
+			</div>
+			<div class="get">
+				<p>Comunicados</p>
+			</div>
+			<div class="get">
+				<p>Materiales</p>
+			</div>
+			<div class="get">
+				<p>Mensajes</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+
+
+
+
+		</div>
+
+		<div class="role" id="profesor">
+			<h3>PROFESOR</h3>
+			<div class="get">
+				<p>Comunicado</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Alumnos</p>
+			</div>
+			<div class="get">
+				<p>Padres</p>
+			</div>
+			<div class="get">
+				<p>Centro</p>
+			</div>
+			<div class="get">
+				<p>Cursos</p>
+			</div>
+			<div class="get">
+				<p>Foro</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+				<div class="get">
+					<p>Comentarios de profesor</p>
+					<div class="post">
+						<span>Nuevo</span>
+					</div>
+					<div class="put">
+						<span>Modificar</span>
+					</div>
+					<div class="delete">
+						<span>Eliminar</span>
+					</div>
+				</div>
+
+			</div>
+			
+			<div class="get">
+				<p>Comentarios sobre el alumno</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Examen</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Tarea</p>
+				<div class="post">
+					<span>Nueva</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Material</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Menciones</p>
+				<div class="post">
+					<span>Nueva</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Asistencia</p>
+				<div class="post">
+					<span>Nueva</span>
+				</div>
+				<div class="put">
+					<span>Modificar</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="role" id="padre">
+			<h3>PADRE</h3>
+			<div class="get">
+				<p>Alumno</p>
+			</div>
+			<div class="get">
+				<p>Tareas</p>
+			</div>
+			<div class="get">
+				<p>Asistencia</p>
+			</div>
+			<div class="get">
+				<p>Exámenes</p>
+			</div>
+			<div class="get">
+				<p>Padres</p>
+			</div>
+			<div class="get">
+				<p>Profesores</p>
+			</div>
+			<div class="get">
+				<p>Asignaturas</p>
+			</div>
+			<div class="get">
+				<p>Centro</p>
+			</div>
+			<div class="get">
+				<p>Curso</p>
+			</div>
+			<div class="get">
+				<p>Foros</p>
+				<div class="post">
+					<span>Comentar</span>
+				</div>
+				<div class="put">
+					<span>Modificar comentario</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar comentario</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Menciones</p>
+			</div>
+			<div class="get">
+				<p>Comentarios sobre el alumno</p>
+			</div>
+			<div class="get">
+				<p>Comunicados</p>
+				<div class="put">
+					<span>Modificar (firmar)</span>
+				</div>
+			</div>
+			<div class="get">
+				<p>Materiales</p>
+			</div>
+			<div class="get">
+				<p>Mensajes</p>
+				<div class="post">
+					<span>Nuevo</span>
+				</div>
+				<div class="delete">
+					<span>Eliminar</span>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+	<footer>
+		<p>Este documento representa las llamadas a la api que lleva a cabo cada opción de la interfaz de la aplicación.</p>
+		<p>La interfaz no está representada gráficamente pero sí esquemáticamente.</p>
+		<p>Las columnas representan los roles, y las filas las llamadas.</p>
+		<p>La columna de Login representa las llamadas que hace el login para
+		comprobar si el usuario y contraseña introducidos coinciden y existen en la base de datos.</p>
+		<p>Las opciones del menú principal de cada rol se dividen mediante líneas blancas.</p>
+		<p>Puede que el nombre de la opción que sale en este documento no coincida con su nombre en la interfaz, pero hace la(s) misma(s) llamadas que las del esquema aquí presentado.</p>
+		<p>Este esquema complementaría a un conjunto de diseños de interfaces que de momento no está disponible</p> 
+	<p>&copy; 2017 Cerberus<p>
+	</footer>
+</body>
+</html>
