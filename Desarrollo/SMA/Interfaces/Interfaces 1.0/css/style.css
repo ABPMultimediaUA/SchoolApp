@@ -4,6 +4,15 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
+
+/*****Cabecera USER*****/
+h3{
+    color: #777;
+    margin-right: 150px;
+    margin-top: -2px;
+}
+
+
 #map{
     position: center;
 }
