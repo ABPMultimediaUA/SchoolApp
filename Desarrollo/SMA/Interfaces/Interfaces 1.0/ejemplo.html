@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Las 3 etiquetas anteriores deben ir en primer lugar en el bloque head -->
+<title>Plegables (collapse) en Bootstrap</title>
+<!-- CSS Bootstrap -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- HTML5 shim y Respond.js se agregan para mejorar soporte a IE8 -->
+<!-- NOTA: Respond.js no funciona si se ve la página localmente con file:// -->
+<!--[if lt IE 9]>
+<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<!-- podemos usar la clase "container" (ancho fijo) o "container-fluid" (ancho completo) -->
+<div class="container">
+<h1>Plegables (collapse) en Bootstrap</h1>
+<div class="panel panel-default">
+<div class="panel-heading">
+Plegables con enlaces y botones
+</div>
+<div class="panel-body">
+<!-- Podemos hacer que un enlace controle el plegado de la sección en su destino (href).
+Agregamos los atributos de accesibilidad aria-expanded="false" para indicar que
+dicho contenido no está desplegado al cargar, y aria-controls="id-destino" para
+facilitar la navegación en tecnologías de accesibilidad. Siempre debemos agregar
+data-toggle="collapse" -->
+<a class="btn btn-primary" data-toggle="collapse" href="#plegable"
+aria-expanded="false" aria-controls="plegable">
+Enlace con href
+</a>
+<!-- Para un botón, debemos agregar el atributo data-target="#id-destino" -->
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#plegable"
+aria-expanded="false" aria-controls="plegable">
+Botón con atributo data-target
+</button>
+<div class="collapse" id="plegable">
+<div class="well">
+Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
+aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+justo. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
+eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a.
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+</div>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+Ejemplo de acordeón
+</div>
+<div class="panel-body">
+<!-- Acá tenemos un acordeón basado en paneles plegables. El contenedor externo tendrá una
+clase "panel-group", y agregamos rol y atributos de accesibilidad -->
+<div class="panel-group" id="acordeon" role="tablist" aria-multiselectable="true">
+<div class="panel panel-info">
+<div class="panel-heading" role="tab" id="encabezado1">
+<h4 class="panel-title">
+<!-- Hacemos que el título de cada panel controle su contenido plegable,
+y agregamos data-parent para lograr la funcionalidad de acordeón
+(al desplegar un panel, se plegan los demás) -->
+<!-- Acá colocamos el primer panel desplegado de manera predeterminada,
+nótense los atributos de accesibilidad en el enlace de control y
+la clase "in" en el contenido del panel plegable-->
+<a data-toggle="collapse" data-parent="#acordeon" href="#plegable1"
+aria-expanded="true" aria-controls="plegable1">
+Panel Plegable #1
+</a>
+</h4>
+</div>
+<!-- Se agrega la clase "in" para el panel desplegado al comienzo -->
+<div id="plegable1" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="encabezado1">
+<div class="panel-body">
+Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
+aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+justo. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
+eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a.
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+</div>
+</div>
+</div>
+<div class="panel panel-info">
+<div class="panel-heading" role="tab" id="encabezado2">
+<h4 class="panel-title">
+<!-- Nótese que para los paneles que aparecen plegados al comienzo, agregamos la clase
+"collapsed" al enlace de control -->
+<a class="collapsed" data-toggle="collapse" data-parent="#acordeon" href="#plegable2"
+aria-expanded="false" aria-controls="plegable2">
+Panel Plegable #2
+</a>
+</h4>
+</div>
+<div id="plegable2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="encabezado2">
+<div class="panel-body">
+Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
+aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+justo. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
+eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a.
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+</div>
+</div>
+</div>
+<div class="panel panel-info">
+<div class="panel-heading" role="tab" id="encabezado3">
+<h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#acordeon" href="#plegable3"
+aria-expanded="false" aria-controls="plegable3">
+Panel Plegable #3
+</a>
+</h4>
+</div>
+<div id="plegable3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="encabezado3">
+<div class="panel-body">
+Nulla consequat massa quis enim. Donec pede justo, fringilla vel,
+aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae,
+justo. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae,
+eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a.
+Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="btn btn-info" id="btn-panel1" data-toggle="collapse">
+Desplegar el Panel #1 vía JS
+</button>
+</div>
+</div>
+</div>
+<!-- jQuery (necesario para utilizar plugins JS de Bootstrap) -->
+<script src="js/jquery-1.11.2.min.js"></script>
+<!-- Acá utilizamos la versión precompilada y optimizada,
+pero pueden incluirse otras versiones o componentes individuales -->
+<script src="js/bootstrap.min.js"></script>
+<script>
+$('#btn-panel1').click(function(){
+// para desplegar un panel en JS manualmente y mantener la funcionalidad de acordeón,
+// agregamos la opción "parent" (equivalente a data-parent arriba) y luego desplegamos con "show"
+$('#plegable1').collapse({ parent: '#acordeon' }).collapse('show');
+});
+</script>
+</body>
+</html>
