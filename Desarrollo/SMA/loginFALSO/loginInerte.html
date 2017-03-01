@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Login</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+        <style type="text/css">
+        	@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,700,500);
+
+			body {
+			  padding-top: 90px;
+			  background:#F7F7F7;
+			  color:#666666;
+			  font-family: 'Roboto', sans-serif;
+			  font-weight:100;
+			}
+
+			body{
+			  width: 100%;
+              background: url('http://s3.amazonaws.com/digitaltrends-uploads-prod/2016/09/group-of-school-kids-with-teacher-sitting-in-classroom-and-raising-hands.jpg') fixed;
+              background-size: cover;
+			}
+
+			@-webkit-keyframes HeroBG {
+			  0% {
+			    background-position: 0 0;
+			  }
+			  50% {
+			    background-position: 100% 0;
+			  }
+			  100% {
+			    background-position: 0 0;
+			  }
+			}
+
+			@keyframes HeroBG {
+			  0% {
+			    background-position: 0 0;
+			  }
+			  50% {
+			    background-position: 100% 0;
+			  }
+			  100% {
+			    background-position: 0 0;
+			  }
+			}
+
+			.panel {
+			  border-radius: 5px;
+			}
+			label {
+			  font-weight: 300;
+			}
+			.panel-login {
+			   border: none;
+			  -webkit-box-shadow: 0px 0px 49px 14px rgba(255,255,255, 0.3);
+			  -moz-box-shadow: 0px 0px 49px 14px rgba(255,255,255, 0.3);
+			  box-shadow: 0px 0px 49px 14px rgba(255,255,255, 0.3);
+			  }
+			.panel-login .checkbox input[type=checkbox]{
+			  margin-left: 0px;
+			}
+			.panel-login .checkbox label {
+			  padding-left: 25px;
+			  font-weight: 300;
+			  display: inline-block;
+			  position: relative;
+			}
+			.panel-login .checkbox {
+			 padding-left: 20px;
+			}
+			.panel-login .checkbox label::before {
+			  content: "";
+			  display: inline-block;
+			  position: absolute;
+			  width: 17px;
+			  height: 17px;
+			  left: 0;
+			  margin-left: 0px;
+			  border: 1px solid #cccccc;
+			  border-radius: 3px;
+			  background-color: #fff;
+			  -webkit-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+			  -o-transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+			  transition: border 0.15s ease-in-out, color 0.15s ease-in-out;
+			}
+			.panel-login .checkbox label::after {
+			  display: inline-block;
+			  position: absolute;
+			  width: 16px;
+			  height: 16px;
+			  left: 0;
+			  top: 0;
+			  margin-left: 0px;
+			  padding-left: 3px;
+			  padding-top: 1px;
+			  font-size: 11px;
+			  color: #555555;
+			}
+			.panel-login .checkbox input[type="checkbox"] {
+			  opacity: 0;
+			}
+			.panel-login .checkbox input[type="checkbox"]:focus + label::before {
+			  outline: thin dotted;
+			  outline: 5px auto -webkit-focus-ring-color;
+			  outline-offset: -2px;
+			}
+			.panel-login .checkbox input[type="checkbox"]:checked + label::after {
+			  font-family: 'FontAwesome';
+			  content: "\f00c";
+			}
+			.panel-login>.panel-heading .tabs{
+			  padding: 0;
+			}
+			.panel-login h2{
+			  font-size: 20px;
+			  font-weight: 300;
+			  margin: 30px;
+			}
+			.panel-login>.panel-heading {
+			  color: #848c9d;
+			  background-color: #e8e9ec;
+			  border-color: #fff;
+			  text-align:center;
+			  border-bottom-left-radius: 5px;
+			  border-bottom-right-radius: 5px;
+			  border-top-left-radius: 0px;
+			  border-top-right-radius: 0px;
+			  border-bottom: 0px;
+			  padding: 0px 15px;
+			}
+			.panel-login .form-group {
+			  padding: 0 30px;
+			}
+			.panel-login>.panel-heading .login {
+			  padding: 20px 30px;
+			  border-bottom-leftt-radius: 5px;
+			}
+			.panel-login>.panel-heading a{
+			  text-decoration: none;
+			  color: #666;
+			  font-weight: 300;
+			  font-size: 16px;
+			  -webkit-transition: all 0.1s linear;
+			  -moz-transition: all 0.1s linear;
+			  transition: all 0.1s linear;
+			}
+			.panel-login>.panel-heading a#register-form-link {
+			  color: #fff;
+			  width: 100%;
+			  text-align: right;
+			}
+			.panel-login>.panel-heading a#login-form-link {
+			  width: 100%;
+			  text-align: left;
+			}
+
+			.panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+			  height: 45px;
+			  border: 0;
+			  font-size: 16px;
+			  -webkit-transition: all 0.1s linear;
+			  -moz-transition: all 0.1s linear;
+			  transition: all 0.1s linear;
+			  -webkit-box-shadow: none;
+			  box-shadow: none;
+			  border-bottom: 1px solid #e7e7e7;
+			  border-radius: 0px;
+			  padding: 6px 0px;
+			}
+			.panel-login input:hover,
+			.panel-login input:focus {
+			  outline:none;
+			  -webkit-box-shadow: none;
+			  -moz-box-shadow: none;
+			  box-shadow: none;
+			  border-color: #ccc;
+			}
+			.btn-login {
+			  background-color: #314550;
+			  outline: none;
+			  color: #fff;
+			  font-size: 14px;
+			  height: auto;
+			  font-weight: normal;
+			  padding: 14px 0;
+			  text-transform: uppercase;
+			  border: none;
+			  border-radius: 0px;
+			  box-shadow: none;
+			}
+			.btn-login:hover,
+			.btn-login:focus {
+			  color: #2D3B55;
+			  background-color: #E8E9EC;
+			}
+			.forgot-password {
+			  text-decoration: underline;
+			  color: #888;
+			}
+			.forgot-password:hover,
+			.forgot-password:focus {
+			  text-decoration: underline;
+			  color: #666;
+			}
+        </style>
+
+        <script>
+        	/* $(function() {
+			    $('#login-form-link').click(function(e) {
+			    	$("#login-form").delay(100).fadeIn(100);
+			 		$("#register-form").fadeOut(100);
+					$('#register-form-link').removeClass('active');
+					$(this).addClass('active');
+					e.preventDefault();
+				});
+				$('#register-form-link').click(function(e) {
+					$("#register-form").delay(100).fadeIn(100);
+			 		$("#login-form").fadeOut(100);
+					$('#login-form-link').removeClass('active');
+					$(this).addClass('active');
+					e.preventDefault();
+				});
+
+			});*/
+			// declare modules
+			
+			angular.module('Authentication')
+			 
+			.factory('AuthenticationService',
+			    ['Base64', '$http', '$cookieStore', '$rootScope', '$timeout',
+			    function (Base64, $http, $cookieStore, $rootScope, $timeout) {
+			        var service = {};
+
+			        service.Login = function (username, password, callback) {
+
+			            /* Dummy authentication for testing, uses $timeout to simulate api call
+			             ----------------------------------------------*/
+			            $timeout(function(){
+			                var response = { success: username === 'test' && password === 'test' };
+			                if(!response.success) {
+			                    response.message = 'Username or password is incorrect';
+			                }
+			                callback(response);
+			            }, 1000);
+
+
+			            /* Use this for real authentication
+			             ----------------------------------------------*/
+			            //$http.post('/api/authenticate', { username: username, password: password })
+			            //    .success(function (response) {
+			            //        callback(response);
+			            //    });
+
+			        };
+			 
+			        service.SetCredentials = function (username, password) {
+			            var authdata = Base64.encode(username + ':' + password);
+			 
+			            $rootScope.globals = {
+			                currentUser: {
+			                    username: username,
+			                    authdata: authdata
+			                }
+			            };
+			 
+			            $http.defaults.headers.common['Authorization'] = 'Basic ' + authdata; // jshint ignore:line
+			            $cookieStore.put('globals', $rootScope.globals);
+			        };
+			 
+			        service.ClearCredentials = function () {
+			            $rootScope.globals = {};
+			            $cookieStore.remove('globals');
+			            $http.defaults.headers.common.Authorization = 'Basic ';
+			        };
+			 
+			        return service;
+			    }])
+			 
+			.factory('Base64', function () {
+			    /* jshint ignore:start */
+			 
+			    var keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+			 
+			    return {
+			        encode: function (input) {
+			            var output = "";
+			            var chr1, chr2, chr3 = "";
+			            var enc1, enc2, enc3, enc4 = "";
+			            var i = 0;
+			 
+			            do {
+			                chr1 = input.charCodeAt(i++);
+			                chr2 = input.charCodeAt(i++);
+			                chr3 = input.charCodeAt(i++);
+			 
+			                enc1 = chr1 >> 2;
+			                enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+			                enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+			                enc4 = chr3 & 63;
+			 
+			                if (isNaN(chr2)) {
+			                    enc3 = enc4 = 64;
+			                } else if (isNaN(chr3)) {
+			                    enc4 = 64;
+			                }
+			 
+			                output = output +
+			                    keyStr.charAt(enc1) +
+			                    keyStr.charAt(enc2) +
+			                    keyStr.charAt(enc3) +
+			                    keyStr.charAt(enc4);
+			                chr1 = chr2 = chr3 = "";
+			                enc1 = enc2 = enc3 = enc4 = "";
+			            } while (i < input.length);
+			 
+			            return output;
+			        },
+			 
+			        decode: function (input) {
+			            var output = "";
+			            var chr1, chr2, chr3 = "";
+			            var enc1, enc2, enc3, enc4 = "";
+			            var i = 0;
+			 
+			            // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
+			            var base64test = /[^A-Za-z0-9\+\/\=]/g;
+			            if (base64test.exec(input)) {
+			                window.alert("There were invalid base64 characters in the input text.\n" +
+			                    "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
+			                    "Expect errors in decoding.");
+			            }
+			            input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+			 
+			            do {
+			                enc1 = keyStr.indexOf(input.charAt(i++));
+			                enc2 = keyStr.indexOf(input.charAt(i++));
+			                enc3 = keyStr.indexOf(input.charAt(i++));
+			                enc4 = keyStr.indexOf(input.charAt(i++));
+			 
+			                chr1 = (enc1 << 2) | (enc2 >> 4);
+			                chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+			                chr3 = ((enc3 & 3) << 6) | enc4;
+			 
+			                output = output + String.fromCharCode(chr1);
+			 
+			                if (enc3 != 64) {
+			                    output = output + String.fromCharCode(chr2);
+			                }
+			                if (enc4 != 64) {
+			                    output = output + String.fromCharCode(chr3);
+			                }
+			 
+			                chr1 = chr2 = chr3 = "";
+			                enc1 = enc2 = enc3 = enc4 = "";
+			 
+			            } while (i < input.length);
+			 
+			            return output;
+			        }
+			    };
+			 
+			    /* jshint ignore:end */
+			});
+			 
+			.controller('LoginController',
+			    ['$scope', '$rootScope', '$location', 'AuthenticationService',
+			    function ($scope, $rootScope, $location, AuthenticationService) {
+			        // reset login status
+			        AuthenticationService.ClearCredentials();
+			 
+			        $scope.login = function () {
+			            $scope.dataLoading = true;
+			            AuthenticationService.Login($scope.username, $scope.password, function(response) {
+			                if(response.success) {
+			                    AuthenticationService.SetCredentials($scope.username, $scope.password);
+			                    $location.path('/');
+			                } else {
+			                    $scope.error = response.message;
+			                    $scope.dataLoading = false;
+			                }
+			            });
+			        };
+			    }]);
+
+			angular.module('Home')
+			 
+			.controller('HomeController',
+			    ['$scope',
+			    function ($scope) {
+			      
+			    }]);
+
+			angular.module('BasicHttpAuthExample', [
+			    'Authentication',
+			    'Home',
+			    'ngRoute',
+			    'ngCookies'
+			])
+			.config(['$routeProvider', function ($routeProvider) {
+
+			    $routeProvider
+			        .when('/login', {
+			            controller: 'LoginController',
+			            templateUrl: 'login.html',
+			            hideMenus: true
+			        })
+			 
+			        .when('/', {
+			            controller: 'HomeController',
+			            templateUrl: 'inicio.html'
+			        })
+			 
+			        .otherwise({ redirectTo: '/login' });
+			}])
+			.run(['$rootScope', '$location', '$cookieStore', '$http',
+			    function ($rootScope, $location, $cookieStore, $http) {
+			        // keep user logged in after page refresh
+			        $rootScope.globals = $cookieStore.get('globals') || {};
+			        if ($rootScope.globals.currentUser) {
+			            $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; // jshint ignore:line
+			        }
+			 
+			        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+			            // redirect to login page if not logged in
+			            if ($location.path() !== '/login' && !$rootScope.globals.currentUser) {
+			                $location.path('/login');
+			            }
+			        });
+			    }]);
+        </script>
+	</head>
+<body>
+
+	<div class="container">
+	   <div class="row">
+	    <div class="col-md-6 col-md-offset-3">
+	      <div class="panel panel-login">
+	        <div class="panel-body">
+	          <div class="row">
+	            <div class="col-lg-12">
+	             <!-- <h1>ALPHA-SCHOOL</h1> -->
+	              <form name = "form" id="login-form" ng-submit="login()" role="form" style="display: block;">
+	                <h2>LOGIN</h2>
+	                  <div class="form-group">
+	                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Usuario" ng-model="username" value="">
+	                  </div>
+	                  <div class="form-group">
+	                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Contraseña" ng-model="password">
+	                  </div>
+	                  <div class="col-xs-6 form-group pull-left checkbox">
+	                    <input id="checkbox1" type="checkbox" name="remember">
+	                    <label for="checkbox1">Recordarme</label>   
+	                  </div>
+	                  <div class="col-xs-6 form-group pull-right">     
+	                        <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Entrar">
+	                        <!-- <img ng-if="dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/> -->
+	                  </div>
+	              </form>
+	            </div>
+	          </div>
+	        </div>
+	        <div class="panel-heading">
+	          <div class="row">
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+</body>
+</html>
