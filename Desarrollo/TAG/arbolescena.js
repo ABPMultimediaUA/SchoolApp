@@ -80,8 +80,74 @@ Entity.prototype.endDraw = function() {
 
 function Transform() {
 	Entity.call(this);
+
+	this.matriz = [];
+	this.matriz[0] = LIBS.get_I4();
+
 	alert('I am the alert from the transform entity type');
 }
+
+Transform.prototype.cargar = function(matrix) {
+
+	return this.matriz[this.matriz.length - 1] = matrix;
+};
+
+Transform.prototype.topStack = function() {
+
+	return this.matriz[this.matriz.length -1].slice();
+};
+
+Transform.prototype.apilar = function() {
+
+	this.matriz.push(this.topStack());
+};
+
+Transform.prototype.rotateX = function(angulo) {
+
+	LIBS.rotateX(this.topStack(), angulo);
+};
+
+Transform.prototype.rotateY = function(angulo) {
+
+	LIBS.rotateY(this.topStack(), angulo);
+};
+
+Transform.prototype.rotateZ = function(angulo) {
+
+	LIBS.rotateZ(this.topStack(), angulo);
+};
+
+Transform.prototype.translateX = function(distancia) {
+
+	LIBS.translateX(this.topStack(), distancia);
+};
+
+Transform.prototype.translateY = function(distancia) {
+
+	LIBS.translateY(this.topStack(), distancia);
+};
+
+Transform.prototype.translateZ = function(distancia) {
+
+	LIBS.translateZ(this.topStack(), distancia);
+};
+
+Transform.prototype.beginDraw = function() {
+
+	this.apilar();
+
+};
+
+Transform.prototype.endDraw = function() {
+
+	this.matriz.pop();
+
+	if(this.matriz.length < 1) {
+		this.matriz[0] = LIBS.get_I4();
+	}
+};
+
+
 function Luz() {
 	Entity.call(this);
 	alert('I am the alert from the luz entity type');
