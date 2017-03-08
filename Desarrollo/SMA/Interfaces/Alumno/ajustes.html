@@ -14,7 +14,10 @@
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
-    <link href="css/style.css" rel="stylesheet">    
+    <link href="css/style.css" rel="stylesheet">   
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,10 +28,10 @@
 
 </head>
 
-<body>
+<bodyy ng-app = "myApp">
 <!--Cabercera-->
 <header>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
         <div class="containerHeader">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -49,7 +52,7 @@
             </ul>
             <ul  class="nav navbar-nav navbar-right">
                 <li class="user">
-                    <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
+                    <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user">  {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                 </li>
                 <li>
                     <a href="index.html" target="_blank"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
@@ -103,6 +106,41 @@
             </div>
             <!-- /.row -->
         </footer>
+        
+<script>
+    var user = sessionStorage.getItem('user');
+    console.log(user)
+    
+    angular.module('myApp', [])
+    .controller('navController', navController);
+    
+    //ESTE CONTROLADOR SERIA MEJOR QUE ESTUVIERA FUERA
+    navController.$inject = ['$scope', '$http'];
+    function navController($scope, $http){
+        if(user == null){
+            SUser="";
+            bool = true;
+        }else{
+            SUser="usuario/"+user;
+            bool = false;
+        }
+        if(bool == false){
+            var nav = this;
+            $http({
+                url: "http://localhost/prueba_api/alpha2/index.php/alumno/alumno/"+SUser+"/format/json", 
+                method: "GET",
+                params: {usuario: user}
+            })
+             .then(function(response) {
+                nav.compuesto = angular.fromJson(response.data);
+                nav.nombre = nav.compuesto.nombre;
+                nav.apellidos = nav.compuesto.apellidos;
+                }, function errorCallback(response) {
+                alert()
+            });
+        }
+    };
+</script>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
