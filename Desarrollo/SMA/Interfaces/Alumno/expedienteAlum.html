@@ -19,7 +19,7 @@
 <body>
 <!--Cabercera-->
 <header>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
         <div class="containerHeader">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -29,28 +29,23 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html"><img src="img/logoAlpha.png" class="img-responsive" alt="Logotipo" width="80 "></a>
+                <a class="navbar-brand" href="pageAlumno.html"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="80 "></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="nosotros.html">Nosotros</a>
+                    <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                </li>
+
+            </ul>
+            <ul  class="nav navbar-nav navbar-right">
+                <li class="user">
+                    <h3><a href="datos.html"><img src="img/chico.png" class="img-circle" alt="user">  {{nav.apellidos}}, {{nav.nombre}}</h3>
                 </li>
                 <li>
-                    <a href="services.html">Dónde estamos</a>
-                </li>
-                <li>
-                    <a href="contacto.html">Contacto</a>
+                    <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
                 </li>
             </ul>
-
-            <!--div class="navbar-form navbar-left">
-                <label for="sel1" class="idioma">IDIOMA</label>
-                <select class="form-control" id="sel1">
-                  <option>ESPAÑOL</option>
-                  <option>ENGLISH</option>
-                </select>
-            </div-->
         </div>
     </nav>
 </header>
