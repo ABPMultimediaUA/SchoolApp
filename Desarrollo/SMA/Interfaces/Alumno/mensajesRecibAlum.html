@@ -16,6 +16,9 @@
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -27,9 +30,9 @@
 
 </head>
 
-<body>
+<body ng-app = "myApp">
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
             <div class="containerHeader">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -51,7 +54,7 @@
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datos.html"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
+                        <h3><a href="datos.html"><img src="img/chico.png" class="img-circle" alt="user"></a> {{nav.apellidos}}, {{nav.nombre}} </h3>
                     </li>
                     <li>
                         <a href="#"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
@@ -64,16 +67,15 @@
     <!-- Page Content -->
     <div class="container">
         <!-- Marketing Icons Section -->
-        <div class="row">
+        <div class="row">     
             <div class="col-lg-12">
                 <h1 class="page-header">
                     MENSAJES <small>Recibidos</small>
                 </h1>
                 <ul class="nav nav-tabs">
                     <li class="active"><a href="mensajesRecibAlum.html" class="btn btn-default active">Recibidos <span class="glyphicon glyphicon-save"></a></li>
-                    <li><a href="mensajesEnviados.html" class="btn btn-default">Enviados <span class="glyphicon glyphicon-open"></a></li>
-                    <li><a href="mensajesEliminados.html" class="btn btn-default">Eliminados <span class="glyphicon glyphicon-trash"></span></a></li>
-                    <li class="pull-right"><a href="mensajeNuevo.html" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
+                    <li><a href="mensajesEnviadosAlum.html" class="btn btn-default">Enviados <span class="glyphicon glyphicon-open"></a></li>
+                    <li class="pull-right"><a href="mensajeNuevoAlum.html" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
                 </ul>
             </div>
             <div class="col-lg-12">
@@ -116,7 +118,40 @@
             </div>
         </footer>
     </div>
-    <!-- /.container -->
+    
+<script>
+    var user = sessionStorage.getItem('user');
+    
+    angular.module('myApp', [])
+    .controller('navController', navController);
+    
+    //ESTE CONTROLADOR SERIA MEJOR QUE ESTUVIERA FUERA
+    navController.$inject = ['$scope', '$http'];
+    function navController($scope, $http){
+        if(user == null){
+            SUser="";
+            bool = true;
+        }else{
+            SUser="usuario/"+user;
+            bool = false;
+        }
+        if(bool == false){
+            var nav = this;
+            $http({
+                url: "http://localhost/prueba_api/alpha2/index.php/alumno/alumno/"+SUser+"/format/json", 
+                method: "GET",
+                params: {usuario: user}
+            })
+             .then(function(response) {
+                nav.compuesto = angular.fromJson(response.data);
+                nav.nombre = nav.compuesto.nombre;
+                nav.apellidos = nav.compuesto.apellidos;
+                }, function errorCallback(response) {
+                alert()
+            });
+        }
+    };
+</script>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
