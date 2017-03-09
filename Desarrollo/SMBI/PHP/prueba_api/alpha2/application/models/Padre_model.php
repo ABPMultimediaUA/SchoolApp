@@ -28,6 +28,8 @@ class Padre_model extends CI_Model {
 		}
 
 		
+
+		
 		public function get_padre($id = FALSE)
 		{
 		        if ($id === FALSE)

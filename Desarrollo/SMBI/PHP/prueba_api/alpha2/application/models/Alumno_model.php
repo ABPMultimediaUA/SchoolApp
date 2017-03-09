@@ -68,6 +68,17 @@ class Alumno_model extends CI_Model {
 		        return $query->row_array();
 		}
 
+		public function get_alumnoByCurso($curso = FALSE)
+		{
+		        if ($curso === FALSE )
+		        {
+		                return "";
+		        }
+
+		        $query = $this->db->get_where('alumno', array('curso_idCurso' => $curso));
+		        return $query->row_array();
+		}
+
 		public function get_expediente($exp = FALSE)
 		{
 		        if ($exp === FALSE)

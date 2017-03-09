@@ -49,6 +49,7 @@ class Comunicado extends REST_Controller {
 
         $id = $this->get('id');
         $idAlumno = $this->get('idAlumno');
+        $idProfesor = $this->get('idProfesor');
         
         if($idAlumno != NULL )
         {
@@ -56,6 +57,11 @@ class Comunicado extends REST_Controller {
             $this->set_response($comunicados, REST_Controller::HTTP_OK);
         }
 
+        if($idProfesor != NULL )
+        {
+            $comunicados=$this->comunicado_model->get_comunicadoByProfesor($idProfesor);
+            $this->set_response($comunicados, REST_Controller::HTTP_OK);
+        }
 
 
         // If the id parameter doesn't exist return all the comunicado

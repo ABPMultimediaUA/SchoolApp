@@ -92,8 +92,8 @@ class User extends REST_Controller {
             }
 
             if($user['password'] == $password)
-            {
-                $this->set_response($tipousuario, REST_Controller::HTTP_OK);
+            {   $response = array("usuario"=>$tipousuario);
+                $this->set_response($response, REST_Controller::HTTP_OK);
             }
             else
             {

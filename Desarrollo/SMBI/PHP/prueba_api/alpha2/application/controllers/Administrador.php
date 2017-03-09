@@ -49,11 +49,13 @@ class Administrador extends REST_Controller {
 
         $id = $this->get('id');
 
+        $user = $this->get('usuario');
+
 
 
         // If the id parameter doesn't exist return all the administrador
 
-        if ($id === NULL)
+        if ($id === NULL && $user === NULL)
         {
 
             
@@ -71,6 +73,45 @@ class Administrador extends REST_Controller {
                 $this->response([
                     'status' => FALSE,
                     'message' => 'No administrador were found'
+                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+            }
+        }
+
+         else if ($user != NULL)
+        {
+            // Validate the id.
+             if (!preg_match('/^[^<>()[\].,;:\s@"]+(?:\.[^<>()[\].,;:\s@"]+)*@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i', $user))
+            {
+                // Invalid id, set the response and exit.
+                $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+            }
+
+            // Get the administrador from the array, using the id as key for retrieval.
+            // Usually a model is to be used for this.
+
+            $administrador = $this->administrador_model->get_administradorByUserName($user);
+
+            if (!empty($administrador))
+            {
+                foreach ($administrador as $key => $value)
+                {
+                    if (isset($value['user']) && $value['user'] === $user)
+                    {
+                        $administrador = $value;
+                    }
+                }
+            }
+
+            if (!empty($administrador))
+            {   $administrador[0]=$administrador;
+                $this->set_response($administrador, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+            }
+            else
+            {
+                $this->set_response([
+                    'usuario' => $user,
+                    'status' => FALSE,
+                    'message' => 'administrador could not be found'
                 ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }

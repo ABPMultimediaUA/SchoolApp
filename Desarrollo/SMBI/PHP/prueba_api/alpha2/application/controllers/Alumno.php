@@ -46,6 +46,10 @@ class Alumno extends REST_Controller {
 
         $nombre = $this->get('nombre');
 
+        $user = $this->get('usuario');
+
+        $curso= $this->get('curso');
+
         $datosCurso = $this->get('datoscurso');
 
         $asignaturas = $this->get('asignaturas');
@@ -54,7 +58,7 @@ class Alumno extends REST_Controller {
 
         // If the id parameter doesn't exist return all the alumno
 
-        if ($id === NULL && $nombre ===NULL)
+        if ($id === NULL && $nombre ===NULL && $user === NULL && $curso === NULL)
         {
 
             
@@ -104,8 +108,8 @@ class Alumno extends REST_Controller {
             }
 
             if (!empty($alumno))
-            {   $alumno[0]=$alumno;
-                $this->set_response($alumno[0], REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+            {  
+                $this->set_response($alumno, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {
@@ -144,7 +148,7 @@ class Alumno extends REST_Controller {
             }
 
             if (!empty($alumno))
-            {   $alumno[0]=$alumno;
+            {   
                 $this->set_response($alumno, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
@@ -156,6 +160,84 @@ class Alumno extends REST_Controller {
                 ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
             }
         }
+
+        else if ($user != NULL)
+        {
+        	// Validate the id.
+             if (!preg_match('/^[^<>()[\].,;:\s@"]+(?:\.[^<>()[\].,;:\s@"]+)*@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i', $user))
+            {
+                // Invalid id, set the response and exit.
+                $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+            }
+
+            // Get the alumno from the array, using the id as key for retrieval.
+            // Usually a model is to be used for this.
+
+            $alumno = $this->alumno_model->get_alumnoByUserName($user);
+
+            if (!empty($alumno))
+            {
+                foreach ($alumno as $key => $value)
+                {
+                    if (isset($value['user']) && $value['user'] === $user)
+                    {
+                        $alumno = $value;
+                    }
+                }
+            }
+
+            if (!empty($alumno))
+            {   
+                $this->set_response($alumno, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+            }
+            else
+            {
+                $this->set_response([
+                    'usuario' => $user,
+                    'status' => FALSE,
+                    'message' => 'alumno could not be found'
+                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+            }
+        }
+
+		else if ($curso != NULL)
+        {
+        	// Validate the id.
+             if (!preg_match('/^[^<>()[\].,;:\s@"]+(?:\.[^<>()[\].,;:\s@"]+)*@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i', $user))
+            {
+                // Invalid id, set the response and exit.
+                $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // BAD_REQUEST (400) being the HTTP response code
+            }
+
+            // Get the alumno from the array, using the id as key for retrieval.
+            // Usually a model is to be used for this.
+
+            $alumno = $this->alumno_model->get_alumnosByCurso($curso);
+
+            if (!empty($alumno))
+            {
+                foreach ($alumno as $key => $value)
+                {
+                    if (isset($value['user']) && $value['user'] === $user)
+                    {
+                        $alumno = $value;
+                    }
+                }
+            }
+
+            if (!empty($alumno))
+            {   
+                $this->set_response($alumno, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+            }
+            else
+            {
+                $this->set_response([
+                    'usuario' => $curso,
+                    'status' => FALSE,
+                    'message' => 'alumnos could not be found'
+                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+            }
+        }        
     }
 
    

@@ -38,6 +38,23 @@ class Comunicado_model extends CI_Model {
 		        return $comunicados;
 		}
 
+		 public function get_comunicadosByProfesor($id = FALSE)
+		{
+		        if ($id === FALSE)
+		        {
+		               $query = $this->db->get('comunicado');
+		                return $query->result_array();
+		        }
+
+		        $query = $this->db->get_where('comunicado', array('idProfesor' => $id));
+		        $comunicados=[];
+		        foreach($query as $row)
+		        {
+		        	array_push($comunicados, $this->db->get_where('comunicado', array('idComunicado'=>$row["idComunicado"]);
+		        }
+		        return $comunicados;
+		}
+
 
 		public function get_asignatura($id = FALSE)
 		{
@@ -96,13 +113,13 @@ class Comunicado_model extends CI_Model {
 		public function _setcomunicado($comunicado)
 		{
 			$data1 = array(
-		        'Asignatura_has_Curso_Curso_idCurso' => $comunicado["Asignatura_has_Curso_Curso_idCurso"],
-		        'Asignatura_has_Curso_Asignatura_idAsignatura' => $comunicado["Asignatura_has_Curso_Asignatura_idAsignatura"],
+		        'idCurso' => $comunicado["idCurso"],
+		        'idAsignatura' => $comunicado["idAsignatura"],
 		        'texto' => $comunicado["texto"],
 		        'tipo' => $comunicado["tipo"],
-		        'firmado' => $comunicado["firmado"],
 		        'fecha' => $comunicado["fecha"],
-		        'Alumno_idAlumno' => $comunicado["Alumno_idAlumno"]
+		        'titulo' => $comunicado["titulo"],
+		        'idProfesor'=> $comunicado["idProfesor"]
 	        );
 
 	        return $data1;
