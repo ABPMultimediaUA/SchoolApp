@@ -25,7 +25,7 @@
 
 </head>
 
-<body>
+<body onload="generatePass();">
 <!--Cabercera-->
 <header>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -67,14 +67,15 @@
                     <h1>Nuevo Usuario</h1>
                 </div>
             </div>
-    <form>
+    <form name="formulario">
+        <input type="hidden" id="password" value="">
         <div class="form-group">
             <label for="seleccionRol">Tipo de Usuario</label>
             <select class="form-control" id="seleccionRol">
-                <option>Alumno</option>
-                <option>Padre</option>
-                <option>Profesor</option>
-                <option>Gestor</option>
+                <option value="alumno">Alumno</option>
+                <option value="padre">Padre</option>
+                <option value="profesor">Profesor</option>
+                <option value="gestor">Gestor</option>
             </select>
         </div>
         <div class="form-group">
@@ -95,12 +96,18 @@
         </div>
         <div class="form-group">
             <label for="telefonoUsuario">Teléfono</label>
-            <input type="text" class="form-control" id="telefonoUsuario" placeholder="Telefono">
+            <input type="text" class="form-control" id="telefonoUsuario" placeholder="Teléfono">
         </div>
+        <div class="form-group" id="hiding" style="display: block;">
+            <label for="numeroExpediente">Núm. Expediente</label>
+            <input type="text" class="form-control" id="numeroExpediente" placeholder="Número de expediente">
+        </div>
+            <button type="submit" class="btn btn-primary">Crear usuario</button>
         <!-- Tambien habria que hacer que se generase un nombre de usuario al estilo UA Iniciales mas numero
              y luego hacer tambien que se te generase una pass random al crear el usuario y que se te mandase
              un mensaje al correo que has introducido con dicha pass -->
-        <button type="submit" class="btn btn-primary">Crear usuario</button>
+
+                
     </form>
     </div>
     
@@ -114,5 +121,32 @@
             </div>
             <!-- /.row -->
         </footer>
+    
+<!-- Provisional placement for scripting -->
+    <script>
+        function checkHiding(element) {
+            if(element.value == "alumno") {
+                document.getElementById("hiding").style.display = "block";
+            } else {
+                document.getElementById("hiding").style.display = "none"
+            }
+        }
+        
+        function randomPassword() {
+            var chars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+            var pass = "";
+            for (var x = 0; x < 8; x++) {
+                var i = Math.floor(Math.random() * chars.length);
+                pass += chars.charAt(i);
+            }
+            return pass;
+        }
+
+        function generatePass() {
+            formulario.password.value = randomPassword();
+            alert(formulario.password.value);
+        }
+    </script>
+    
 </body>
 </html>
