@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+
+    <title>Ajustes</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">   
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-app = "myApp">
+<!--Cabercera-->
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+            <div class="containerHeader">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100 "></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                    </li>
+
+                </ul>
+                <ul  class="nav navbar-nav navbar-right">
+                    <li class="user">
+                        <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
+                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                    </li>
+                    <li>
+                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+    <!--Contenido-->
+        </br>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"></br>
+                    <h1>Ajustes
+                        <small>Modifica tus datos</small>
+                    </h1>
+                </div>
+            </div>
+
+            <!-- Formulario -->
+            <form class="form-horizontal col-xs-10" role="form">
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">Email</label>
+                    <div class="col-xs-4">
+                      <p class="form-control-static">email@ejemplo.com</p>
+                    </div>
+                </div> 
+                <div class="form-group">
+                    <label for="inputPassword" class="col-xs-2 control-label">Contraseña</label>
+                    <div class="col-xs-4">
+                      <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputPassword2" class="col-xs-2 control-label">Repite la contraseña</label>
+                    <div class="col-xs-4">
+                      <input type="password2" class="form-control" id="inputPassword2" placeholder="Contraseña">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary">Cambiar contraseña</button>
+            </form>
+        </div>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; AlphaSchool 2017</p>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </footer>
+        
+<script>
+    var user = sessionStorage.getItem('user');
+    
+    angular.module('myApp', [])
+    .controller('navController', navController);
+    
+    //ESTE CONTROLADOR SERIA MEJOR QUE ESTUVIERA FUERA
+    navController.$inject = ['$scope', '$http'];
+    function navController($scope, $http){
+        if(user == null){
+            SUser="";
+            bool = true;
+        }else{
+            SUser="usuario/"+user;
+            bool = false;
+        }
+        if(bool == false){
+            var nav = this;
+            $http({
+                url: "http://localhost/prueba_api/alpha2/index.php/alumno/alumno/"+SUser+"/format/json", 
+                method: "GET",
+                params: {usuario: user}
+            })
+             .then(function(response) {
+                nav.compuesto = angular.fromJson(response.data);
+                nav.nombre = nav.compuesto.nombre;
+                nav.apellidos = nav.compuesto.apellidos;
+                }, function errorCallback(response) {
+                alert()
+            });
+        }
+    };
+</script>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
