@@ -4,110 +4,82 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-/*****CHECK BOX****/
-.toggle-button {
+
+/* CHECKBOX PARA MATERIALES*/
+
+.checkbox label:after, 
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
     position: relative;
     display: inline-block;
-    color: #fff; 
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
 }
 
-.toggle-button label {
-    display: inline-block;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-align: left; 
+.radio .cr {
+    border-radius: 50%;
 }
 
-.toggle-button input {
-    display: none; 
-}
-
-.toggle-button__icon {
-    cursor: pointer;
-    pointer-events: none; 
-}
-
-.toggle-button__icon:before, .toggle-button__icon:after {
-    content: "";
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
     position: absolute;
-    top: 45%;
-    left: 35%;
-    transition: 0.2s ease-out; 
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
 }
 
-.toggle-button--tuuli label {
-    height: 50px;
-    line-height: 50px;
-    transition: all 0.2s;
-    border-radius: 2rem; 
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
 }
 
-.toggle-button--tuuli label:before, .toggle-button--tuuli label:after {
-    position: absolute;
-    right: 1rem;
-    transition: all 0.2s .1s ease-out; 
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
 }
 
-.toggle-button--tuuli input[type=checkbox] + label {
-    width: 50px;
-    background: #FF5335; 
-}
-
-.toggle-button--tuuli input[type=checkbox] + label:before {
+.checkbox label input[type="checkbox"] + .cr > .cr-icon,
+.radio label input[type="radio"] + .cr > .cr-icon {
+    transform: scale(3) rotateZ(-20deg);
     opacity: 0;
-    transform: translate(0, 20px); 
+    transition: all .3s ease-in;
 }
 
-.toggle-button--tuuli input[type=checkbox] + label:after {
+.checkbox label input[type="checkbox"]:checked + .cr > .cr-icon,
+.radio label input[type="radio"]:checked + .cr > .cr-icon {
+    transform: scale(1) rotateZ(0deg);
     opacity: 1;
-    transform: translate(0, 0); 
 }
 
-.toggle-button--tuuli input[type=checkbox]:checked ~ label {
-    width: 50px;
-    background: #61B136; 
+.checkbox label input[type="checkbox"]:disabled + .cr,
+.radio label input[type="radio"]:disabled + .cr {
+    opacity: .5;
 }
 
-.toggle-button--tuuli input[type=checkbox]:checked ~ .toggle-button__icon:before {
-    transform: translate(-30%, 100%) rotate(45deg) scale(0.6, 1); 
-}
 
-.toggle-button--tuuli input[type=checkbox]:checked ~ .toggle-button__icon:after {
-    transform: translate(20%) rotate(-45deg); 
-}
 
-.toggle-button--tuuli .toggle-button__icon {
-    position: absolute;
-    height: 50px;
-    width: 50px;
-    top: 0;
-    left: 0; 
-}
-
-.toggle-button--tuuli .toggle-button__icon:before, .toggle-button--tuuli .toggle-button__icon:after {
-    width: 25px;
-    height: 3px;
-    border-radius: 3px;
-    background: #fff;
-    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
-    margin-left: -10%;
-    top: 48%; 
-}
-
-.toggle-button--tuuli .toggle-button__icon:before {
-    transform: rotate(45deg); 
-}
-
-.toggle-button--tuuli .toggle-button__icon:after {
-    transform: rotate(-45deg); 
-}
-
+/*****CHECK BOX****/
 /*.btn span.glyphicon {               
     opacity: 0;             
 }
 .btn.active span.glyphicon {                
     opacity: 1;             
 }*/
+
+.container{
+    margin-top: 4%;
+}
+
 
 /*****Cabecera USER*****/
 h3{
@@ -116,6 +88,13 @@ h3{
     margin-top: -2px;
 }
 
+.col-sm-2 > h3{
+    text-align: center;
+}
+
+.col-sm-2 > h4{
+    text-align: center;
+}
 
 #map{
     position: center;

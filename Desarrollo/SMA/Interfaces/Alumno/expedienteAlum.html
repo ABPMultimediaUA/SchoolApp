@@ -14,41 +14,45 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
 </head>
     
 <body>
 <!--Cabercera-->
-<header>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
-        <div class="containerHeader">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="pageAlumno.html"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="80 "></a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
-                </li>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+            <div class="containerHeader">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100 "></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                    </li>
 
-            </ul>
-            <ul  class="nav navbar-nav navbar-right">
-                <li class="user">
-                    <h3><a href="datos.html"><img src="img/chico.png" class="img-circle" alt="user">  {{nav.apellidos}}, {{nav.nombre}}</h3>
-                </li>
-                <li>
-                    <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+                </ul>
+                <ul  class="nav navbar-nav navbar-right">
+                    <li class="user">
+                        <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
+                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                    </li>
+                    <li>
+                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
     
     <div class="container">
         <div class="row">
@@ -56,110 +60,133 @@
                 <h1>Expediente estudiantil</h1>
             </div>
         </div>
-    </div>
-    <div class="container">
-    <div class="row">
     
-        <div class="col-sm-5">
-            <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>Datos del alumno</h2>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                    <label for="nombre" class="col-xs-2 control-label">Nº Expediente</label>
-                    <div class="col-xs-4">
-                      <p class="form-control-static">123</p>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>Datos del alumno</h2>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label for="nombre" class="col-xs-3 control-label">Nº Expediente</label>
+                                <div class="col-xs-3">
+                                    <p class="form-control-static">123</p>
+                                </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombre" class="col-xs-3 control-label">Nombre</label>
+                            <div class="col-xs-3">
+                                <p class="form-control-static">JUAN</p>
+                            </div>
+                        </div> 
+                        <div class="form-group">
+                            <label for="apellidos" class="col-xs-3 control-label">Apellidos</label>
+                            <div class="col-xs-3">
+                                <p class="form-control-static">MARTÍNEZ GARCÍA</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="curso" class="col-xs-3 control-label">Curso</label>
+                            <div class="col-xs-3">
+                                <p class="form-control-static">3º ESO</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="grupo" class="col-xs-3 control-label">Grupo</label>
+                            <div class="col-xs-3">
+                                <p class="form-control-static">B</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword2" class="col-xs-3 control-label">Email</label>
+                            <div class="col-xs-3">
+                               <p class="form-control-static">juan123@alphaschool.com</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword2" class="col-xs-3 control-label">Tutor/a</label>
+                            <div class="col-xs-3">
+                               <p class="form-control-static">ISABEL LÓPEZ CASTILLO</p>
+                            </div>
+                        </div> 
                     </div>
                 </div>
-                    <div class="form-group">
-                    <label for="nombre" class="col-xs-2 control-label">Nombre</label>
-                    <div class="col-xs-4">
-                      <p class="form-control-static">JUAN</p>
-                    </div>
-                </div> 
-                <div class="form-group">
-                    <label for="apellidos" class="col-xs-2 control-label">Apellidos</label>
-                    <div class="col-xs-4">
-                        <p class="form-control-static">MARTÍNEZ GARCÍA</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="curso" class="col-xs-2 control-label">Curso</label>
-                    <div class="col-xs-4">
-                        <p class="form-control-static">3º ESO</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="grupo" class="col-xs-2 control-label">Grupo</label>
-                    <div class="col-xs-4">
-                        <p class="form-control-static">B</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword2" class="col-xs-2 control-label">Email</label>
-                    <div class="col-xs-4">
-                       <p class="form-control-static">juan123@alphaschool.com</p>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="inputPassword2" class="col-xs-2 control-label">Tutor/a</label>
-                    <div class="col-xs-4">
-                       <p class="form-control-static">ISABEL LÓPEZ CASTILLO</p>
-                    </div>
-                </div>
-                </div>
-                </div>
+            </div>
         </div>
-    
-    
-        <div class="col-sm-5">
-            <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>Notas</h2>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-sm-4">
-                            <h4>Asignatura:</h4>
-                            <h5>Matemáticas</h5>
-                        </div>
-                        <div class="col-sm-2">
-                            <h4>1ª eval.</h4>
-                            <h5>9</h5>
-                        </div>
-                        <div class="col-sm-2">
-                            <h4>2ª eval.</h4>
-                            <h5>8</h5>
-                        </div>
-                        <div class="col-sm-2">
-                            <h4>3ª eval.</h4>
-                            <h5>10</h5>
-                        </div>
-                        <div class="col-sm-2">
-                            <h4>Nota final</h4>
-                            <h5>10</h5>
-                        </div>
-                    </div>
-                </div>
-                </div>
-        </div>
-    
-    
+
+        <button type="button" class="btn btn-danger pull-right">Exportar a PDF</button>
+
         <div class="col-sm-2">
-            <div class="panel panel-default">
-            <div class="panel-heading">
-                <h2>Foto</h2>
-                </div>
-                <div class="panel-body">
-                    <img src="resources/pp.jpg">
-                </div>
-                </div>
+            <div class="form-group">
+                <label for="sel1">Año:</label>
+                <select class="form-control" id="sel1">
+                    <option>2012-13</option>
+                    <option>2013-14</option>
+                    <option>2014-15</option>
+                    <option>2015-16</option>
+                    <option>2016-17</option>
+                </select>
+            </div>
         </div>
-        
-    </div>
-        <button type="button" class="btn btn-danger">Exportar a PDF</button>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h2>Curso 2016-17</h2>
+                    </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <h3>ASIGNATURAS</h3>
+                                    <h4>Matemáticas</h4>
+                                    <h4>Lengua</h4>
+                                    <h4>Biología</h4>
+                                </div>
+                                <div class="col-sm-2">
+                                    <h4>1ª EVALUCAIÓN</h4>
+                                    <h4>9</h4>
+                                    <h4>9</h4>
+                                    <h4>9</h4>
+                                </div>
+                                <div class="col-sm-2">
+                                    <h4>2ª EVALUCAIÓN</h4>
+                                    <h4>8</h4>
+                                    <h4>8</h4>
+                                    <h4>8</h4>
+                                </div>
+                                <div class="col-sm-2">
+                                    <h4>3ª EVALUCAIÓN</h4>
+                                    <h4>7</h4>
+                                    <h4>7</h4>
+                                    <h4>7</h4>
+                                </div>
+                                <div class="col-sm-2">
+                                    <h4>NOTA FINAL</h4>
+                                    <h4>8</h4>
+                                    <h4>8</h4>
+                                    <h4>8</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
         </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
         
 </body>
 </html>

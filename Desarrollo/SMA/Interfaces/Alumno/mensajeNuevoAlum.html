@@ -16,6 +16,9 @@
 
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,7 +31,7 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
             <div class="containerHeader">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -38,19 +41,19 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="pageAlumno.html" ><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100 "></a>
+                    <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100 "></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="mensajesRecibAlum.html" ><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
                     </li>
 
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datos.html"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
+                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
                         <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
