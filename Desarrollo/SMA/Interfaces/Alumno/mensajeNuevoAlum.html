@@ -13,10 +13,18 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
 
+
+    <!-- archivos de angular -->
+    <script src="js/alumnoApp.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -26,9 +34,9 @@
 
 </head>
 
-<body>
+<body ng-app = "alumnoApp">
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
             <div class="containerHeader">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -50,10 +58,10 @@
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datos.html"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
+                        <h3><a href="datos.html"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
-                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
                     </li>
                 </ul>
             </div>
@@ -61,31 +69,27 @@
     </header>
     </br>
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" ng-controller = "mensajeNuevoController as mensajeNuevo">
         <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        MENSAJES <small>Enviados</small>
+                        MENSAJES <small>Nuevo </small>
                     </h1>
                     <ul class="nav nav-tabs">
                         <li><a href="mensajesRecibAlum.html" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></a></li>
-                        <li><a href="mensajesEnviados.html" class="btn btn-default">Enviados <span class="glyphicon glyphicon-open"></a></li>
-                        <li><a href="mensajesEliminados.html" class="btn btn-default">Eliminados <span class="glyphicon glyphicon-trash"></span></a></li>
-                        <li><a href="mensajesEnviados.html" class="btn btn-default">Enviados <span class="glyphicon glyphicon-open"></a></li>
-                        <li class="active pull-right"><a href="mensajeNuevo.html" class="btn btn-default active"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a></li>
-                    </ul>
+                        <li><a href="mensajesEnviadosAlum.html" class="btn btn-default">Enviados <span class="glyphicon glyphicon-open"></a></li>
+<!--                        <li><a href="mensajesEliminados.html" class="btn btn-default">Eliminados <span class="glyphicon glyphicon-trash"></span></a></li>-->
+                     </ul>
                 </div>
             </div>
 
-            <form class="form-horizontal col-xs-12">
+            <form name = "nuevoMensajeForm" class="form-horizontal col-xs-12" ng-submit = "crearMensaje()">
 
                 <div class="form-group col-md-12">
                     <label for="sel1" class= "col-md-6">Para: </label>
                         <div class="col-md-8">
                             <select class="form-control col-md-4" id="sel1">
                                 <option>Profesor</option>
-                                <option>Alumno</option>
-                                <option>Padre</option>
                             </select>
                         </div>
                 </div>
@@ -105,10 +109,10 @@
                 </div-->
 
                 <div class="form-group col-md-12">
-                <div class="col-md-12">
-                  <label for="comment">Pregunta:</label>
-                  <textarea class="form-control" rows="6" id="comment"></textarea>
-                  </div>
+                    <div class="col-md-12">
+                      <label for="comment">Pregunta:</label>
+                      <textarea ng-model = "formMensaje.texto" class="form-control" rows="6" id="comment"></textarea>
+                    </div>
                 </div>
 
                 <div class="form-group col-md-12">        
@@ -127,7 +131,6 @@
                 </div>
             </form>
         </div>
-    </div>
         <!-- Footer -->
         <footer>
             <div class="row">
@@ -136,22 +139,6 @@
                 </div>
             </div>
         </footer>
-
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
-
 </body>
 
 </html>

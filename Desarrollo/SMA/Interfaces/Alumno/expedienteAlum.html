@@ -14,9 +14,15 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+
+    <!-- archivos de angular -->
+    <script src="js/alumnoApp.js"></script>   
 </head>
     
-<body>
+<body ng-app = "alumnoApp">
 <!--Cabercera-->
 <header>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
@@ -42,9 +48,9 @@
                 <li class="user">
                     <h3><a href="datos.html"><img src="img/chico.png" class="img-circle" alt="user">  {{nav.apellidos}}, {{nav.nombre}}</h3>
                 </li>
-                <li>
-                    <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                </li>
+                    <li>
+                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                    </li>
             </ul>
         </div>
     </nav>

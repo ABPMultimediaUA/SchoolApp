@@ -13,10 +13,17 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
-
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+   
+    <!-- archivos de angular -->
+    <script src="js/alumnoApp.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -26,9 +33,9 @@
 
 </head>
 
-<body>
+<body ng-app = "alumnoApp">
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
             <div class="containerHeader">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -50,10 +57,10 @@
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
+                        <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
-                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
                     </li>
                 </ul>
             </div>
@@ -70,9 +77,8 @@
                 </h1>
                 <ul class="nav nav-tabs">
                     <li><a href="mensajesRecibAlum.html" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></a></li>
-                    <li class="active"><a href="mensajesEnviados.html" class="btn btn-default active">Enviados <span class="glyphicon glyphicon-open"></a></li>
-                    <li><a href="mensajesEliminados.html" class="btn btn-default">Eliminados <span class="glyphicon glyphicon-trash"></span></a></li>
-                    <li class="pull-right"><a href="mensajeNuevo.html" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
+                    <li class="active"><a href="mensajesEnviadosAlum.html" class="btn btn-default active">Enviados <span class="glyphicon glyphicon-open"></a></li>
+                    <li class="pull-right"><a href="mensajeNuevoAlum.html" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
                 </ul>
 
                     <!--button type="button" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></span></button>
@@ -121,21 +127,6 @@
         </footer>
 
     </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
-
 </body>
 
 </html>
