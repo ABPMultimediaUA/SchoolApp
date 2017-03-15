@@ -16,6 +16,7 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+<<<<<<< HEAD
 	<!-- jQuery -->
     <script src="js/jquery.js"></script>
     <!-- Bootstrap Core JavaScript -->
@@ -29,6 +30,13 @@
 </head>
     
 <body ng-app = "alumnoApp">
+=======
+
+
+</head>
+    
+<body>
+>>>>>>> 096476c193c916590bff21459fe8b99a23a6bd89
 	<!--Cabercera-->
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
@@ -46,7 +54,11 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <ul class="nav navbar-nav">
                     <li>
+<<<<<<< HEAD
                         <a href="pageAlumno.html" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+=======
+                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+>>>>>>> 096476c193c916590bff21459fe8b99a23a6bd89
                     </li>
 
                 </ul>
@@ -56,14 +68,22 @@
                         <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
+<<<<<<< HEAD
                         <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+=======
+                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+>>>>>>> 096476c193c916590bff21459fe8b99a23a6bd89
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
 
+<<<<<<< HEAD
 	<div class="container" ng-controller = "asistenciaController as asistencia">
+=======
+	<div class="container">
+>>>>>>> 096476c193c916590bff21459fe8b99a23a6bd89
         <div class="row">
             <div class="col-lg-12">
                 <h1>Faltas de Asistencia</h1>
@@ -84,8 +104,12 @@
                     <label for="sel1">Asignatura</label>
                     <select class="form-control" id="sel1">
                         <option>--</option>
+<<<<<<< HEAD
                         <option ng-repeat = "item in asistencia.compuesto">Matemáticas</option>
 <!--                        ASIGNATURAS DE CADA ALUMNO-->
+=======
+                        <option>Matemáticas</option>
+>>>>>>> 096476c193c916590bff21459fe8b99a23a6bd89
                         <option>Lengua</option>
                         <option>Inglés</option>
                         <option>Biología</option>
@@ -111,6 +135,7 @@
                         <div class="row">
                             <div class="col-sm-3">
                                 <h3>Fecha</h3>
+<<<<<<< HEAD
                                 <h4 ng-repeat = "item in asistencia.compuesto">{{item.fecha}}</h4>
                             </div>
                             <div class="col-sm-3">
@@ -125,6 +150,37 @@
                                 <h3>Justificada</h3>
                                 <h4  ng-repeat = "item in asistencia.compuesto">{{item.justificada}} <span class="glyphicon glyphicon-ok"></span></h4>
                                 <h4>No <span class="glyphicon glyphicon-remove"></span></h4>
+=======
+                                <h4>25/03/2017</h4>
+                                <h4>18/03/2017</h4>
+                                <h4>06/03/2017</h4>
+                                <h4>25/02/2017</h4>
+                                <h4>12/02/2017</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3>Profesor</h3>
+                                <h4>Ángel Frías</h4>
+                                <h4>Isabel Penalva</h4>
+                                <h4>Jesús Rodríguez</h4>
+                                <h4>Silvia Vázquez</h4>
+                                <h4>Rebeca Castillo</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3>Asignatura</h3>
+                                <h4>Matemáticas</h4>
+                                <h4>Inglés</h4>
+                                <h4>Biología</h4>
+                                <h4>Historia</h4>
+                                <h4>Lengua</h4>
+                            </div>
+                            <div class="col-sm-3">
+                                <h3>Justificada</h3>
+                                <h4>Si <span class="glyphicon glyphicon-ok"></span></h4>
+                                <h4>Si <span class="glyphicon glyphicon-ok"></span></h4>
+                                <h4>No <span class="glyphicon glyphicon-remove"></span></h4>
+                                <h4>No <span class="glyphicon glyphicon-remove"></span></h4>
+                                <h4>Si <span class="glyphicon glyphicon-ok"></span></h4>
+>>>>>>> 096476c193c916590bff21459fe8b99a23a6bd89
                             </div>
                         </div>
                     </div>
@@ -133,5 +189,21 @@
         </div>        
     </div>
 
+<<<<<<< HEAD
+=======
+	<!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+>>>>>>> 096476c193c916590bff21459fe8b99a23a6bd89
 </body>
 </html>
