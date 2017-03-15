@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Menciones</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body ng-app = "myApp">
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+            <div class="containerHeader">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100 "></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                    </li>
+
+                </ul>
+                <ul  class="nav navbar-nav navbar-right">
+                    <li class="user">
+                        <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
+                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                    </li>
+                    <li>
+                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Page Content -->
+    <div class="container">
+        <!-- Marketing Icons Section -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    MENCIONES
+                </h1>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <!--button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Leído</button-->
+                        <h4><i class="fa fa-trophy"></i> Mejor Nota <span class="glyphicon glyphicon-star pull-right"></span><span class="glyphicon glyphicon-star pull-right"></span><span class="glyphicon glyphicon-star pull-right"></span></h4>
+                    </div>
+                    <div class="panel-body" >
+                        <p>Premio a la mejor nota de HISTORIA del curso 2014-15</p>
+                        <p>Profesor/a: Juan Rodríguez</p>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                        <!--a href="#" class="btn btn-default pull-right">Leído</a-->
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-trophy"></i> Mejor Alumno <span class="glyphicon glyphicon-star pull-right"></span></h4>
+                    </div>
+                    <div class="panel-body" >
+                        <p>Premio al mejor alumno del curso 2014-15</p>
+                        <p>Profesor/a: Maria Castaño</p>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-trophy"></i> Mejor Nota <span class="glyphicon glyphicon-star pull-right"></span><span class="glyphicon glyphicon-star pull-right"></span></h4>
+                    </div>
+                    <div class="panel-body" >
+                        <p>Premio a la segunda mejor nota de BIOLOGÍA del curso 20115-16 </p>
+                        <p>Profesor/a: Antonio Gómez</p>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-trophy"></i> Mejor Nota <span class="glyphicon glyphicon-star pull-right"></span></h4>
+                    </div>
+                    <div class="panel-body" >
+                        <p>Premio a la tercera mejor nota de INGLÉS del curso 20115-16 </p>
+                        <p>Profesor/a: Antonio Gómez</p>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+
+        <!-- Call to Action Section -->
+        <div class="well">
+            <div class="row">
+                <div class="col-xs-2">
+                    <a class="btn btn-lg btn-default btn-block" href="#">Arriba</a>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; AlphaSchool 2017 - Pagina Web sin animo de lucro</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+
+</body>
+
+</html>
