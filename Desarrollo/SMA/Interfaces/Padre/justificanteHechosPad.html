@@ -84,28 +84,64 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <!--button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Leído</button-->
+                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar()">
                         <h4>
                             <a href="#">Justificante 1</a>
                         </h4>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h4>
-                            <a href="#" class="mensaje">Justificante 2</a>
-                        </h4>
+
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="form-control-static" id="oculto">
+                                D.Dña <b>Antonio Castillo</b> padre/madre/tutor-a del alumno-a del curso <b>6ºPRIMERA </b>comunico mediante el escrito que la ausencia de mi hijo-a/tutelado-a del pasado día <b>12/03/2017</b>, ha sido motivada por <b>Enfermedad</b>si fuera necesario, será explicado ante las instancias oportunas que tengan capacidad y derecho a conocer la misma.</br>
+                                Firmado el día <b>13/03/2017</b></br>
+                                DNI: <b>40689721M</b></br>
+                                Comentario: No podrá asistir a clases esta semana
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar1()">
+                        <h4>
+                            <a href="#" class="mensaje">Justificante 2</a>
+                        </h4>
+                        
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group"> 
+                            <div class="form-control-static" id="oculto1">
+                                D.Dña <b>Antonio Castillo</b> padre/madre/tutor-a del alumno-a del curso <b>6ºPRIMERA </b>comunico mediante el escrito que la ausencia de mi hijo-a/tutelado-a del pasado día <b>12/03/2017</b>, ha sido motivada por <b>Enfermedad</b>si fuera necesario, será explicado ante las instancias oportunas que tengan capacidad y derecho a conocer la misma.</br>
+                                Firmado el día <b>13/03/2017</b></br>
+                                DNI: <b>40689721M</b></br>
+                                Comentario: No podrá asistir a clases esta semana
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                    <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar2()">
                         <h4>
                             <a href="#">Justificante 3</a>
                             <!--a href="#" class="btn btn-default pull-right">Leer</a-->
                         </h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="form-control-static" id="oculto2">
+
+                                D.Dña <b>Antonio Castillo</b> padre/madre/tutor-a del alumno-a del curso <b>6ºPRIMERA </b>comunico mediante el escrito que la ausencia de mi hijo-a/tutelado-a del pasado día <b>12/03/2017</b>, ha sido motivada por <b>Enfermedad</b>si fuera necesario, será explicado ante las instancias oportunas que tengan capacidad y derecho a conocer la misma.</br>
+                                Firmado el día <b>13/03/2017</b></br>
+                                DNI: <b>40689721M</b></br>
+                                Comentario: No podrá asistir a clases esta semana
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -133,6 +169,20 @@
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
+
+    function mostrar(){
+        document.getElementById('oculto').style.display = 'inline';
+    }
+
+    function mostrar1(){
+        document.getElementById('oculto1').style.display = 'inline';
+    }
+
+    function mostrar2(){
+        document.getElementById('oculto2').style.display = 'inline';
+    }
+   
+
     </script>
 
 </body>

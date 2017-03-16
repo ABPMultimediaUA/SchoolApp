@@ -76,7 +76,7 @@
                 </h1>
                 <ul class="nav nav-tabs">
                     <li><a href="justificanteHechosPad.html" class="btn btn-default">Hechos <span class="glyphicon glyphicon-save"></span></a></li>
-                    <li class="active pull-right"><a href="justificanteNuevoPad.html" class="btn btn-default active"><span class="glyphicon glyphicon-plus"></span> Nuevo Justificantes</a></li>
+                    <li class="active pull-right"><a href="justificanteNuevoPad.html" class="btn btn-default active"><span class="glyphicon glyphicon-plus"></span> Nuevo Justificante</a></li>
                 </ul>
             </div>
         </div>
@@ -114,48 +114,49 @@
                 </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            
-                            <p class="form-control-static">
-                                D.Dña <b>automaticamente (nombre del padre que esta haciendo el justificante)</b> padre/madre/tutor-a del alumno-a
-                                <div class="col-xs-2">
-                                    <select class="form-control" id="sel1">
-                                        <option>Hijo 1</option>
-                                        <option>Hijo 2</option>
-                                        <option>Hijo 3</option>
-                                    </select>
-                                </div>
-                                del curso <b>automaticamente(se pone el curso del alumno)</b>comunico mediante el 
-                                escrito que la ausencia de mi hijo-a/tutelado-a del pasado día <input type="date" name = "diaFaltaClase" placeholder = "DD/MM/AAAA"> ,ha sido motivada por <div class="col-xs-2">
-                                    <select class="form-control" id="sel1">
-                                        <option>causas ajenas a su voluntad, basadas en una decisión familiar que pertenece al ámbito privado</option>
-                                        <option>Enfermedad</option>
-                                        <option>Visita al médico</option>
-                                    </select>
-                                </div> si fuera necesario, será explicado antes las instancias oportunas que tengan capacidad y derecho a conocer la misma.
-                                Firmado el día <b>(fecha actual)</b>
-
-                                DNI:___________
-                                
-                            </p>
+                            <div class="form-control-static">
+                                D.Dña <b>automaticamente (nombre del padre que esta haciendo el justificante)</b> padre/madre/tutor-a del alumno-a <select id="selHijo">
+                                <option>--</option>
+                                <option>Antonio García</option>
+                                <option>Maria Delgado</option>
+                                <option>Manuel Gómez</option>
+                                </select> del curso <b>automaticamente(se pone el curso del alumno)</b>comunico mediante el escrito que la ausencia de mi hijo-a/tutelado-a del pasado día <input type="date" name = "diaFaltaClase" placeholder = "DD/MM/AAAA"> ,ha sido motivada por <select id="selMotivo">
+                                <option>--</option>
+                                <option>Enfermedad</option>
+                                <option>Visita médica</option>
+                                <option>Motivos familiares</option>
+                                </select> si fuera necesario, será explicado antes las instancias oportunas que tengan capacidad y derecho a conocer la misma.</br></br>
+                                Firmado el día <b>(fecha actual)</b></br></br>
+                                <label>DNI: </label>
+                                <input id="dni" name="dniPad" type="text" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Comentario:</label>
+                            <textarea class="form-control" rows="2" id="comment"></textarea>
                         </div>
                     </div>
+
+                    
+
             </div>
-            
-            
-            <div class="form-group col-md-12">        
-                <div class="col-sm-offset-2 col-xs-6 col-sm-3">
-                    <button type="submit" class="btn btn-info btn-md">
+
+            <div class="form-group col-md-4">        
+                <div class="col-sm-offset-2 col-xs-2 col-sm-2">
+                    <button type="submit" class="btn btn-danger btn-md">
                         <span class="glyphicon glyphicon-ban-circle"></span> Cancelar
                     </button>
-                </div>
+                 </div>
 
-                <div class="col-sm-offset-2 col-xs-6 col-sm-3">
+                <div class="col-sm-offset-2 col-xs-2 col-sm-2">
                     <button type="submit" class="btn btn-info btn-md">
                         <span class="glyphicon glyphicon-send"></span> Enviar
                     </button>
                 </div>
 
             </div>
+            
+            
         </form>
     </div>
         <!-- Footer -->
@@ -180,6 +181,7 @@
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
+
     </script>
 
 </body>

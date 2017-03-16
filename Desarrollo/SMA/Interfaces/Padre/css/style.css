@@ -4,6 +4,16 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
+input[type="text"]:not([size]) { 
+width: 12em; 
+}
+
+
+
+
+#oculto, #oculto1, #oculto{2
+    display: none;
+}
 
 /* CHECKBOX PARA MATERIALES*/
 
