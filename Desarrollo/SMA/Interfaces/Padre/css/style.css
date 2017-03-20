@@ -79,12 +79,12 @@ width: 12em;
 
 
 /*****CHECK BOX****/
-/*.btn span.glyphicon {               
+.btn span.glyphicon {               
     opacity: 0;             
 }
 .btn.active span.glyphicon {                
     opacity: 1;             
-}*/
+}
 
 .container{
     margin-top: 4%;
