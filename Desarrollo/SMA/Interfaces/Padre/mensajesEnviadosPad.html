@@ -76,9 +76,9 @@
                     MENSAJES <small>Enviados</small>
                 </h1>
                 <ul class="nav nav-tabs">
-                    <li><a href="mensajes.html" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></span></a></li>
-                    <li class="active"><a href="mensajesEnviados.html" class="btn btn-default active">Enviados <span class="glyphicon glyphicon-open"></span></a></li>
-                    <li class="pull-right"><a href="mensajeNuevo.html" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
+                    <li><a href="mensajesRecibPad.html" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></span></a></li>
+                    <li class="active"><a href="mensajesEnviadosPad.html" class="btn btn-default active">Enviados <span class="glyphicon glyphicon-open"></span></a></li>
+                    <li class="pull-right"><a href="mensajeNuevoPad.html" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
                 </ul>
 
                     <!--button type="button" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></span></button>
@@ -90,29 +90,84 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <!--button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Leído</button-->
+                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar()">
                         <h4>
-                            <a href="#" target="_blank">Mensaje 4</a>
+                            <a href="#">Mensaje 4</a>
                         </h4>
+                        <h5>
+                            De: Antonio García, profesor de Física
+                        </h5>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-group" id="nover">
+                            
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                    
+                            
+                        </div>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>
-                            <a href="#" target="_blank" class="mensaje">Mensaje 5</a>
-                        </h4>
+                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar2()">
+                            <h4>
+                                <a href="#" target="_blank" class="mensaje">Mensaje 5</a>
+                            </h4>
+                            <h5>
+                                De: Antonio García, profesor de Física
+                            </h5>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-group" id="nover2">
+                            
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                  
+                            
+                        </div>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar3()">
                         <h4>
-                            <a href="#" target="_blank">Mensaje 6</a>
+                            <a href="#">Mensaje 6</a>
                             <!--a href="#" class="btn btn-default pull-right">Leer</a-->
                         </h4>
+                        <h5>
+                            De: Antonio García, profesor de Física
+                        </h5>
                     </div>
+
+                    <div class="panel-body">
+                        <div class="form-group" id="nover3">
+                            
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                    
+                            
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -140,6 +195,21 @@
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
+
+     function mostrar(){
+        document.getElementById('nover').style.display = 'inline';
+    }
+
+    function mostrar2(){
+        document.getElementById('nover2').style.display = 'inline';
+    }
+
+    function mostrar3(){
+        document.getElementById('nover3').style.display = 'inline';
+    }
+   
+
+    
     </script>
 
 </body>

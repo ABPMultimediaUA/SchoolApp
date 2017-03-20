@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Mensaje Nuevo</title>
+    <title>Seguimiento</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -72,25 +72,46 @@
         <div class="row">
                 <div class="col-lg-12">
                     <h1 class="page-header">
-                        MENSAJE <small>Nuevo</small>
+                        SEGUIMIENTO <small>Notas</small>
                     </h1>
-                    <ul class="nav nav-tabs">
-                        <li><a href="mensajesRecibPad.html" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></span></a></li>
-
-                        <li><a href="mensajesEnviadosPad.html" class="btn btn-default">Enviados <span class="glyphicon glyphicon-open"></span></a></li>
-
-
-                        <li class="active pull-right"><a href="mensajeNuevoPad.html" class="btn btn-default active"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a></li>
-                    </ul>
                 </div>
             </div>
 
             <form class="form-horizontal col-xs-12">
 
                 <div class="form-group col-md-12">
-                    <label for="sel1" class= "col-md-6">Asignatura: </label>
+                    <label for="alumnoSeg" class= "col-md-6">Alumno: </label>
                         <div class="col-md-8">
-                            <select class="form-control col-md-4" id="sel1">
+                            <select class="form-control col-md-4" id="alumnoSeg">
+                                <option>--</option>
+                                <option>Javier Castaño</option>
+                                <option>Maria Castaño</option>
+                            </select>
+                        </div>
+                        
+                        <button  type = "submit"  class="btn btn-danger btn-xs-2 pull-right">
+                            <span class="fa fa-line-chart"></span> VER GRÁFICO 3D
+                        </button>
+                        
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="evalSeg" class= "col-md-6">Evaluación: </label>
+                        <div class="col-md-8">
+                            <select class="form-control col-md-4" id="evalSeg">
+                                <option>--</option>
+                                <option>1º</option>
+                                <option>2º</option>
+                                <option>3º</option>
+                                <option>Todas</option>
+                            </select>
+                        </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="asigSeg" class= "col-md-6">Asignatura: </label>
+                        <div class="col-md-8">
+                            <select class="form-control col-md-4" id="asigSeg">
                                 <option>--</option>
                                 <option>Matemáticas</option>
                                 <option>Historia</option>
@@ -102,53 +123,9 @@
                         </div>
                 </div>
 
-                <div class="form-group col-md-12">
-                    <label for="sel1" class= "col-md-6">Para: </label>
-                        <div class="col-md-8">
-                            <select class="form-control col-md-4" id="sel1">
-                                <option>--</option>
-                                <option>Antonio López</option>
-                                <option>Manuel Martínez</option>
-                                <option>Isabel Pastor</option>
-                                <option>Mari Carme Castillo</option>
-                            </select>
-                        </div>
-                </div>
-
-                <div class="form-group col-md-12">
-                    <label for="inputPassword" class= "col-md-6">Asunto</label>
-                    <div class="col-md-8">
-                      <input type="asunto" class="form-control" id="inputAsunto" placeholder="Escriba el motivo de su mensaje">
-                    </div>
-                </div>
-
-                <!--div class="form-group">
-                    <label for="inputPassword" class="col-xs-2 control-label">Contraseña</label>
-                    <div class="col-xs-4">
-                      <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
-                    </div>
-                </div-->
-
-                <div class="form-group col-md-12">
-                <div class="col-md-12">
-                  <label for="comment">Pregunta:</label>
-                  <textarea class="form-control" rows="6" id="comment"></textarea>
-                  </div>
-                </div>
-
-                <div class="form-group col-md-12">        
-                    <div class="col-sm-offset-2 col-xs-6 col-sm-3">
-                        <button type="submit" class="btn btn-danger btn-md">
-                            <span class="glyphicon glyphicon-ban-circle"></span> Cancelar
-                        </button>
-                    </div>
-
-                    <div class="col-sm-offset-2 col-xs-6 col-sm-3">
-                        <button type="submit" class="btn btn-info btn-md">
-                            <span class="glyphicon glyphicon-send"></span> Enviar
-                        </button>
-                    </div>
-
+                <div class="form-group col-lg-12">
+                    <br>
+                    <img src="img/ejemplo-grafica-notas.jpg" class="img-thumbnail center-block"" alt="ejemploGrafica" width="850" height="800">                   
                 </div>
             </form>
         </div>
