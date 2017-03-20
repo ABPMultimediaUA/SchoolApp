@@ -49,14 +49,14 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                        <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
                     </li>
-
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                        
+                        <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}},{{nav.nombre}} </a></h3>
                     </li>
                     <li>
                         <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
@@ -80,6 +80,13 @@
             <!-- Formulario -->
             <form class="form-horizontal col-xs-10" role="form">
                 <div class="form-group">
+                    <label for="notificacion" class="col-xs-2 control-label">Notificaciones</label>
+                    <div class="material-switch">
+                        <input class="col-xs-2" id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                        <label for="someSwitchOptionSuccess" class="label-success"></label>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-xs-2 control-label">Email</label>
                     <div class="col-xs-4">
                       <p class="form-control-static">email@ejemplo.com</p>
@@ -98,6 +105,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-primary">Cambiar contraseña</button>
+            
             </form>
         </div>
         <!-- Footer -->

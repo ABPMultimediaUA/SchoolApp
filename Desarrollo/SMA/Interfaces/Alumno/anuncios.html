@@ -52,14 +52,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                        <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
                     </li>
-
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                        <h3><a href="datosAlum.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
                         <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
@@ -81,10 +80,10 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <!--button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Leído</button-->
+                        <input type="button" class="btn btn-primary pull-right" value="Leído" onclick="ocultar()">
                         <h4><i class="fa fa-fw fa-check"></i> Anuncio 1</h4>
                     </div>
-                    <div class="panel-body" >
+                    <div class="panel-body" id="quitar">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
                         <!--a href="#" class="btn btn-default pull-right">Leído</a-->
                     </div>
@@ -93,9 +92,10 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <input type="button" class="btn btn-primary pull-right" value="Leído" onclick="ocultar2()">
                         <h4><i class="fa fa-fw fa-gift"></i> Anuncio 2</h4>
                     </div>
-                    <div class="panel-body" >
+                    <div class="panel-body" id="quitar2">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
                     </div>
                 </div>
@@ -103,9 +103,10 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <input type="button" class="btn btn-primary pull-right" value="Leído" onclick="ocultar3()">
                         <h4><i class="fa fa-fw fa-compass"></i> Anuncio 3</h4>
                     </div>
-                    <div class="panel-body" >
+                    <div class="panel-body" id="quitar3">
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at </p>
                     </div>
                 </div>
@@ -169,6 +170,26 @@
         }
     };
 </script>
+
+ <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+
+    function ocultar(){
+        document.getElementById('quitar').style.display = 'none';
+    }
+
+    function ocultar2(){
+        document.getElementById('quitar2').style.display = 'none';
+    }
+
+    function ocultar3(){
+        document.getElementById('quitar3').style.display = 'none';
+    }
+   
+
+    </script>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
