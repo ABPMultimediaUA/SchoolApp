@@ -211,13 +211,13 @@ function Malla() {
 
 	alert('I am the alert from the malla entity type');
 }
-
+/*
 Malla.prototype.cargarMalla() = function(fichero) {
 
 	//this.malla.cargarFichero(fichero); *Funcion hecha en el gestor de recursos*
 	alert('Cargar malla');
 };
-
+*/
 Malla.prototype.beginDraw() = function() {
 
 	//this.malla.draw();
