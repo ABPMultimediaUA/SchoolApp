@@ -17,8 +17,7 @@
     <link href="css/style.css" rel="stylesheet">    
     
     <!-- Angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    
+   
 
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -76,11 +75,11 @@
             </div>
 
             <!-- Formulario -->
-            <form class="form-horizontal col-xs-10" role="form" ng-repeat = "datos in alumno.datos">
+            <form id="datosdeusuario" class="form-horizontal col-xs-10" role="form" ng-repeat = "datos in alumno.datos">
                 <div class="form-group">
-                    <label for="nombre" class="col-xs-2 control-label">Nº Expediente</label>
+                    <label for="nombre" class="col-xs-2 control-label">Centro</label>
                     <div class="col-xs-4">
-                      <p class="form-control-static">{{datos.InformeAlumno_numExpediente}}</p>
+                      <p class="form-control-static">{{datos.centro_idCentro}}</p>
                     </div>
                 </div> 
                 <div class="form-group">
@@ -95,12 +94,7 @@
                         <p class="form-control-static">{{datos.apellidos}}</p>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="curso" class="col-xs-2 control-label">Curso</label>
-                    <div class="col-xs-4">
-                        <p class="form-control-static">{{datos.curso_idCurso}}</p>
-                    </div>
-                </div>
+                
                 <div class="form-group">
                     <label for="inputPassword2" class="col-xs-2 control-label">Email</label>
                     <div class="col-xs-4">
