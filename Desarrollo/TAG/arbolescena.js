@@ -150,13 +150,78 @@ Transform.prototype.endDraw = function() {
 
 function Luz() {
 	Entity.call(this);
+
+	this.intensidad = "";
+	this.tipo = "";
+
 	alert('I am the alert from the luz entity type');
 }
+
+Luz.prototype.setIntensidad = function(parameterIntensidad) {
+
+	this.intensidad = parameterIntensidad;
+};
+
+Luz.prototype.getIntensidad = function() {
+
+	return this.intensidad;
+	alert('La intensidad es: ' + this.intensidad);
+};
+
+Luz.prototype.setTipo = function(parameterTipo) {
+
+	this.tipo = parameterTipo;
+};
+
+Luz.prototype.getTipo = function() {
+
+	return this.tipo;
+};
+
+Luz.prototype.beginDraw = function() {};
+Luz.prototype.endDraw = function() {};
+
 function Camara() {
 	Entity.call(this);
+
+	var esPerspectiva = false;
+	var cercano;
+	var lejano;
+	
 	alert('I am the alert from the camara entity type');
 }
+
+Camara.prototype.setEsPerspectiva = function(parameterPerspectiva) {
+
+	this.esPerspectiva = parameterPerspectiva;
+};
+
+Camara.prototype.getPerspectiva = function() {
+
+	return this.esPerspectiva;
+};
+
+Camara.prototype.beginDraw = function() {};
+Camara.prototype.endDraw = function() {};
+
 function Malla() {
 	Entity.call(this);
+
+	var malla = "";
+
 	alert('I am the alert from the malla entity type');
 }
+
+Malla.prototype.cargarMalla() = function(fichero) {
+
+	//this.malla.cargarFichero(fichero); *Funcion hecha en el gestor de recursos*
+	alert('Cargar malla');
+};
+
+Malla.prototype.beginDraw() = function() {
+
+	//this.malla.draw();
+	alert('Begin draw de malla');
+};
+
+Malla.prototype.endDraw() = function() {};

@@ -1,17 +1,22 @@
 
   /*========================= GET WEBGL CONTEXT ========================= */
+  
+  var main = function() {
+
+  var CANVAS=document.getElementById("your_canvas");
   var GL;
   try {
     GL = CANVAS.getContext("experimental-webgl", {antialias: true});
     var EXT = GL.getExtension("OES_element_index_uint") ||
       GL.getExtension("MOZ_OES_element_index_uint") ||
         GL.getExtension("WEBKIT_OES_element_index_uint");
+        alert(GL);
   } catch (e) {
     alert("You are not webgl compatible :(") ;
     return false;
   }
 
-
+}
 
 function TGestorRecursos() {
     
@@ -22,7 +27,7 @@ TGestorRecursos.prototype.getRecurso = function(resourceToGet) {
     
     var control = false;
     var retorno = false;
-    
+    //OJO COMPROBAR EL CHECK DE NOMBRE AQUI
     for(var i=0; i<this.recursos.length; i++) {
         if(this.recursos[i].getNombre().localeCompare(resourceToGet.getNombre()) == 0) {
             control = true;
@@ -30,17 +35,14 @@ TGestorRecursos.prototype.getRecurso = function(resourceToGet) {
             retorno = this.recursos[i];
         }
     }
+    if(control != true) {
+      var rec = new TRecurso();
+      rec.setNombre(resourceToGet.getNombre());
+      this.recursos.push(rec);
+      retorno = rec;
+    }
 
     return retorno;
-};
-
-TGestorRecursos.prototype.createRecurso = function(resourceToCreate, type) {
-
-    if(type.localeCompare("malla") == 0) {
-        var rec = new TRecursoMalla();
-        rec.cargarFichero(resourceToCreate);
-        this.recursos.add(rec); //Check this
-    }
 };
 
 
@@ -94,7 +96,7 @@ function TRecursoTextura() {
 
     TRecurso.call(this);
 
-    var image;
+    var image = false;
 }
 
 TRecursoTextura.prototype.get_texture = function(imageURL) {
@@ -130,7 +132,18 @@ recursillo.getNombre();
 recursillo.setNombre("Nuevo nombre");
 recursillo.getNombre();
 
-var nuevaMalla = new TRecursoMalla();
-nuevaMalla.cargarFichero("resources/dragon.json");
+var gestor = new TGestorRecursos();
+
+alert(gestor.recursos.length);
+
+
+//gestor.createRecurso("resources/dragon.json", "malla", "pong");
+//alert(gestor.getRecurso("pong"));
+
+//var nuevaMalla = new TRecursoMalla();
+
+//nuevaMalla.cargarFichero("resources/dragon.json");
+//var nuevaTextura = new TRecursoTextura();
+//nuevaTextura.get_texture("resources/dragon.png");
 //END TESTING
 
