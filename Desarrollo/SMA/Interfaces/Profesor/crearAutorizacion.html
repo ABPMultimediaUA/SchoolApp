@@ -78,40 +78,35 @@
         </div>
 
         <form class="form-horizontal col-xs-12"><br>
-            <div class="form-group col-md-12">
-                <label for="sel1" class= "col-md-6">Para: </label>
-                    <div class="col-md-8">
-                        <select class="form-control col-md-4" id="sel1">
+            <div class="form-group col-md-4">
+                <label for="sel1" class= "col-md-8">Curso: </label>
+                    <div class="col-md-6">
+                        <select class="form-control col-md-2" id="sel1">
                             <option>--</option>
-                            <option>Antonio García</option>
-                            <option>Maria Delgado</option>
-                            <option>Manuel Gómez</option>
+                            <option>5º PRIMARIA</option>
+                            <option>6ºPRIMARIA</option>
+                            <option>1º ESO</option>
+                            <option>2º ESO</option>
                         </select>
                     </div>
             </div>
 
             <div class="form-group col-md-12">
                 <div class="panel-heading">
-                    <h2>AUTORIZACIÓN</h2>
+                    <h2>Plantilla de Autorización</h2>
                 </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <div class="form-control-static">
-                                Yo padre/madre/tutor-a del alumno-a del curso <b>automaticamente(se pone el curso del alumno)</b>comunico mediante el escrito que la ausencia de mi hijo-a/tutelado-a del pasado día <input type="date" name = "diaFaltaClase" placeholder = "DD/MM/AAAA"> ,ha sido motivada por <select id="selMotivo">
-                                <option>--</option>
-                                <option>Enfermedad</option>
-                                <option>Visita médica</option>
-                                <option>Motivos familiares</option>
-                                </select> si fuera necesario, será explicado antes las instancias oportunas que tengan capacidad y derecho a conocer la misma.</br></br>
-                                Firmado el día <b>(fecha actual)</b><br><br>
-                                <input id="dni" name="dniPad" type="text" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="comment">Comentario:</label>
-                            <textarea class="form-control" rows="2" id="comment"></textarea>
-                        </div>
-                    </div>    
+                <div class="panel-body">
+                    <div class="form-group">
+                        
+                        Yo padre/madre/tutor-a del alumno-a del curso <b>automaticamente se pone el curso</b> autorizo a mi hij@ a realizar la actividad <input type="text" name = "actividad" placeholder = "Escribe Actividad"> el día <input type="date" name = "diaFaltaClase" placeholder = "DD/MM/AAAA"><br><br>
+                        Precio de la actividad:<input type="text" name = "precio" placeholder = "Escribe Precio"> €                            
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">OBSERVACIONES:</label>
+                        <textarea class="form-control" rows="2" id="comment"></textarea>
+                    </div>
+                </div>    
 
             </div>
 
