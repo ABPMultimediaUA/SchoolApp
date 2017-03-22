@@ -8,15 +8,16 @@
     <meta name="description" content="alphaschool landing page">
     <meta name="author" content="cerberus-team">
     
-    <title>Poner Falta</title>
+    <title>Evaluar</title>
     
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
-     <!-- Custom Fonts -->
+    <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
 </head>
@@ -60,13 +61,21 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    FALTA DE ASISTENCIA
+                    EVALUAR EXAMEN
                 </h1>
             </div>
         </div>
+        
+        <div class="row col-lg-12">
+            <div class="col-lg-2">
+                <a href="ponerExamen.html" class="btn btn-default active"><span class="glyphicon glyphicon-plus-sign"></span> Examen </a>   
+            </div>
+        </div>
+             
         <form class="form-horizontal col-xs-10">
-            <div class="col-sm-2">
-                <div class="form-group">
+            
+            <div class="col-sm-10">
+                <div class="form-group col-sm-2">
                     <label for="sel1"> Curso: </label>
                     <select class="form-control" id="sel1">
                         <option>--</option>
@@ -77,10 +86,25 @@
                     </select>
                 </div>
             </div>
-        
+            
             <div class="col-sm-12">
-                <div class="form-group">
-                    <p><b> Fecha: {fecha de hoy}</b></p>
+                <div class="form-group col-sm-4 ">
+                    <label for="sel1"> Elige un Examen: </label>
+                    <select class="form-control" id="sel1">
+                        <option>--</option>
+                        <option>Tema 1</option>
+                        <option>Tema 2</option>
+                        <option>Tema 3</option>
+                        <option>Tema 4</option>
+                    </select>
+                </div>
+            </div>
+            
+                            
+            <div class="col-sm-12">
+                <div class="form-group col-sm-4">
+                    <p><b>Fecha:</b> <input type="date" name = "fechaFalta" placeholder = "DD/MM/AAAA">
+                    </p>
                 </div>
             </div>
             
@@ -108,23 +132,23 @@
                                     <h4>Lucía</h4>
                                     <h4>Irene</h4>
                                 </div>
-                                <div class="col-sm-3">
-                                    <h3>ASISTENCIA</h3>
+                                <div class="col-sm-4">
+                                    <h3>NOTA</h3>
                                   
                                     <div class="col-sm-8">
-                                        <label><input type="checkbox" value=""></label>
+                                        <label><input type="text" name="nota" value="0" step="any"></label>
                                     </div>
                                     <div class="col-sm-8">
-                                        <label><input type="checkbox" value=""></label>
+                                        <label><input type="text" name="nota" value="0" step="any"></label>
                                     </div>
                                     <div class="col-sm-8">
-                                        <label><input type="checkbox" value=""></label>
+                                        <label><input type="text" name="nota" value="0" step="any"></label>
                                     </div>
                                     <div class="col-sm-8">
-                                        <label><input type="checkbox" value=""></label>
+                                        <label><input type="text" name="nota" value="0" step="any"></label>
                                     </div>  
                                     <div class="col-sm-8">
-                                        <label><input type="checkbox" value=""></label>
+                                        <label><input type="text" name="nota" value="0" step="any"></label>
                                     </div>                                 
                                     
                                 </div>
