@@ -17,6 +17,13 @@
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -38,19 +45,18 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="pageAlumno.html"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100 "></a>
+                    <a class="navbar-brand" href="#"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="80 "></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
                     </li>
-
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
+                        <h3><a href="datosAlum.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
                     </li>
                     <li>
                         <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
@@ -59,7 +65,7 @@
             </div>
         </nav>
     </header>
-    </br>   
+    
     <!-- Page Content -->
     <div class="container">
         <!-- Marketing Icons Section -->
@@ -69,10 +75,9 @@
                     MENSAJES <small>Enviados</small>
                 </h1>
                 <ul class="nav nav-tabs">
-                    <li><a href="mensajesRecibAlum.html" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></a></li>
-                    <li class="active"><a href="mensajesEnviados.html" class="btn btn-default active">Enviados <span class="glyphicon glyphicon-open"></a></li>
-                    <li><a href="mensajesEliminados.html" class="btn btn-default">Eliminados <span class="glyphicon glyphicon-trash"></span></a></li>
-                    <li class="pull-right"><a href="mensajeNuevo.html" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
+                    <li><a href="mensajesRecibAlum.html" class="btn btn-default active">Recibidos <span class="glyphicon glyphicon-save"></span></a></li>
+                    <li class="active"><a href="mensajesEnviadosAlum.html" class="btn btn-default active">Enviados <span class="glyphicon glyphicon-open"></span></a></li>
+                    <li class="pull-right"><a href="mensajeNuevoAlum.html" class="btn btn-default active"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
                 </ul>
 
                     <!--button type="button" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></span></button>
@@ -84,29 +89,83 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <!--button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Leído</button-->
+                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar()">
                         <h4>
-                            <a href="#">Mensaje 4</a>
+                            Mensaje 4
                         </h4>
+                        <h5>
+                            Para: Antonio García, profesor de Física
+                        </h5>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-group" id="nover">
+                            
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                    
+                            
+                        </div>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4>
-                            <a href="#" class="mensaje">Mensaje 5</a>
-                        </h4>
+                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar2()">
+                            <h4>
+                                Mensaje 5
+                            </h4>
+                            <h5>
+                                Para: Antonio García, profesor de Física
+                            </h5>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="form-group" id="nover2">
+                            
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                  
+                            
+                        </div>
                     </div>
                 </div>
             </div>
+
+
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
+                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar3()">
                         <h4>
-                            <a href="#">Mensaje 6</a>
-                            <!--a href="#" class="btn btn-default pull-right">Leer</a-->
+                            Mensaje 6                         
                         </h4>
+                        <h5>
+                            Para: Antonio García, profesor de Física
+                        </h5>
                     </div>
+
+                    <div class="panel-body">
+                        <div class="form-group" id="nover3">
+                            
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                    
+                            
+                        </div>
+                    </div>                    
                 </div>
             </div>
         </div>
@@ -134,6 +193,21 @@
     $('.carousel').carousel({
         interval: 5000 //changes the speed
     })
+
+     function mostrar(){
+        document.getElementById('nover').style.display = 'inline';
+    }
+
+    function mostrar2(){
+        document.getElementById('nover2').style.display = 'inline';
+    }
+
+    function mostrar3(){
+        document.getElementById('nover3').style.display = 'inline';
+    }
+   
+
+    
     </script>
 
 </body>

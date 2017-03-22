@@ -15,6 +15,9 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">   
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
     
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
@@ -30,37 +33,38 @@
 
 <body ng-app = "myApp">
 <!--Cabercera-->
-<header>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
-        <div class="containerHeader">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100"></a>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+            <div class="containerHeader">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="80 "></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                    </li>
+                </ul>
+                <ul  class="nav navbar-nav navbar-right">
+                    <li class="user">
+                        <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
+                        
+                        <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}},{{nav.nombre}} </a></h3>
+                    </li>
+                    <li>
+                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                    </li>
+                </ul>
             </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <ul class="nav navbar-nav">
-                <li>
-                    <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
-                </li>
-
-            </ul>
-            <ul  class="nav navbar-nav navbar-right">
-                <li class="user">
-                    <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user">  {{nav.apellidos}}, {{nav.nombre}} </a></h3>
-                </li>
-                <li>
-                    <a href="index.html" target="_blank"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+        </nav>
+    </header>
     
     <!--Contenido-->
         </br>
@@ -75,6 +79,13 @@
 
             <!-- Formulario -->
             <form class="form-horizontal col-xs-10" role="form">
+                <div class="form-group">
+                    <label for="notificacion" class="col-xs-2 control-label">Notificaciones</label>
+                    <div class="material-switch">
+                        <input class="col-xs-2" id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
+                        <label for="someSwitchOptionSuccess" class="label-success"></label>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label class="col-xs-2 control-label">Email</label>
                     <div class="col-xs-4">
@@ -94,6 +105,7 @@
                     </div>
                 </div>
                 <button type="button" class="btn btn-primary">Cambiar contraseña</button>
+            
             </form>
         </div>
         <!-- Footer -->

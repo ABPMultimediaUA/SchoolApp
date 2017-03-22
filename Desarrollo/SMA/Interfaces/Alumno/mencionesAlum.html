@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Anuncios</title>
+    <title>Menciones</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -17,8 +17,6 @@
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
@@ -58,7 +56,7 @@
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datosAlum.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
                         <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
@@ -67,24 +65,30 @@
             </div>
         </nav>
     </header>
-    </br>   
     <!-- Page Content -->
     <div class="container">
         <!-- Marketing Icons Section -->
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    ANUNCIOS
+                    MENCIONES
                 </h1>
             </div>
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <input type="button" class="btn btn-primary pull-right" value="Leído" onclick="ocultar()">
-                        <h4><i class="fa fa-fw fa-check"></i> Anuncio 1</h4>
+                        <!--button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Leído</button-->
+                        <h4><i class="fa fa-trophy"></i> Mejor Nota <span class="glyphicon glyphicon-star pull-right"></span><span class="glyphicon glyphicon-star pull-right"></span><span class="glyphicon glyphicon-star pull-right"></span></h4>
                     </div>
-                    <div class="panel-body" id="quitar">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                    <div class="panel-body" >
+                        <p>Premio a la mejor nota de HISTORIA del curso 2014-15</p>
+                        <p>Profesor/a: Juan Rodríguez</p>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
                         <!--a href="#" class="btn btn-default pull-right">Leído</a-->
                     </div>
                 </div>
@@ -92,22 +96,51 @@
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <input type="button" class="btn btn-primary pull-right" value="Leído" onclick="ocultar2()">
-                        <h4><i class="fa fa-fw fa-gift"></i> Anuncio 2</h4>
+                        <h4><i class="fa fa-trophy"></i> Mejor Alumno <span class="glyphicon glyphicon-star pull-right"></span></h4>
                     </div>
-                    <div class="panel-body" id="quitar2">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+                    <div class="panel-body" >
+                        <p>Premio al mejor alumno del curso 2014-15</p>
+                        <p>Profesor/a: Maria Castaño</p>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <input type="button" class="btn btn-primary pull-right" value="Leído" onclick="ocultar3()">
-                        <h4><i class="fa fa-fw fa-compass"></i> Anuncio 3</h4>
+                        <h4><i class="fa fa-trophy"></i> Mejor Nota <span class="glyphicon glyphicon-star pull-right"></span><span class="glyphicon glyphicon-star pull-right"></span></h4>
                     </div>
-                    <div class="panel-body" id="quitar3">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at </p>
+                    <div class="panel-body" >
+                        <p>Premio a la segunda mejor nota de BIOLOGÍA del curso 20115-16 </p>
+                        <p>Profesor/a: Antonio Gómez</p>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4><i class="fa fa-trophy"></i> Mejor Nota <span class="glyphicon glyphicon-star pull-right"></span></h4>
+                    </div>
+                    <div class="panel-body" >
+                        <p>Premio a la tercera mejor nota de INGLÉS del curso 20115-16 </p>
+                        <p>Profesor/a: Antonio Gómez</p>
+                        <a class="btn btn-social-icon btn-facebook">
+                            <span class="fa fa-facebook"></span>
+                        </a>
+                        <a class="btn btn-social-icon btn-twitter">
+                            <span class="fa fa-twitter"></span>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -136,60 +169,6 @@
         </footer>
 
     </div>
-
-<script>
-    var user = sessionStorage.getItem('user');
-    
-    angular.module('myApp', [])
-    .controller('navController', navController);
-    
-    //ESTE CONTROLADOR SERIA MEJOR QUE ESTUVIERA FUERA
-    navController.$inject = ['$scope', '$http'];
-    function navController($scope, $http){
-        if(user == null){
-            SUser="";
-            bool = true;
-        }else{
-            SUser="usuario/"+user;
-            bool = false;
-        }
-        if(bool == false){
-            var nav = this;
-            $http({
-                url: "http://localhost/prueba_api/alpha2/index.php/alumno/alumno/"+SUser+"/format/json", 
-                method: "GET",
-                params: {usuario: user}
-            })
-             .then(function(response) {
-                nav.compuesto = angular.fromJson(response.data);
-                nav.nombre = nav.compuesto.nombre;
-                nav.apellidos = nav.compuesto.apellidos;
-                }, function errorCallback(response) {
-                alert()
-            });
-        }
-    };
-</script>
-
- <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-
-    function ocultar(){
-        document.getElementById('quitar').style.display = 'none';
-    }
-
-    function ocultar2(){
-        document.getElementById('quitar2').style.display = 'none';
-    }
-
-    function ocultar3(){
-        document.getElementById('quitar3').style.display = 'none';
-    }
-   
-
-    </script>
 
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
