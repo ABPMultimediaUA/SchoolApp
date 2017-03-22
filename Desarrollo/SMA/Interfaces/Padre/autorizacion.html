@@ -1,9 +1,14 @@
 <!doctype html>
 <html>
 <head>
-  <title>Autorización</title>
 
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Autorización</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -13,12 +18,17 @@
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
 
-  <!-- LOAD JQUERY -->
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-  <!-- LOAD ANGULAR -->
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
-
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   
         <style>
             .ng-valid.ng-dirty{
@@ -32,55 +42,34 @@
 <!-- apply the module and controller to our body so angular is applied to that -->
 <body  ng-app='myApp' ng-controller='controlador'>
     <header>
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="containerHeader">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="index.html"><img src="img/logoAlpha.png" class="img-responsive" alt="Logotipo" width="80 "></a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="nosotros.html">Nosotros</a>
-                    </li>
-                    <li>
-                        <a href="services.html">Dónde estamos</a>
-                    </li>
-                    <li>
-                        <a href="contacto.html">Contacto</a>
-                    </li>
-                </ul>
-
-                <div class="navbar-form navbar-left">
-                    <label for="sel1" class="idioma">IDIOMA</label>
-                    <select class="form-control" id="sel1">
-                      <option>ESPAÑOL</option>
-                      <option>ENGLISH</option>
-                    </select>
-                </div>
-                    
-                <form class="navbar-form navbar-left" role="search">
-                    <button type="submit" class="btn btn-default">Buscar</button>
-                    <div class="form-group">
-                        <input type="text" class="form-control">
-                    </div>
-                </form>
-
-                <ul  class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="login.html"><span class="glyphicon glyphicon-log-in"></span> Login</a>
-                    </li>
-                </ul>
-
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="containerHeader">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="pageAlumno.html"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100"></a>
             </div>
-        </nav>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                </li>
+            </ul>
+            <ul  class="nav navbar-nav navbar-right">
+                <li class="user">
+                    <h3><a href="datosPad.html"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
+                </li>
+                <li>
+                    <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
     </header>
 
 <div class="container">
@@ -202,15 +191,10 @@
 
 	          }
 
-
             });
-
-
-
 
 //PUTvar 
     
-
     app.directive('alias', function() {
             var directive = {};
             directive.restrict = 'E';
