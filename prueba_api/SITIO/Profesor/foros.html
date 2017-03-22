@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+<head>
+  <title>FOROS</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+    
+    <script src="js/angular.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<body ng-app = "myApp">
+
+    <header>
+       <br>
+       <br>
+       <br>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+            <div class="containerHeader">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100"></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="pageProfesor.html" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                    </li>
+
+                </ul>
+                <ul  class="nav navbar-nav navbar-right">
+                    <li class="user">
+                        <!--Con el enlace se accede a los datos del usuario "Mis Datos" -->
+                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                    </li>
+                    <li>
+                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
+<div class="container">
+<div class="col-md-6 col-md-offset-3">
+<select name="selectforodo" onchange="cambiarContenido();">
+  <option value="1" >CREAR FORO</option>
+  <option value="2">VER FOROS</option>
+</select>
+<br>
+
+ <div class="row">
+                <div class="col-lg-8">
+                    Elija el curso: 
+                    <select name="cursosSelect" id="cursosSelect" >
+                        <option value="0">TODOS</option>
+                        <option value="1">Curso 1</option>
+                        <option value="2">Curso 2</option>
+                        <option value="3">Curso 3</option>
+                    </select>
+                    <br>
+                    Elija la asignatura:
+                    <select name="asignaturasSelect" id="asignaturasSelect">
+                        <option value="0">TODAS</option>
+                        <option value="1">Asignatura 1</option>
+                        <option value="2">Asignatura 2</option>
+                        <option value="3">Asignatura 3</option>
+                    </select>
+                    <br>
+                    
+                    
+                </div>
+                <br>
+                <div id="magia">
+                 <input type='text' placeholder='titulo'/><textarea name='creacomunicado' placeholder='descripci&oacute;n'></textarea> <input type='submit' onclick='goToVerForo();' value='Enviar'/>
+                </div>
+            </div>
+</div>
+</div>
+
+<script>
+
+function goToVerForo()
+{
+  window.location='verforo.html';
+}
+function cambiarContenido()
+{
+if(document.getElementsByName("selectforodo")[0].value==1)
+{
+  document.getElementById("magia").innerHTML="<input type='text' placeholder='titulo'/><textarea name='creacomunicado' placeholder='descripci&oacute;n'></textarea> <input type='submit' onclick='goToVerForo();' value='Enviar'/>";
+}
+
+if(document.getElementsByName("selectforodo")[0].value==2)
+{
+  document.getElementById("magia").innerHTML="Elija Foro:                    <select name = 'foroSelect' >                        <option value='1'>Examen conocimiento del medio</option>                        <option value='2'>Excursión a la Alcudia</option>                        <option value='3'>Día de la paz</option>                    </select><input type='submit' onclick='goToVerForo();' value='Acceder'/>";
+}
+}
+</script>
+</body>
+</html>

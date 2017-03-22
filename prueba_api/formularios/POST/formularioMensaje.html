@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+<head>
+  <title>Formulario Mensaje</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <!-- LOAD BOOTSTRAP CSS -->
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <!-- LOAD JQUERY -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <!-- LOAD ANGULAR -->
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.min.js"></script>
+
+  
+        <style>
+            .ng-valid.ng-dirty{
+                border-color: green;
+            }
+            .ng-invalid.ng-dirty{
+                border-color: red;
+            }
+        </style>
+</head>
+<!-- apply the module and controller to our body so angular is applied to that -->
+<body>
+<div class="container">
+<div class="col-md-6 col-md-offset-3">
+
+  <!-- PAGE TITLE -->
+  <div class="page-header">
+    <h1><span class="glyphicon glyphicon-education"></span> Formulario añadir mensaje</h1>
+  </div>
+
+  <div ng-app = "mainApp" ng-controller = "ngController">
+    <!-- FORM  -->
+    <form name = "ngForm" ng-submit="processForm()" novalidate>
+      <div id="meter-group" class="form-group">
+        <alias name = "salida"> </alias>
+      </div>
+
+   
+
+      <!-- TEXTO -->
+      <div id="texto-group" class="form-group">
+        <label>Texto</label>
+        <input type="text" name="texto" class="form-control" placeholder = "Mensaje" ng-model="formData.texto">
+        <span style = "color:red" ng-show = "ngForm.texto.$dirty && ngForm.texto.$invalid">
+            <span ng-show = "ngForm.texto.$error.required">El mensaje es obligatorio.</span>
+          </span>
+      </div>
+
+      <!-- FECHA -->
+      <div id="Fecha-group" class="form-group">
+        <label>Fecha</label>
+        <input type="date" name="fecha" class="form-control" placeholder="Fecha" ng-model="formData.fecha" required>
+        <span style = "color:red" ng-show = "ngForm.fecha.$dirty && ngForm.fecha.$invalid">
+            <span ng-show = "ngForm.fecha.$error.required">La fecha es obligatoria.</span>
+          </span>
+      </div>
+
+      <!-- IDPROFESOR -->
+      <div id="IdProfesor-group" class="form-group">
+        <label>ID Profesor</label>
+        <input type="text" name="IdChatProfesor" class="form-control" placeholder="ID" ng-model="formData.chat_Profesor_idProfesor" required>
+        <span style = "color:red" ng-show = "ngForm.IdChatProfesor.$dirty && ngForm.IdChatProfesor.$invalid">
+            <span ng-show = "ngForm.IdChatProfesor.$error.required">El Id del profesor es obligatorio.</span>
+          </span>
+      </div>
+
+      <!-- CHATPADRE-ALUMNO -->
+      <div id="IdAlumno-group" class="form-group">
+        <label>ID Alumno</label>
+        <input type="text" name="IdAlumno" class="form-control" placeholder="ID" ng-model="formData.chat_Padre_Alumno_idAlumno" required>
+        <span style = "color:red" ng-show = "ngForm.IdAlumno.$dirty && ngForm.IdAlumno.$invalid">
+            <span ng-show = "ngForm.IdAlumno.$error.required">El Id del alumno es obligatorio.</span>
+          </span>
+      </div>
+
+      
+
+      <!-- SUBMIT BUTTON -->
+      <button  type = "submit" ng-disabled=" !(!!formData.texto) || !(!!formData.fecha) || !(!!formData.chat_Profesor_idProfesor) || !(!!formData.chat_Padre_Alumno_idAlumno) " class="btn btn-success btn-lg btn-block">
+         <span class="glyphicon glyphicon-flash"></span>Submit!  
+      </button>
+    </form>
+  </div>
+
+</div>
+</div>
+
+<!-- PROCESS FORM WITH AJAX (NEW) -->
+  <script>
+
+     var mainApp = angular.module("mainApp", []);
+
+     
+
+     mainApp.directive('alias', function() {
+              var directive = {};
+              directive.restrict = 'E';
+              directive.template = "<b>{{alias.texto}}</b>";
+              
+              directive.scope = {
+                 alias : "=name"
+              }
+              return directive;
+      });
+         
+         mainApp.controller('ngController', function($scope, $http) {
+          $scope.json2 = {};
+          $scope.salida = {};
+          $scope.formData = {}; 
+          $scope.processForm = function(){
+           
+
+          $http({
+              method  : 'POST',
+              url     : 'http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje',
+              data    : $.param($scope.formData),  // pass in data as strings
+              headers : { 'Content-Type': 'application/x-www-form-urlencoded' }  // set the headers so angular passing info as form data (not request payload)
+          })
+            .success(function(data) {
+              //Prueba REST /*
+              $scope.json2 = data;
+              if($scope.json2.length == 0){
+               // $scope.salida.texto = $scope.json2[i];
+              };
+              if($scope.json2.length == 1){
+               $scope.salida.texto = $scope.json2[0];
+              };
+              if($scope.json2.length == 2){
+               $scope.salida.texto = $scope.json2[0] + " " + $scope.json2[1];
+              };
+              if($scope.json2.length == 3){
+               $scope.salida.texto = $scope.json2[0] + " " + $scope.json2[1] + " " + $scope.json2[2];
+              };
+              if($scope.json2.length == 4){
+               $scope.salida.texto = $scope.json2[0] + " " + $scope.json2[1] + " " + $scope.json2[2] + " " + $scope.json2[3];
+              };
+            });
+
+          }
+            
+
+                 
+         });
+
+    
+
+  </script>
+</body>
+</html>
