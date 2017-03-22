@@ -9,7 +9,7 @@
     <meta name="description" content="alphaschool landing page">
     <meta name="author" content="cerberus-team">
 
-    <title>Nuevo Usuario</title>
+    <title>Publicar anuncio</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -25,7 +25,7 @@
 
 </head>
 
-<body onload="generatePass();">
+<body>
 <!--Cabercera-->
 <header>
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -64,50 +64,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12"></br>
-                    <h1>Nuevo Usuario</h1>
+                    <h1>Publicar Anuncio</h1>
                 </div>
             </div>
-    <form name="formulario">
-        <input type="hidden" id="password" value="">
+    <form>
         <div class="form-group">
-            <label for="seleccionRol">Tipo de Usuario</label>
-            <select class="form-control" id="seleccionRol">
-                <option value="alumno">Alumno</option>
-                <option value="padre">Padre</option>
-                <option value="profesor">Profesor</option>
-                <option value="gestor">Gestor</option>
-            </select>
+            <label for="asuntoAnuncio">Asunto</label>
+            <input type="text" class="form-control" id="asuntoAnuncio" placeholder="Asunto del anuncio">
         </div>
         <div class="form-group">
-            <label for="emailUsuario">E-Mail</label>
-            <input type="email" class="form-control" id="emailUsuario" placeholder="E-Mail">
+            <label for="cuerpoAnuncio">Contenido</label>
+            <textarea class="form-control" rows="10" id="cuerpoAnuncio"></textarea>
         </div>
-        <div class="form-group">
-            <label for="nombreUsuario">Nombre</label>
-            <input type="text" class="form-control" id="nombreUsuario" placeholder="Nombre">
-        </div>
-        <div class="form-group">
-            <label for="apellidosUsuario">Apellidos</label>
-            <input type="text" class="form-control" id="apellidosUsuario" placeholder="Apellidos">
-        </div>
-        <div class="form-group">
-            <label for="DNIUsuario">DNI</label>
-            <input type="text" class="form-control" id="DNIUsuario" maxlength="9" placeholder="DNI">
-        </div>
-        <div class="form-group">
-            <label for="telefonoUsuario">Teléfono</label>
-            <input type="text" class="form-control" id="telefonoUsuario" placeholder="Teléfono">
-        </div>
-        <div class="form-group" id="hiding" style="display: block;">
-            <label for="numeroExpediente">Núm. Expediente</label>
-            <input type="text" class="form-control" id="numeroExpediente" placeholder="Número de expediente">
-        </div>
-            <button type="submit" class="btn btn-primary">Crear usuario</button>
-        <!-- Tambien habria que hacer que se generase un nombre de usuario al estilo UA Iniciales mas numero
-             y luego hacer tambien que se te generase una pass random al crear el usuario y que se te mandase
-             un mensaje al correo que has introducido con dicha pass -->
-
-                
+        <button type="submit" class="btn btn-primary">Publicar Anuncio</button>
     </form>
     </div>
     
@@ -121,32 +90,5 @@
             </div>
             <!-- /.row -->
         </footer>
-    
-<!-- Provisional placement for scripting -->
-    <script>
-        function checkHiding(element) {
-            if(element.value == "alumno") {
-                document.getElementById("hiding").style.display = "block";
-            } else {
-                document.getElementById("hiding").style.display = "none"
-            }
-        }
-        
-        function randomPassword() {
-            var chars = "abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-            var pass = "";
-            for (var x = 0; x < 8; x++) {
-                var i = Math.floor(Math.random() * chars.length);
-                pass += chars.charAt(i);
-            }
-            return pass;
-        }
-
-        function generatePass() {
-            formulario.password.value = randomPassword();
-            alert(formulario.password.value);
-        }
-    </script>
-    
 </body>
 </html>
