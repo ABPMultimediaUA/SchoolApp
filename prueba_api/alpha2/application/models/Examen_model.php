@@ -66,11 +66,69 @@ class Examen_model extends CI_Model {
 		        $examenes = [];
 		        foreach($query->result_array() as $row)
 		        {
-		        	$examen = $this->db->get_where('examen', array('idExamen' => $row["idExamen"]));
-		        	$examen = $examen->result_array();
+		        	$examen = $this->db->get_where('examen', array('idExamen' => $row["examen_idExamen"]));
 		        	$examen = $examen->row_array();
+		        	$asignatura = $this->db->get_where('asignatura', array('idAsignatura' => $examen["idAsignatura"]));
+		        	
 		        	$examen["nota"] = $row["nota"];
+		        	$asignatura=$asignatura->row_array(); 
+		        	$examen["nombreAsignatura"] = $asignatura["nombre"];
 		        	array_push($examenes, $examen);
+		        }
+		        return $examenes;
+		}
+
+		public function get_examenByAlumnoProx($idAlumno = FALSE)
+		{
+		        if ($idAlumno === FALSE)
+		        {
+		                return "";
+		        }
+
+		        $query = $this->db->get_where('alumno_has_examen', array('alumno_idAlumno' => $idAlumno));
+		        $examenes = [];
+		        //$date = new Date();
+		        foreach($query->result_array() as $row)
+		        {
+		        	$examen = $this->db->get_where('examen', array('idExamen' => $row["examen_idExamen"]));
+		        	$examen = $examen->row_array();
+
+		        	if($examen["fecha"]>=date("Y-m-d")){
+		        	$asignatura = $this->db->get_where('asignatura', array('idAsignatura' => $examen["idAsignatura"]));
+		        	
+		        	$examen["nota"] = $row["nota"];
+		        	$asignatura=$asignatura->row_array(); 
+		        	$examen["nombreAsignatura"] = $asignatura["nombre"];
+		        	array_push($examenes, $examen);
+		        }
+		        }
+		        return $examenes;
+		}
+
+		public function get_examenByAlumnoPas($idAlumno = FALSE)
+		{
+		       
+		        if ($idAlumno === FALSE)
+		        {
+		                return "";
+		        }
+
+		        $query = $this->db->get_where('alumno_has_examen', array('alumno_idAlumno' => $idAlumno));
+		        $examenes = [];
+		        //$date = new Date();
+		        foreach($query->result_array() as $row)
+		        {
+		        	$examen = $this->db->get_where('examen', array('idExamen' => $row["examen_idExamen"]));
+		        	$examen = $examen->row_array();
+
+		        	if($examen["fecha"]<date("Y-m-d")){
+		        	$asignatura = $this->db->get_where('asignatura', array('idAsignatura' => $examen["idAsignatura"]));
+		        	
+		        	$examen["nota"] = $row["nota"];
+		        	$asignatura=$asignatura->row_array(); 
+		        	$examen["nombreAsignatura"] = $asignatura["nombre"];
+		        	array_push($examenes, $examen);
+		        }
 		        }
 		        return $examenes;
 		}

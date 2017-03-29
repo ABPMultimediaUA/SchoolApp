@@ -94,7 +94,7 @@
             <div class="col-sm-3">
                 <div class="form-group">
                     <label for="sel1">Asignatura</label>
-                    <select ng-model = "dd" class="form-control" id="sel1">
+                    <select data-ng-model="first" class="form-control" id="sel1">
                         <option>--</option>
                         <!-- ASIGNATURAS DE CADA ALUMNO-->
                         <option ng-repeat = "item in asistencia.asignaturas" ng-click = "asistencia.selectAsignatura(item.idAsignatura)" value = "{{item.nombre}}">{{item.nombre}}</option>

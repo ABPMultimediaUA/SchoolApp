@@ -58,7 +58,12 @@ class Asignatura_model extends CI_Model {
 		        foreach($query->result_array() as $row )
 		        {
 		        	$asig1 = $this->db->get_where('asignatura', array('idAsignatura' => $row["idAsignatura"]));
-		        	array_push($asignaturas, $asig1->row_array());
+		        	$asig2 = $asig1->row_array();
+		        	$ahchc = $this->db->get_where('asignatura_has_curso_has_centro', array('Asignatura_idAsignatura' => $asig2["idAsignatura"]))->row_array();
+		        	$profesor = $this->db->get_where('profesor', array('idProfesor' => $ahchc["Profesor_idProfesor"]))->row_array();
+		        	$asig2["idProfesor"] = $profesor["idProfesor"];
+		        	$asig2["nombreProfesor"] = $profesor["nombre"]." ".$profesor["apellidos"];
+		        	array_push($asignaturas, $asig2);
 
 		        }
 

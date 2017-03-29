@@ -19,7 +19,8 @@
     <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">  
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
-   
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    
     <!-- archivos de angular -->
     <script src="js/alumnoApp.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -28,6 +29,15 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    <style>
+        .sample-show-hide {
+          transition: all linear 0.5s;
+        }
+        .sample-show-hide.ng-hide {    
+          opacity: 0;
+        }
+    </style>
 
 </head>
 <body ng-app = "alumnoApp">
@@ -47,14 +57,14 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                        <a href="pageAlumno.html" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
                     </li>
 
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                        <h3><a href="datosAlum.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
                         <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
@@ -64,7 +74,7 @@
         </nav>
     </header>
 
-    <div class="container">
+    <div class="container" ng-controller = "tareaController as tarea">
         <!-- Marketing Icons Section -->
         <div class="row">
             <div class="col-lg-12">
@@ -72,78 +82,37 @@
                     TAREAS <small>Por hacer</small>
                 </h1>
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="tareasHacer.html" class="btn btn-default active">HACER <span class="glyphicon glyphicon-edit"></a></li>
-                    <li><a href="tareasHechas.html" class="btn btn-default">HECHAS <span class="glyphicon glyphicon-check"></a></li>
+                    <li class="active"><a href="tareasHacerAlum.html" class="btn btn-default active">HACER <span class="glyphicon glyphicon-edit"></a></li>
+                    <li><a href="tareasHechas.html" class="btn btn-default active">HECHAS <span class="glyphicon glyphicon-check"></a></li>
                 </ul>
             </div>
-            <div class="col-lg-12">
+<!--
+            <div ng-if="tarea.marcado">
+                <p>Hecho</p>
+            </div>
+-->
+            
+            <div class="col-lg-12" ng-repeat = "item in tarea.lista" ng-show="checked" ng-init="checked = true">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <!--button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Hecho</button-->
-                        <!--input class="pull-right" type="checkbox" name="fancy-checkbox-default" id="fancy-checkbox-default" autocomplete="off" /-->
-                        <!--div class="btn-group pull-right" data-toggle="buttons">
-                            <label class="btn btn-default">
-                                <input type="checkbox" autocomplete="on">
+                       
+                        <div class="btn-group pull-right" data-toggle="buttons">
+                            <label class="btn btn-danger">
+                                <input type="checkbox" ng-click="tarea.hecha($index, item.idTarea)" ng-model="checked" autocomplete="on">
                                 <span class="glyphicon glyphicon-ok"></span>
                             </label>   
-                        </div-->
-                        <div class="toggle-button toggle-button--tuuli pull-right">
-                            <input id="toggleButton1" type="checkbox">
-                            <label for="toggleButton1"></label>
-                            <div class="toggle-button__icon"></div>
                         </div>
-                        <h4>HISTORIA - HACER</h4><time> 8 de marzo de 2017</time>
+                        <h4>{{item.nombreAsignatura}} - HACER</h4><time> 8 de marzo de 2017</time>
                     </div>
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet 
+                        <p>{{item.descripcion}}
+                        <p><b>Fecha entrega: </b>{{item.fecha_limite}}</p>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="toggle-button toggle-button--tuuli pull-right">
-                            <input id="toggleButton2" type="checkbox">
-                            <label for="toggleButton2"></label>
-                            <div class="toggle-button__icon"></div>
-                        </div>
-                        <h4>MATEMÁTICAS - HACER</h4><time> 7 de marzo de 2017</time>
-                    </div>
-                    <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quo</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="toggle-button toggle-button--tuuli pull-right">
-                            <input id="toggleButton3" type="checkbox">
-                            <label for="toggleButton3"></label>
-                            <div class="toggle-button__icon"></div>
-                        </div> 
-                        <h4>LENGUA - HACER</h4><time> 6 de marzo de 2017</time>
-                    </div>
-                    <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quo</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <div class="toggle-button toggle-button--tuuli pull-right">
-                            <input id="toggleButton4" type="checkbox">
-                            <label for="toggleButton4"></label>
-                            <div class="toggle-button__icon"></div>
-                        </div>
-                        <h4>INGÉS - HACER</h4><time> 5 de marzo de 2017</time>
-                    </div>
-                    <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quo</p>
-                    </div>
-                </div>
-            </div>
+            
+
         </div>
 
         <!-- Footer -->
@@ -155,8 +124,5 @@
             </div>
         </footer>
     </div>
-
-
-	
 </body>
 </html>

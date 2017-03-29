@@ -49,14 +49,27 @@ class Examen extends REST_Controller {
 
         $id = $this->get('id');
         $idAlumno = $this->get('idAlumno');
+        $proximos = $this->get('proximos');
+        $pasados = $this->get('pasados');
         
 
 
 
         if($idAlumno!=NULL && $idAlumno>=0)
         {
+
             $idAlumno = (int) $idAlumno;
-            $examenes = $this->examen_model->get_examenByAlumno();
+            if($proximos)
+            {
+               $examenes = $this->examen_model->get_examenByAlumnoProx($idAlumno); 
+            }
+            else if($pasados)
+            {
+                $examenes = $this->examen_model->get_examenByAlumnoPas($idAlumno);
+            }
+            else{
+            $examenes = $this->examen_model->get_examenByAlumno($idAlumno);
+        }
 
             if(!empty($examenes))
             {
@@ -65,7 +78,7 @@ class Examen extends REST_Controller {
             else{
                 $this->response([
                     'status' => FALSE,
-                    'message' => 'No hay coincidencias'
+                    'message' => "No hay coincidencias"
                 ], REST_Controller::HTTP_NOT_FOUND); 
             }
 

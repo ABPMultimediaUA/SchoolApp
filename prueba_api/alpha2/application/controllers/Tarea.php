@@ -48,15 +48,45 @@ class Tarea extends REST_Controller {
 
 
         $id = $this->get('id');
+		$hechas = $this->get('hechas');
+		$sinhacer = $this->get('sinhacer');
+		$idAlumno = $this->get('idAlumno');
+
+		if($idAlumno && $hechas && ($sinhacer==NULL || !$sinhacer))
+		{
+			$tarea = $this->tarea_model->get_tareasCompletadas($idAlumno);
+			if(!empty($tarea)){
+				$this->response($tarea, REST_Controller::HTTP_OK);
+			}
+			else{
+				$this->response([
+                    'status' => FALSE,
+                    'message' => 'No tarea were found'
+                ], REST_Controller::HTTP_NOT_FOUND);
+			}
+		}
+		else if($idAlumno && $sinhacer && ($hechas==NULL || !$hechas))
+		{
+			$tarea = $this->tarea_model->get_tareasNoCompletadas($idAlumno);
+			if(!empty($tarea)){
+				$this->response($tarea, REST_Controller::HTTP_OK);
+			}
+			else{
+				$this->response([
+                    'status' => FALSE,
+                    'message' => 'No tarea were found'
+                ], REST_Controller::HTTP_NOT_FOUND);
+			}
+		}
 
 
 
         // If the id parameter doesn't exist return all the tarea
 
-        if ($id === NULL)
+        else if ($id === NULL)
         {
 
-            
+
             $tarea = $this->tarea_model->get_tarea();
 
             // Check if the tarea data store contains tarea (in case the database result returns NULL)
@@ -103,7 +133,7 @@ class Tarea extends REST_Controller {
             }
 
             if (!empty($tarea))
-            {   
+            {
                 $this->output->set_output(json_encode($tarea), REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
@@ -118,12 +148,12 @@ class Tarea extends REST_Controller {
 
     public function tarea_post()
     {
-        
+
 
        $res=$this->tarea_model->post_tarea($this->post());
        if($res==1){$res="Tarea added to database";}
         $this->output->set_output($res, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
-    
+
     }
 
     public function tarea_delete()
@@ -149,9 +179,15 @@ class Tarea extends REST_Controller {
     public function tarea_put()
     {
                 $res = $this->tarea_model->put_tarea($this->put());
-
-                $this->output->set_output($res, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
-            
+				if(!empty($res)){
+					$this->response([
+                    'status' => TRUE,
+                    'message' => 'Correcto'
+                ], REST_Controller::HTTP_OK); // CREATED (201) being the HTTP response code
+				}
+				else{
+					$this->response("Datos no válidos" , REST_Controller::HTTP_BAD_REQUEST);
+				}
     }
 
 }

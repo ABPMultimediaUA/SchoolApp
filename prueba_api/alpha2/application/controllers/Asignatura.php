@@ -62,13 +62,19 @@ class Asignatura extends REST_Controller {
             {
                 $this->response($res, REST_Controller::HTTP_OK);
             }
+            else{
+                 $this->response([
+                    'status' => FALSE,
+                    'message' => 'No asignatura were found'
+                ], REST_Controller::HTTP_NOT_FOUND);
+            }
         }
 
 
 
         // If the id parameter doesn't exist return all the asignatura
 
-        if ($id === NULL)
+        else if ($id === NULL && $idAlumno === NULL)
         {
 
             

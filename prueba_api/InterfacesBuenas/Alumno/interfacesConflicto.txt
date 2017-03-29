@@ -1,0 +1,27 @@
+Merge remote-tracking branch 'origin/Integración'
+
+# Conflicts:
+#	
+
+
+	X Desarrollo/SMA/Interfaces/Alumno/anuncios.html
+#
+	X Desarrollo/SMA/Interfaces/Alumno/datosAlum.html
+#
+	X Desarrollo/SMA/Interfaces/Alumno/faltaAsistenciaAlum.html
+#
+	X Desarrollo/SMA/Interfaces/Alumno/horario.html
+#
+	X Desarrollo/SMA/Interfaces/Alumno/mencionesAlum.html
+#
+	X Desarrollo/SMA/Interfaces/Alumno/mensajeNuevoAlum.html
+#
+	X Desarrollo/SMA/Interfaces/Alumno/mensajesEnviadosAlum.html
+#
+	X Desarrollo/SMA/Interfaces/Alumno/mensajesRecibAlum.html
+#
+	X Desarrollo/SMA/Interfaces/Alumno/pageAlumno.html
+# 
+	X Desarrollo/SMA/Interfaces/Alumno/tareasHacerAlum.html
+
+	X evaluacion
