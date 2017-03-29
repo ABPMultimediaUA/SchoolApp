@@ -11,6 +11,10 @@ var matrizActual = mat4.create();
 
 /*************** NODE ***************/
 
+/**
+*  Cada uno de los nodos del arbol.
+*/
+
 function Node() {
 	this.entity = null;
 	this.children = new Array();
