@@ -1,13 +1,38 @@
-//http://stackoverflow.com/questions/1595611/how-to-properly-create-a-custom-object-in-javascript
+/**
+ * @arbolescena
+ * Fichero javascript que se encarga del manejo de jerarquias en el motor.
+ *
+ */
+
+var pila = [];
+var matrizActual = mat4.create();
+
+
+
+/*************** NODE ***************/
+
+/**
+*  Cada uno de los nodos del arbol.
+*/
 
 function Node() {
-	this.entity = ""; //No estoy del todo seguro de como deberia definir aqui entity
-	this.children = [];
-	this.parent = ""; //Lo mismo aqui
+	this.entity = null;
+	this.children = new Array();
+	this.parent = null;
+    
 	//this.localMatrix = m4.identity();
 	//this.worldMatrix = m4.identity();
 }
 
+Node.prototype.getParent = function() {
+    return this.parent;
+}
+
+Node.prototype.getEntity = function() {
+    return this.entity;
+}
+
+/*
 Node.prototype.setParent = function(parent) {
 	//Separarnos del parent si tenemos uno
 	alert('Hola');
@@ -29,10 +54,14 @@ Node.prototype.setParent = function(parent) {
 	this.parent = parent;
 	alert('Esto tambien');
 }
+*/
 
 Node.prototype.addChildren = function(childToAdd) {
+    
 	if(childToAdd) {
-		this.children.push(childToAdd)
+        childToAdd.parent = this;
+		this.children.push(childToAdd);
+        return this.children.length;
 	}
 }
 
@@ -46,183 +75,273 @@ Node.prototype.removeChildren = function(childToRemove) {
 }
 
 Node.prototype.draw = function() {
-	//Habria que hacer que las alertas de las entidades asociadas al nodo saltaran aqui
-	//y no en el constructor de las susodichas entidades, no?
-	if(this.entity != ""){
+
+    console.log("Entering draw() function of Node");
+    
+	if(this.entity){
 		this.entity.beginDraw();
-		this.entity.endDraw();
 	}
+    
+    for(var i=0; i<this.children.length; i++) {
+        this.children[i].draw();
+    }
+    
+    if(this.entity) {
+        this.entity.endDraw();
+    }
 }
 
 Node.prototype.setEntity = function(entity) {
 	this.entity = entity;
 }
 
+/*************** NODE END ***************/
+
+
+
+/*************** ENTITY ***************/
 
 //"Clase" de la que derivan todas las entidades
 
-function Entity() {
-	//Tengo dudas sobre como crearia una clase virtual de C++ en Javascript
-	//Creo que no es necesario declarar aqui ninguna funcion, que con lo que hay abajo:
-	//Entity.call(this), ya hace la llamada a los alert desde las implementaciones de la clase virtual.
-}
+function Entity() {}
 
 Entity.prototype.beginDraw = function() {
-	alert('Beginning the draw process (Entity)');
+	console.log('Beginning the draw process (Entity)');
 };
 
 Entity.prototype.endDraw = function() {
-	alert('Ending the draw process (Entity)');
+	console.log('Ending the draw process (Entity)');
 };
 
+/*************** ENTITY END ***************/
 
-//Estas serian las entidades que derivan de Entity
+
+
+/*************** TRANSFORM ***************/
 
 function Transform() {
-	Entity.call(this);
+	
+    this.matriz = mat4.create();
+}
 
-	this.matriz = [];
-	this.matriz[0] = LIBS.get_I4();
+Transform.prototype = new Entity;
 
-	alert('I am the alert from the transform entity type');
+Transform.prototype.identity = function() {
+    
+    mat4.identity(this.matriz); //Asignamos la matriz identidad a nuestra transformacion
 }
 
 Transform.prototype.cargar = function(matrix) {
+    
+    mat4.copy(this.matriz, matrix);
+}
 
-	return this.matriz[this.matriz.length - 1] = matrix;
-};
+Transform.prototype.trasponer = function() {
+    
+    mat4.transpose(this.matriz, this.matriz);
+}
 
-Transform.prototype.topStack = function() {
+Transform.prototype.translate = function(tx, ty, tz) {
+    
+    //Creamos un vector 1x3
+    var vectorTranslate = vec3.create();
+    
+    //Introducimos en el vector las coordenadas de traslacion en los distintos ejes
+    vec3.set(vectorTranslate, tx, ty, tz);
+    //Multiplicamos la matriz por el vector de traslacion
+    mat4.translate(this.matriz, this.matriz, vectorTranslate);
+}
 
-	return this.matriz[this.matriz.length -1].slice();
-};
+Transform.prototype.rotate = function(ang, rx, ry, rz) {
+    
+    //Creamos un vector que contendra los 3 ejes
+    var axis = vec3.create();
+    
+    //Setteamos el vector a la cantidad de rotacion especificada por parametro
+    vec3.set(axis, rx, ry, rz);
+    
+    //Como el angulo esta en grados lo convertimos a radianes
+    var rad = ang * Math.PI /180;
+    
+    //Ahora aplicamos la transformacion (rotacion)
+    mat4.rotate(this.matriz, this.matriz, rad, axis);
+}
 
-Transform.prototype.apilar = function() {
-
-	this.matriz.push(this.topStack());
-};
-
-Transform.prototype.rotateX = function(angulo) {
-
-	LIBS.rotateX(this.topStack(), angulo);
-};
-
-Transform.prototype.rotateY = function(angulo) {
-
-	LIBS.rotateY(this.topStack(), angulo);
-};
-
-Transform.prototype.rotateZ = function(angulo) {
-
-	LIBS.rotateZ(this.topStack(), angulo);
-};
-
-Transform.prototype.translateX = function(distancia) {
-
-	LIBS.translateX(this.topStack(), distancia);
-};
-
-Transform.prototype.translateY = function(distancia) {
-
-	LIBS.translateY(this.topStack(), distancia);
-};
-
-Transform.prototype.translateZ = function(distancia) {
-
-	LIBS.translateZ(this.topStack(), distancia);
-};
+Transform.prototype.scale = function(sx, sy, sz) {
+    
+    //Creamos un vector 1x3
+    var vectorScale = vec3.create();
+    
+    //Introducimos en el vector las coordenadas de escalado en los distintos ejes
+    vec3.set(vectorScale, sx, sy, sz);
+    //Multiplicamos la matriz por el vector de escalado
+    mat4.scale(this.matriz, this.matriz, vectorScale);
+}
 
 Transform.prototype.beginDraw = function() {
-
-	this.apilar();
-
-};
+    
+    console.log("Beginning the draw process (Transform)");
+    
+    //Necesitamos una variable auxiliar para almacenar la matriz actual
+    var aux = mat4.create();
+    //Copiamos la matriz actual en el auxiliar
+    mat4.copy(aux, matrizActual);
+    
+    //Apilamos la que era hasta ahora la matriz actual
+    pila.push(aux);
+    //Multiplicamos la matriz actual por la matriz de transformacion y ponemos el resultado
+    //como nueva matriz actual
+    mat4.multiply(matrizActual, this.matriz, matrizActual);
+}
 
 Transform.prototype.endDraw = function() {
-
-	this.matriz.pop();
-
-	if(this.matriz.length < 1) {
+    
+    matrizActual = pila.pop();
+    
+    /*
+    if(this.matriz.length < 1) {
 		this.matriz[0] = LIBS.get_I4();
 	}
-};
+    */
+}
 
+/*************** TRANSFORM END ***************/
+
+
+
+/*************** LUZ ***************/
 
 function Luz() {
-	Entity.call(this);
+	
+    this.intensidad = vec3.create();
+    this.ambient = vec3.create();
+    this.diffuse = vec3.create();
+    this.specular = vec3.create();
 
-	this.intensidad = 0;
-	this.tipo = "";
-
-	alert('I am the alert from the luz entity type');
 }
+
+Luz.prototype = new Entity;
 
 Luz.prototype.setIntensidad = function(parameterIntensidad) {
 
 	this.intensidad = parameterIntensidad;
-};
+}
+
+Luz.prototype.setValues = function(vAmbient, vDiffuse, vSpecular) {
+    
+    if(v1 != 0) {
+        this.ambient = v1;
+    }
+    if(v2 != 0) {
+        this.diffuse = v2;
+    }
+    if(v3 != 0) {
+        this.specular = v3;
+    }
+}
 
 Luz.prototype.getIntensidad = function() {
 
+    console.log('La intensidad es: ' + this.intensidad);
 	return this.intensidad;
-	alert('La intensidad es: ' + this.intensidad);
-};
+}
 
-Luz.prototype.setTipo = function(parameterTipo) {
-
-	this.tipo = parameterTipo;
-};
-
-Luz.prototype.getTipo = function() {
-
-	return this.tipo;
-};
-
-Luz.prototype.beginDraw = function() {};
+Luz.prototype.beginDraw = function() {console.log("Beginning the draw process (Luz)")};
 Luz.prototype.endDraw = function() {};
 
-function Camara() {
-	Entity.call(this);
+/*************** LUZ END ***************/
 
-	var esPerspectiva = false;
-	var cercano;
-	var lejano;
+
+
+/*************** CAMARA ***************/
+
+function Camara() {
 	
-	alert('I am the alert from the camara entity type');
+    this.esPerspectiva = true;
+    
+    this.fovy = 0;
+    
+    this.near = 0;
+    this.far = 0;
+    
+    this.aspect = 0;
+    this.bottom = 0;
+    this.top = 0;
+    this.left = 0;
+    this.right = 0;
 }
 
-Camara.prototype.setEsPerspectiva = function(parameterPerspectiva) {
+Camara.prototype = new Entity;
 
-	this.esPerspectiva = parameterPerspectiva;
-};
+Camara.prototype.setEsPerspectiva = function(angle, aspect, parameterNear, parameterFar) {
 
-Camara.prototype.getPerspectiva = function() {
+	this.esPerspectiva = true;
+    
+    this.fovy = angle;
+    this.aspect = aspect;
+    this.near = parameterNear;
+    this.far = parameterFar;
+}
 
-	return this.esPerspectiva;
-};
+Camara.prototype.setEsParalela = function(left, right, bottom, top, near, far) {
+    
+    this.esPerspectiva = false;
+    
+    this.left = left;
+    this.right = right;
+    this.top = top;
+    this.bottom = bottom;
+    this.near = near;
+    this.far = far;
+}
 
-Camara.prototype.beginDraw = function() {};
+Camara.prototype.beginDraw = function() {console.log("Beginning the draw process (Camara)")};
 Camara.prototype.endDraw = function() {};
 
-function Malla() {
-	Entity.call(this);
+/*************** CAMARA END ***************/
 
-	var malla = "";
 
-	alert('I am the alert from the malla entity type');
+
+/*************** MALLA ***************/
+
+function Malla(m) {
+	
+    this.malla = m;
 }
-/*
-Malla.prototype.cargarMalla() = function(fichero) {
 
-	//this.malla.cargarFichero(fichero); *Funcion hecha en el gestor de recursos*
-	alert('Cargar malla');
+Malla.prototype = new Entity;
+
+Malla.prototype.cargarMalla = function(fichero) {
+    
+    //Para cargar malla necesitamos el gestor de recursos
+    var malla = gestor.getRecurso(fichero, "malla");
+    this.malla = malla;
+}
+
+Malla.prototype.cargarTextura = function(fichero) {
+    
+    var textura = gestor.getRecurso(fichero, "textura");
+    //Creamos un sub-atributo de malla para guardar dentro de este la textura de dicha malla
+    this.malla.textura = textura;
+}
+
+Malla.prototype.cargarMaterial = function(fichero) {
+    
+    var material = gestor.getRecurso(fichero, "material");
+    //Creamos un sub-atributo de malla para guardar dentro de este el material de dicha malla
+    //(No se si esto hace falta)
+    this.malla.material = material;
+}
+
+Malla.prototype.beginDraw = function() {
+
+    console.log("Beginning the draw process (Malla)")
+    
+	this.malla.draw();
 };
-*//*
-Malla.prototype.beginDraw() = function() {
 
-	//this.malla.draw();
-	alert('Begin draw de malla');
-};*/
-/*
-Malla.prototype.endDraw() = function() {};
-*/
+Malla.prototype.endDraw = function() {};
+
+/*************** MALLA END ***************/
+
+/*************** FILE END ***************/
