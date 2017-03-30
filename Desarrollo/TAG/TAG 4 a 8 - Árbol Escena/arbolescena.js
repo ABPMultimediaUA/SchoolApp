@@ -229,14 +229,14 @@ Luz.prototype.setIntensidad = function(parameterIntensidad) {
 
 Luz.prototype.setValues = function(vAmbient, vDiffuse, vSpecular) {
     
-    if(v1 != 0) {
-        this.ambient = v1;
+    if(vAmbient != 0) {
+        this.ambient = vAmbient;
     }
-    if(v2 != 0) {
-        this.diffuse = v2;
+    if(vDiffuse != 0) {
+        this.diffuse = vDiffuse;
     }
-    if(v3 != 0) {
-        this.specular = v3;
+    if(vSpecular != 0) {
+        this.specular = vSpecular;
     }
 }
 

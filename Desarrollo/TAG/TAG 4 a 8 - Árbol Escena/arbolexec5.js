@@ -68,6 +68,16 @@ console.log(nuevoNodo.entity.matriz);
 //Por ultimo, comprobamos el apilado de distintas matrices.
 nuevoNodo2.entity.scale(2, 2, 2);
 nuevoNodo3.entity.scale(3, 3, 3);
-nuevoNodo.draw();
+
+console.log(nuevoNodo.entity.matriz + "nodo1");
+console.log(nuevoNodo2.entity.matriz + "nodo2");
+console.log(nuevoNodo3.entity.matriz + "nodo3");
+
+nuevoNodo.entity.beginDraw();
+nuevoNodo2.entity.beginDraw();
+nuevoNodo3.entity.beginDraw();
+
+console.log(matrizActual);
+console.log(pila);
 
 /*************** ENTREGABLE 5 END ***************/
