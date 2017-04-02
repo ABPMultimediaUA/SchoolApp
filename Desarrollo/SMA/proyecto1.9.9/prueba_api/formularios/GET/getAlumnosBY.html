@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+    <header>
+        <title>Página Angular</title>
+        <meta charset="utf-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    </header>
+    <body>
+        <H1>AlphaSchool</H1>
+        <div id="contenido">
+            <p>¡Bienvenido a AlphaSchool!</p>
+            <p>Introduce el número de ID del alumno del que deseas consultar los datos</p>
+            <p>o introduce 0 para consultar los de todos los alumnos.</p>
+        </div>
+        <section id="seccion" ng-app='myApp' ng-controller='myCtrl as ctrl'>
+            <input type="text" id="nom" >
+            <button type="" onclick="reload()">Consultar</button>
+                   <article name = "alias" ng-repeat='datos in seleccionado.alumno'>          
+                     <h1>{{ datos.nombre }} ( {{ datos.apellidos }} )</h1>       
+                        <p>Usuario: {{ datos.user }}</p>          
+                        <p>Email: {{ datos.email }}</p>         
+                        <p>Teléfono: {{ datos.telefono }}</p>    
+                        <p>ID: {{ datos.idAlumno }}</p>   
+                   </article>  
+        </section>
+
+
+
+
+            <script>
+                var item = sessionStorage.getItem("nombre");
+                if(item!=null){
+                    document.getElementById("nom").value=item;
+                } 
+
+                var nombre=document.getElementById("nom").value;
+                var nombre2 = document.getElementById("nom").value;
+                var aux = document.getElementById("nom").value;
+
+                if(nombre==null){
+                    nombre="";
+                }else{
+                    nombre="nombre/"+nombre;
+                }
+
+
+                var app = angular.module('myApp', []);
+                
+                app.controller('myCtrl', function($scope, $http) { 
+                    var self = this;
+                    $scope.seleccionado = {alumno: []};
+                    
+                    $http.get("http://localhost/prueba_api/alpha2/index.php/alumno/alumno/"+nombre+"/format/json")
+                    .then(function(response) {
+                        self.alumnos = angular.fromJson(response.data);
+                        if(nombre2 == ""){
+                            $scope.seleccionado.alumno = self.alumnos;
+                            for(var i=0; i<self.alumnos.length; i++){
+                                $scope.seleccionado.alumno[i] = self.alumnos[i];
+                            }
+                        }else{
+                            $scope.seleccionado.alumno[0] = self.alumnos;
+                            
+                        } 
+                    });
+                });
+
+                function reload() {  
+                    sessionStorage.setItem("nombre", document.getElementById("nom").value);
+                    location.reload();   
+                }
+            
+            </script>
+        </body>
+    </html>
