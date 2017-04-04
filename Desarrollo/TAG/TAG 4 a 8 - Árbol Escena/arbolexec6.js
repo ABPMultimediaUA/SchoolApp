@@ -16,8 +16,14 @@
 
 /*************** ENTREGABLE 6 ***************/
 
+//Creamos los nodos en los que almacenaremos las luces y las camaras
+var NuevoNodoLuz = new Nodo();
+var NuevoNodoCamara = new Nodo();
+
 // Creamos una luz
 var nuevaLuz = new Luz();
+// Asignamos la luz al nodo
+NuevoNodoLuz.setEntity(nuevaLuz);
 // Creamos un vector3
 var testVector = vec3.create();
 testVector[0] = 1; testVector[1] = 0.5; testVector[2] = 0.5;
@@ -35,6 +41,8 @@ console.log(nuevaLuz.specular);
 
 // Creamos una camara
 var nuevaCamara = new Camara();
+// Asignamos la camara al nodo
+NuevoNodoCamara.setEntity(nuevaCamara);
 // Asignamos valores como paralela
 nuevaCamara.setEsParalela(1,2,3,4,5,6);
 console.log(nuevaCamara);
