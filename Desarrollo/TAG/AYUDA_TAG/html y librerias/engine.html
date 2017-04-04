@@ -1,0 +1,82 @@
+<div class="row engine-content" ng-controller="engineController" ng-init="loadMap()">
+    <div class="col-sm-8 col-md-8">
+        <canvas id="lesson01-canvas" style="border: none;" width="800" height="500"></canvas>
+    </div>
+    <div class="col-sm-4 col-md-4">
+        <div class="panel panel-default panel-canvas">
+        <div class="panel-heading">
+            <h3 class="panel-title">Controles</h3>
+        </div>
+        <div class="panel-body">
+            
+            <label class="radio-inline"><input type="radio" id="tierraCheck" name="model" checked>La Tierra</label>
+            <label class="radio-inline"><input type="radio" id="espanyaCheck" name="model">España</label>
+            <label class="radio-inline"><input type="radio" id="capsuleCheck" name="model">Cápsula</label>
+
+            <p><input type="checkbox" id="useTexture" name="textures" checked>Texturas</p>
+            
+            <p>Materiales</p>
+            Ambient<input type="range" id="slider-ambient" value="0.06" min="0.0" max="1.0" step="0.01" onchange="updateMaterial()" oninput="updateMaterial()">
+            Specular<input type="range" id="slider-specular" value="0.0" min="0.0" max="1.0" step="0.01" onchange="updateMaterial()" oninput="updateMaterial()">
+            
+            <p>Luz</p>
+            Ambient<input type="range" id="light-ambient" value="0.06" min="0.0" max="1.0" step="0.01" onchange="updateLight()" oninput="updateLight()">
+            Specular<input type="range" id="light-specular" value="0.0" min="0.0" max="1.0" step="0.01" onchange="updateLight()" oninput="updateLight()">
+            
+            <p>Color de la luz: </p>
+            <div class="conf-colors">
+                <div colorpicker="rgb" ng-model="luzcolor" id="background_color" class="color-preview" ng-style="{'background-color': luzcolor}"  ng-change="changeColorLuz()"></div>
+                <input colorpicker="rgb" type="text" name="bgcolor" class="form-control" ng-model="luzcolor">
+            </div>
+            <p>Proyección</p>
+            <label class="radio-inline"><input type="radio" id="cam1Check" name="cam" checked onclick="motor.setCamaraActiva(0)">Perspectiva</label>
+            <label class="radio-inline"><input type="radio" id="cam2Check" name="cam" onclick="motor.setCamaraActiva(1)">Ortográfica</label>
+            <label>Ángulo <input type="number" name="fovy" id="fovy" value="45" min="0" max="90" oninput="fovyCam(value)"></label>
+
+            <label>Número de partículas: <input type="number" name="particulas" id="nparticulas" value="400" oninput="motor.crearParticulas(value)"></label>
+                
+            <div>
+            <p><strong>Luz</strong></p>
+            <ul>
+                <li>
+                    <label>X:<span id="slider-x-value"></span><input type="range" id="slider-x" value="9.0" min="-15.0" max="24.0" step="0.1" onchange="updateLightDirection()" oninput="updateLightDirection()"></label>
+                </li>
+                <li>  
+                    <label>Y:<span id="slider-y-value"></span><input type="range" id="slider-y" value="1.0" min="-7.0" max="9.0" step="0.01" onchange="updateLightDirection()" oninput="updateLightDirection()"></label>
+                </li>
+                <li>
+                    <label>Z:<span id="slider-z-value"></span><input type="range" id="slider-z" value="4.0" min="-8.0" max="12.0" step="0.01" onchange="updateLightDirection()" oninput="updateLightDirection()"></label>
+            </li>
+            </ul>
+                
+            <strong>Cámara</strong>
+            <ul>
+                <li>
+                    <label>X:<span id="camera-x-value"></span><input type="range" id="camera-x" value="0.0" min="-9.0" max="9.0" step="0.01" onchange="updateCameraPosition()" oninput="updateCameraPosition()"></label>
+                </li>
+                <li>
+                    <label>Y:<span id="camera-y-value"></span><input type="range" id="camera-y" value="0.0" min="-9.0" max="9.0" step="0.01" onchange="updateCameraPosition()" oninput="updateCameraPosition()"></label>
+                </li>
+                <li>
+                     <label>Z:<span id="camera-z-value"></span><input type="range" id="camera-z" value="0.0" min="-9.0" max="9.0" step="0.01" onchange="updateCameraPosition()" oninput="updateCameraPosition()"></label>
+                </li> 
+                   
+            </ul>
+                </div>
+            
+            <strong>Mapa de calor</strong>
+            <p><input type="checkbox" name="mapa" id="mapCalor">Mostrar mapa de calor</p>
+            <div>
+                <ul>
+                    <li><div class="mapcalor" style="background: red;"></div> >15 planes</li>
+                    <li><div class="mapcalor" style="background: orangered;"></div> >10 planes</li>
+                    <li><div class="mapcalor" style="background: yellow;"></div> >5 planes</li>
+                    <li><div class="mapcalor" style="background: LightGoldenRodYellow ;"></div> >0 planes</li>
+                </ul>
+            </div>
+        </div>
+        
+    </div>
+        
+    </div>
+</div>
