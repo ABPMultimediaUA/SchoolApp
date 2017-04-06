@@ -81,7 +81,7 @@ class Alumno extends REST_Controller {
         }
 
         // Find and return a single record for a particular alumno.
-        else if ($id != NULL && $nombre ===NULL && $user == NULL) {
+        else if ($id != NULL && $nombre ===NULL) {
             $id = (int) $id;
 
             // Validate the id.
@@ -110,7 +110,7 @@ class Alumno extends REST_Controller {
             }
         }
 
-        else if ($id === NULL && $nombre != NULL && $user == NULL)
+        else if ($id === NULL && $nombre != NULL)
         {
 
 
@@ -151,7 +151,7 @@ class Alumno extends REST_Controller {
             }
         }
 
-        else if (isset($user) && $user != NULL && $id == NULL && $nombre == NULL)
+        else if ($user != NULL)
         {
         	// Validate the id.
              if (!preg_match('/^[^<>()[\].,;:\s@"]+(?:\.[^<>()[\].,;:\s@"]+)*@(?:[^<>()[\].,;:\s@"]+\.)+[^<>()[\]\.,;:\s@"]{2,63}$/i', $user))
@@ -178,7 +178,7 @@ class Alumno extends REST_Controller {
 
             if (!empty($alumno))
             {   
-                $this->response($alumno, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+                $this->set_response($alumno, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
             }
             else
             {

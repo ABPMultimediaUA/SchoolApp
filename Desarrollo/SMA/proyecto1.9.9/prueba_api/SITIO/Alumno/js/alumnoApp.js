@@ -1,5 +1,5 @@
     var sesion = false;
-    if(localStorage.user == null){
+    if(localStorage.user == "null"){
         if(sessionStorage.getItem('user2') == null){
             window.location.replace("/prueba_api/SITIO/PagPrincipal/index.html");
         }else{
@@ -65,7 +65,7 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno=sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
         
         SUser="id/"+idAlumno;
@@ -145,9 +145,9 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-        idAlumnoParam="idAlumno/"+idAlumno+"/datoscurso/true";
+        idAlumnoParam=idAlumno+"datoscurso/true";
             var alumno = this;
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/alumno/alumno/"+idAlumnoParam+"/format/json", 
@@ -172,9 +172,9 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-            idAlumnoParam="idAlumno/"+idAlumno;
+            idAlumnoParam=idAlumno;
             var asistencia = this;
             //LLAMADA PARA RECOGER LAS FALTAS
             $http({
@@ -574,14 +574,14 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-            idAlumnoParam="idAlumno/"+idAlumno;
+            idAlumnoParam=idAlumno;
             var mencion = this;
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/mencion/mencion/"+idAlumnoParam+"/format/json",
                 method: "GET",
-                params: {idAlumno: idAlumno}
+                params: {idAlumno: idAlumnoParam}
             })
              .then(function(response) {
                 mencion.compuesto = angular.fromJson(response.data);            
@@ -597,12 +597,12 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno=sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-            noLei="/idAlumno/"+idAlumno+"/noleidos/1";
+            noLei=idAlumno+"noleidos/1";
             var mensaje = this;
             $http({
-                url: "http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje"+noLei+"/format/json",
+                url: "http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje/"+noLei+"/format/json",
                 method: "GET",
                 params: {idAlumno: idAlumno,
                          noleidos: 1}
@@ -646,9 +646,9 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-            noLei="idAlumno/"+idAlumno+"/noleidos/1";
+            noLei=idAlumno+"noleidos/1";
             var nuevo = this;
             
 //            //LLAMADA PARA RECOGER ASIGNATURAS DEL ALUMNO
@@ -689,9 +689,9 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-            Lei="idAlumno/"+idAlumno+"/leidos/1";
+            Lei=idAlumno+"leidos/1";
             var msghechos = this;
             
 //            //LLAMADA PARA RECOGER ASIGNATURAS DEL ALUMNO
@@ -705,7 +705,7 @@
             }, function errorCallback(response) {
                 alert()
             });
-           
+            
             //LLAMADA PARA RECOGER MENSAJES LEIDOS
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje/"+Lei+"/format/json",
@@ -751,17 +751,17 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-            idAlumnoParam="idAlumno/"+idAlumno;
+            idAlumnoParam=idAlumno;
             var evaluacion = this;
-            examAntic = idAlumnoParam + "/pasados/true";
+            examAntic = idAlumnoParam + "pasados/true";
             evaluacion.numero = "X";
             //LLAMADA PARA COGER EXAMENES ANTIGUOAS
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/examen/examen/"+examAntic+"/format/json",
                 method: "GET",
-                params: {idAlumno: idAlumno,
+                params: {idAlumno: idAlumnoParam,
                          pasados: true}
             })
              .then(function(response) {
@@ -877,15 +877,15 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-            idAlumnoParam="idAlumno/"+idAlumno+"/datoscurso/true";
+            idAlumnoParam=idAlumno+"datoscurso/true";
             var expediente = this;
             //LLAMADA PARA COGER DATOS DE ALUMNO
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/alumno/alumno/"+idAlumnoParam+"/format/json",
                 method: "GET",
-                params: {id: idAlumno,
+                params: {id: idAlumnoParam,
                          datoscurso: true}
             })
              .then(function(response) {
@@ -896,7 +896,7 @@
             });
             
             //LLAMADA PARA COGERHISTORICO DE AÑOS
-            idAlumnoParam2=idAlumno+"/soloanyos/true";
+            idAlumnoParam2=idAlumno+"soloanyos/true";
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/curso/curso/"+idAlumnoParam2+"/format/json",
                 method: "GET",
@@ -911,7 +911,7 @@
             
             expediente.selec = function(any){
                 //LLAMADA PARA COGERHISTORICO DE CURSOS
-                idAlumnoParam3 = idAlumno+ "/todas/1";
+                idAlumnoParam3 = idAlumno+ "todas/1";
                 expediente.mostrar = true;
                 expediente.nCurso = any;
                 $http({
@@ -945,16 +945,16 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
-            idAlumnoParam="idAlumno/"+idAlumno;
+            idAlumnoParam=idAlumno;
             var tarea = this;
-            tareaSin = idAlumnoParam+"/sinhacer/true";
+            tareaSin = idAlumnoParam+"sinhacer/true";
             //LLAMADA PARA COGER TAREAS ANTIGUOAS
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/tarea/tarea/"+tareaSin+"/format/json",
                 method: "GET",
-                params: {idAlumno: idAlumno,
+                params: {idAlumno: idAlumnoParam,
                          sinhacer: true}
             })
              .then(function(response) {
@@ -972,7 +972,7 @@
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/tarea/tarea/"+tareaHec+"/format/json",
                 method: "GET",
-                params: {idAlumno: idAlumno,
+                params: {idAlumno: idAlumnoParam,
                          hechas: true}
             })
              .then(function(response) {
@@ -990,7 +990,7 @@
                 if(accion){
                     tarea.marcado = false;
                     $http.put("http://localhost/prueba_api/alpha2/index.php/tarea/tarea",
-                          {idAlumno: idAlumno, idTarea: id, completada: 1}
+                          {idAlumno: idAlumnoParam, idTarea: id, completada: 1}
                     ).then(function(response){
                         tarea.put = angular.fromJson(response.data); 
                         if(tarea.put.message){
@@ -1000,7 +1000,7 @@
                 }else{
                     //PUT DE QUIOTAR
                     $http.put("http://localhost/prueba_api/alpha2/index.php/tarea/tarea",
-                          {idAlumno: idAlumno, idTarea: id, noCompletada: 1}
+                          {idAlumno: idAlumnoParam, idTarea: id, noCompletada: 1}
                     ).then(function(response){
                         tarea.put = angular.fromJson(response.data); 
                         if(tarea.put.message){
@@ -1019,7 +1019,7 @@
             idAlumno = localStorage.idAlumno;
         }else{    
             user1 = sessionStorage.getItem('user2');
-            idAlumno = sessionStorage.getItem('idAlumno');
+            sessionStorage.getItem('idAlumno');
         }
     }
 

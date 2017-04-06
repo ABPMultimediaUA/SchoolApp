@@ -15,11 +15,6 @@
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">    
 
-    <!-- Angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
-
-    <!-- archivos de angular -->
-    <script src="js/alumnoApp.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -28,9 +23,9 @@
     <![endif]-->
 
 </head>
-<body ng-app = "alumnoApp">
-<header>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+<body>
+    <header>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
         <div class="containerHeader">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -40,28 +35,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100"></a>
+                <a class="navbar-brand" href="#"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="80 "></a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <ul class="nav navbar-nav">
-                <li>
-                    <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
-                </li>
-
-            </ul>
+                    <li>
+                        <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                    </li>
+                </ul>
             <ul  class="nav navbar-nav navbar-right">
                 <li class="user">
-                    <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user">  {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                    <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
                 </li>
-                    <li>
-                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
-                    </li>
+                <li>
+                    <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                </li>
             </ul>
         </div>
     </nav>
-</header>
+    </header>
 
-    <div class="container" ng-controller = "tareaController as tarea">
+    <div class="container">
         <!-- Marketing Icons Section -->
         <div class="row">
             <div class="col-lg-12">
@@ -73,25 +67,47 @@
                     <li class="active"><a href="tareasHechas.html" class="btn btn-default active">HECHAS <span class="glyphicon glyphicon-check"></a></li>
                 </ul>
             </div>
-            <div class="col-lg-12" ng-init="checked = true" ng-if="tarea.mim">
-                <div class="panel panel-default">
-                    <p>No tienes ninguna tarea hecha aún</p>
-                </div>
-            </div>
-            <div class="col-lg-12" ng-repeat = "item in tarea.listaHec" ng-show="!checked">
+            <div class="col-lg-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <div class="btn-group pull-right" data-toggle="buttons">
-                            <label class="btn btn-danger">
-                                <input type="checkbox" ng-click="tarea.hecha($index, item.idTarea, false)" ng-model="checked" autocomplete="on">
-                                <span>Marcar como no hecha</span>
-                            </label>   
-                        </div>
-                        <h4>{{item.nombreAsignatura}}</h4><time> 8 de marzo de 2017</time>
+                        <h4>HISTORIA</h4><time> 8 de marzo de 2017</time>
                     </div>
                     <div class="panel-body">
-                        <p>{{item.descripcion}}</p> 
-                        <p><b>Fecha entrega: </b>{{item.fecha_limite}}</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet</p> 
+                        <p><b>Fecha entrega: </b>10/03/2017</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>MATEMÁTICAS</h4><time> 7 de marzo de 2017</time>
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quo</p>
+                        <p><b>Fecha entrega: </b>12/03/2017</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>LENGUA</h4><time> 6 de marzo de 2017</time>
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quo</p>
+                        <p><b>Fecha entrega: </b>8/03/2017</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>INGLÉS</h4><time> 5 de marzo de 2017</time>
+                    </div>
+                    <div class="panel-body">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quo</p>
+                        <p><b>Fecha entrega: </b>08/03/2017</p>
                     </div>
                 </div>
             </div>
@@ -106,5 +122,19 @@
             </div>
         </footer>
     </div>
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+    
 </body>
 </html>

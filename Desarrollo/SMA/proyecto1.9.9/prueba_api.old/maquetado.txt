@@ -1,5 +1,0 @@
-ALUMNO
- En faltaAsistencia.html: Poner los radiobutton a la parte derecha de la página.
-
- En expediente.html: Hacer bonito el mensaje de "Consulta tus notas".
-
