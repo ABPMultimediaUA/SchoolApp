@@ -281,7 +281,7 @@
 
               if(bool == false){
                   $http({
-                      url: "http://localhost/prueba_api/alpha2/index.php/user/user", 
+                      url: "http://localhost/prueba_api/alpha2/index.php/user/user/"+param, 
                       method: "GET",
                       params: {username: usuario, password: password}
                   })
