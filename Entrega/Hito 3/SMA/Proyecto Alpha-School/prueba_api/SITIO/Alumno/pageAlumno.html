@@ -15,13 +15,16 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">    
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
-    
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.min.js"></script>
+    
+    <!-- archivos de angular -->
+    <script src="js/alumnoApp.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,10 +34,10 @@
 
 </head>
 
-<body ng-app = "myApp">
+<body ng-app = "alumnoApp">
 
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"  ng-controller = "navController as nav">
             <div class="containerHeader">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -44,16 +47,22 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="80 "></a>
+                    <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100"></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="#" target="_blank"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                    </li>
+
+                </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
-                        <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                        <!--Con el enlace se accede a los datos del usuario "Mis Datos"-->
+                        <h3><a href="datosAlum.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
-                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
                     </li>
                 </ul>
             </div>
@@ -70,68 +79,69 @@
                 <h1 class="page-header">ALPHA SCHOOL - PÁGINA ALUMNO</h1>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="mensajesRecibAlum.html">
+                <a class="thumbnail" target="_blank" href="mensajesRecibAlum.html">
                     <img class="img-responsive" src="img/B-mensajes.jpg" alt="Mensajes">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="tareasHacerAlum.html">
+                <a class="thumbnail" target="_blank" href="tareasHacerAlum.html">
                     <img class="img-responsive" src="img/B-tareas.jpg" alt="Tareas">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="horario.html">
+                <a class="thumbnail" target="_blank" href="horario.html">
                     <img class="img-responsive" src="img/B-horario.jpg" alt="Horario">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="materialesSinDescargarAlum.html">
+                <a class="thumbnail" target="_blank" href="materialesSinDescargarAlum.html">
                     <img class="img-responsive" src="img/B-materiales.jpg" alt="Materiales">
                 </a>
             </div>
 
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="anuncios.html">
+                <a class="thumbnail" target="_blank" href="anuncios.html">
                     <img class="img-responsive" src="img/B-anuncio.jpg" alt="Anuncios">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="evaluación.html">
+                <a class="thumbnail" target="_blank" href="evaluacion.html">
                     <img class="img-responsive" src="img/B-evaluacion.jpg" alt="Evalución">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="segumientoAlum.html">
+                <a class="thumbnail" target="_blank" href="segumientoAlum.html">
                     <img class="img-responsive" src="img/B-seguimiento.jpg" alt="Seguimiento">
                 </a>
             </div>
 
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="expediente.html">
+                <a class="thumbnail" target="_blank" href="expediente.html">
                     <img class="img-responsive" src="img/B-expediente.jpg" alt="Expediente">
                 </a>
             </div>    
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="mencionesAlum.html">
+                <a class="thumbnail" target="_blank" href="mencionesAlum.html">
                     <img class="img-responsive" src="img/B-menciones.jpg" alt="Menciones">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="faltaAsistenciaAlum.html">
+                <a class="thumbnail" target="_blank" href="faltaAsistenciaAlum.html">
                     <img class="img-responsive" src="img/B-faltas.jpg" alt="Falta de Asistencia">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="#">
+                <a class="thumbnail" target="_blank" href="#">
                     <img class="img-responsive" src="img/B-foro.jpg" alt="Foro">
                 </a>
             </div>
             <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-                <a class="thumbnail" href="ajustes.html">
+                <a class="thumbnail" target="_blank" href="ajustes.html">
                     <img class="img-responsive" src="img/B-ajustes.jpg" alt="Ajustes">
                 </a>
             </div>
         </div>
+
 
         <hr>
 
@@ -145,47 +155,6 @@
         </footer>
 
     </div>
-
-<script>
-    var user = sessionStorage.getItem('user');
-    
-    angular.module('myApp', [])
-    .controller('navController', navController);
-    
-    //ESTE CONTROLADOR SERIA MEJOR QUE ESTUVIERA FUERA
-    navController.$inject = ['$scope', '$http'];
-    function navController($scope, $http){
-        if(user == null){
-            SUser="";
-            bool = true;
-        }else{
-            SUser="usuario/"+user;
-            bool = false;
-        }
-        if(bool == false){
-            var nav = this;
-            $http({
-                url: "http://localhost/prueba_api/alpha2/index.php/alumno/alumno/"+SUser+"/format/json", 
-                method: "GET",
-                params: {usuario: user}
-            })
-             .then(function(response) {
-                nav.compuesto = angular.fromJson(response.data);
-                nav.nombre = nav.compuesto.nombre;
-                nav.apellidos = nav.compuesto.apellidos;
-                }, function errorCallback(response) {
-                alert()
-            });
-        }
-    };
-</script>
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
 </body>
 
 </html>

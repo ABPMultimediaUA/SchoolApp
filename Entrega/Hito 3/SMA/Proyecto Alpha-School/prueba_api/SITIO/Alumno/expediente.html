@@ -17,43 +17,49 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-cookies.min.js"></script>
+    
+    <!-- archivos de angular -->
+    <script src="js/alumnoApp.js"></script>
 </head>
     
-<body>
+<body ng-app = "alumnoApp">
 <!--Cabercera-->
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
-            <div class="containerHeader">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="80 "></a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
-                    </li>
-                </ul>
-                <ul  class="nav navbar-nav navbar-right">
-                    <li class="user">
-                        <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datosAlum.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
-                    </li>
-                    <li>
-                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
-                    </li>
-                </ul>
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+        <div class="containerHeader">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="pagUser.html" target="_blank"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100"></a>
             </div>
-        </nav>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                </li>
+
+            </ul>
+            <ul  class="nav navbar-nav navbar-right">
+                <li class="user">
+                    <h3><a href="datos.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user">  {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                </li>
+                    <li>
+                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                    </li>
+            </ul>
+        </div>
+    </nav>
     </header>
     
-    <div class="container">
+    <div class="container" ng-controller = "expedienteController as expediente">
         <div class="row">
             <div class="col-lg-12">
                 <h1>Expediente estudiantil</h1>
@@ -70,43 +76,43 @@
                         <div class="form-group">
                             <label for="nombre" class="col-xs-3 control-label">Nº Expediente</label>
                                 <div class="col-xs-3">
-                                    <p class="form-control-static">123</p>
+                                    <p class="form-control-static">{{expediente.compuesto.InformeAlumno_numExpediente}}</p>
                                 </div>
                         </div>
                         <div class="form-group">
                             <label for="nombre" class="col-xs-3 control-label">Nombre</label>
                             <div class="col-xs-3">
-                                <p class="form-control-static">JUAN</p>
+                                <p class="form-control-static">{{expediente.compuesto.nombre | uppercase}}</p>
                             </div>
                         </div> 
                         <div class="form-group">
                             <label for="apellidos" class="col-xs-3 control-label">Apellidos</label>
                             <div class="col-xs-3">
-                                <p class="form-control-static">MARTÍNEZ GARCÍA</p>
+                                <p class="form-control-static">{{expediente.compuesto.apellidos | uppercase}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="curso" class="col-xs-3 control-label">Curso</label>
                             <div class="col-xs-3">
-                                <p class="form-control-static">3º ESO</p>
+                                <p class="form-control-static">{{expediente.compuesto.nombreCurso}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="grupo" class="col-xs-3 control-label">Grupo</label>
                             <div class="col-xs-3">
-                                <p class="form-control-static">B</p>
+                                <p class="form-control-static">{{expediente.compuesto.grupo}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword2" class="col-xs-3 control-label">Email</label>
                             <div class="col-xs-3">
-                               <p class="form-control-static">juan123@alphaschool.com</p>
+                               <p class="form-control-static">{{expediente.compuesto.email}}</p>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword2" class="col-xs-3 control-label">Tutor/a</label>
                             <div class="col-xs-3">
-                               <p class="form-control-static">ISABEL LÓPEZ CASTILLO</p>
+                               <p class="form-control-static">{{expediente.compuesto.tutor}}</p>
                             </div>
                         </div> 
                     </div>
@@ -120,52 +126,43 @@
             <div class="form-group">
                 <label for="sel1">Año:</label>
                 <select class="form-control" id="sel1">
-                    <option>2012-13</option>
-                    <option>2013-14</option>
-                    <option>2014-15</option>
-                    <option>2015-16</option>
-                    <option>2016-17</option>
+                   <option></option>
+                    <option ng-repeat="item in expediente.respuesta" ng-click="expediente.selec(item.anyo)">{{item.anyo}}</option>
                 </select>
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" ng-show="!expediente.mostrar">
+            <div class="col-sm-12">Consulta tus notas</div>
+        </div>
+        
+        <div class="row" ng-show="expediente.mostrar">
             <div class="col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h2>Curso 2016-17</h2>
+                        <h2>Curso {{expediente.nCurso}}</h2>
                     </div>
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-sm-4">
                                     <h3>ASIGNATURAS</h3>
-                                    <h4>Matemáticas</h4>
-                                    <h4>Lengua</h4>
-                                    <h4>Biología</h4>
+                                    <h4 ng-repeat="item in expediente.listHist">{{item.nombre}}</h4>
                                 </div>
                                 <div class="col-sm-2">
-                                    <h4>1ª EVALUCAIÓN</h4>
-                                    <h4>9</h4>
-                                    <h4>9</h4>
-                                    <h4>9</h4>
+                                    <h4>1ª EVALUCIÓN</h4>
+                                    <h4 ng-repeat="item in expediente.listHist">{{item.notaEvaluacion1}}</h4>
                                 </div>
                                 <div class="col-sm-2">
-                                    <h4>2ª EVALUCAIÓN</h4>
-                                    <h4>8</h4>
-                                    <h4>8</h4>
-                                    <h4>8</h4>
+                                    <h4>2ª EVALUCIÓN</h4>
+                                    <h4  ng-repeat="item in expediente.listHist">{{item.notaEvaluacion2}}</h4>
                                 </div>
                                 <div class="col-sm-2">
-                                    <h4>3ª EVALUCAIÓN</h4>
-                                    <h4>7</h4>
-                                    <h4>7</h4>
-                                    <h4>7</h4>
+                                    <h4>3ª EVALUCIÓN</h4>
+                                    <h4  ng-repeat="item in expediente.listHist">{{item.notaEvaluacion3}}</h4>
                                 </div>
                                 <div class="col-sm-2">
                                     <h4>NOTA FINAL</h4>
-                                    <h4>8</h4>
-                                    <h4>8</h4>
-                                    <h4>8</h4>
+                                    <h4 ng-repeat="item in expediente.listHist">{{item.NotaFinal}}</h4>
                                 </div>
                             </div>
                         </div>

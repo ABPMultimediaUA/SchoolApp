@@ -13,17 +13,17 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="css/style.css" rel="stylesheet">
-
-    <!-- Custom Fonts -->
-    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
-    
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
     <!-- Angular -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
-
+   
+    <!-- archivos de angular -->
+    <script src="js/alumnoApp.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,9 +33,9 @@
 
 </head>
 
-<body>
+<body ng-app = "alumnoApp">
     <header>
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
             <div class="containerHeader">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -45,38 +45,39 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="80 "></a>
+                    <a class="navbar-brand" href="pageAlumno.html"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100 "></a>
                 </div>
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <ul class="nav navbar-nav">
                     <li>
                         <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
                     </li>
+
                 </ul>
                 <ul  class="nav navbar-nav navbar-right">
                     <li class="user">
                         <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
-                        <h3><a href="datosAlum.html" target="_blank"><img src="img/chico.png" class="img-circle" alt="user"></a> MARTÍNEZ GARCÍA, JUAN </h3>
+                        <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
                     </li>
                     <li>
-                        <a href="index.html"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
-    
+    </br>   
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" ng-controller = "msgHechosController as msghechos">
         <!-- Marketing Icons Section -->
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
-                    MENSAJES <small>Enviados</small>
+                    MENSAJES <small>Hechos</small>
                 </h1>
                 <ul class="nav nav-tabs">
-                    <li><a href="mensajesRecibAlum.html" class="btn btn-default active">Recibidos <span class="glyphicon glyphicon-save"></span></a></li>
-                    <li class="active"><a href="mensajesEnviadosAlum.html" class="btn btn-default active">Enviados <span class="glyphicon glyphicon-open"></span></a></li>
+                    <li><a href="mensajesRecibAlum.html" class="btn btn-default active">Pendientes <span class="glyphicon glyphicon-save"></span></a></li>
+                    <li class="active"><a href="mensajesEnviadosAlum.html" class="btn btn-default active">Hechos <span class="glyphicon glyphicon-open"></span></a></li>
                     <li class="pull-right"><a href="mensajeNuevoAlum.html" class="btn btn-default active"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</a>
                 </ul>
 
@@ -85,89 +86,123 @@
                     <button type="button" class="btn btn-default">Eliminados <span class="glyphicon glyphicon-trash"></span></button>
                     <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</button-->
             </div>
-            <div class="col-lg-12">
+            
+            <div class="col-sm-2">
+                <div class="form-group">
+                    <label for="sel1">Asignatura:</label>
+                    <select class="form-control" id="sel1"ng-init="msghechos.leido=false">
+                        <option>--</option>
+                        <option ng-repeat="item in msghechos.listAsignaturas"  ng-click="msghechos.filtrar(item.idAsignatura)">{{item.nombre}}</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="col-lg-12" ng-repeat-start="item in msghechos.leidos" ng-show="!msghechos.leido">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <!--button type="button" class="btn btn-info pull-right" data-toggle="collapse" data-target="#demo">Leído</button-->
-                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar()">
+                        <div class="col-xs-2" ng-show="ver">
+                            <a ng-click="ver=false" class="btn btn-primary active btn-xs-2"> Contraer</a>
+                        </div>
+                        <div class="col-xs-2" ng-show="!ver">
+                            <a ng-click="ver=true" class="btn btn-primary active btn-xs-2"> Ver</a>
+                        </div>
+                       
                         <h4>
-                            Mensaje 4
+                            {{item.asunto}}
                         </h4>
                         <h5>
-                            Para: Antonio García, profesor de Física
+                            De: {{item.NombreProfesor}}, profesor de Física - {{item.fecha}}
                         </h5>
                     </div>
 
-                    <div class="panel-body">
+                    <div class="panel-body" ng-show="ver">
                         <div class="form-group" id="nover">
                             
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                    
-                            
+                                <p>{{item.texto}}</p>
+                                
+                                <div class="col-xs-2" ng-show="ocult">
+                                    <a ng-click="responder=false; ocult=false" class="btn btn-danger active btn-xs-2"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</a>
+                                </div>  
+                                <div class="col-xs-2" ng-show="!ocult">
+                                    <a ng-click="responder=true; ocult=true" class="btn btn-primary active btn-xs-2 btn-block"><span class="glyphicon glyphicon-edit"></span> Responder</a>
+                                </div>                                 
                         </div>
                     </div>
                 </div>
             </div>
-
-
-            <div class="col-lg-12">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar2()">
-                            <h4>
-                                Mensaje 5
-                            </h4>
-                            <h5>
-                                Para: Antonio García, profesor de Física
-                            </h5>
-                    </div>
-
-                    <div class="panel-body">
-                        <div class="form-group" id="nover2">
-                            
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                  
-                            
+            <div class="col-lg-12" ng-if="responder" ng-repeat-end>
+                <form name = "nuevoMensajeForm" class="form-horizontal col-xs-12" ng-submit = "msghechos.crearMensaje(item.idProfesor, item.asunto , item.idMensaje)">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-12">
+                          <label for="comment">Pregunta:</label>
+                          <textarea ng-model = "msghechos.formMensaje" class="form-control" rows="6" id="comment"></textarea>
                         </div>
                     </div>
-                </div>
+
+                    <div class="form-group col-md-4">      
+
+                        <div class="col-sm-offset-2 col-xs-2 col-sm-2">
+                            <button type="submit" class="btn btn-info active btn-md">
+                                <span class="glyphicon glyphicon-send"></span> Enviar
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-
-            <div class="col-lg-12">
+            
+            <div class="col-lg-12" ng-repeat-start="item in msghechos.filtrados" ng-show="msghechos.leido">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <input type="button" class="btn btn-default pull-right" value="Ver" onclick="mostrar3()">
+                        <div class="col-xs-2" ng-show="ver">
+                            <a ng-click="ver=false" class="btn btn-primary active btn-xs-2"> Contraer</a>
+                        </div>
+                        <div class="col-xs-2" ng-show="!ver">
+                            <a ng-click="ver=true" class="btn btn-primary active btn-xs-2"> Ver</a>
+                        </div>
+                       
                         <h4>
-                            Mensaje 6                         
+                            {{item.asunto}}
                         </h4>
                         <h5>
-                            Para: Antonio García, profesor de Física
+                            De: {{item.NombreProfesor}}, profesor de Física - {{item.fecha}}
                         </h5>
                     </div>
 
-                    <div class="panel-body">
-                        <div class="form-group" id="nover3">
+                    <div class="panel-body" ng-show="ver">
+                        <div class="form-group" id="nover">
                             
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>                                    
-                            
+                                <p>{{item.texto}}</p>
+                                
+                                <div class="col-xs-2" ng-show="ocult">
+                                    <a ng-click="responder=false; ocult=false" class="btn btn-danger active btn-xs-2"><span class="glyphicon glyphicon-ban-circle"></span> Cancelar</a>
+                                </div>  
+                                <div class="col-xs-2" ng-show="!ocult">
+                                    <a ng-click="responder=true; ocult=true" class="btn btn-primary active btn-xs-2 btn-block"><span class="glyphicon glyphicon-edit"></span> Responder</a>
+                                </div>                                 
                         </div>
-                    </div>                    
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-12" ng-if="responder" ng-repeat-end>
+                <form name = "nuevoMensajeForm" class="form-horizontal col-xs-12" ng-submit = "msghechos.crearMensaje(item.idProfesor, item.asunto , item.idMensaje)">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-12">
+                          <label for="comment">Pregunta:</label>
+                          <textarea ng-model = "msghechos.formMensaje" class="form-control" rows="6" id="comment"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">      
+
+                        <div class="col-sm-offset-2 col-xs-2 col-sm-2">
+                            <button type="submit" class="btn btn-info active btn-md">
+                                <span class="glyphicon glyphicon-send"></span> Enviar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
         </div>
 
         <!-- Footer -->
@@ -180,36 +215,6 @@
         </footer>
 
     </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-
-     function mostrar(){
-        document.getElementById('nover').style.display = 'inline';
-    }
-
-    function mostrar2(){
-        document.getElementById('nover2').style.display = 'inline';
-    }
-
-    function mostrar3(){
-        document.getElementById('nover3').style.display = 'inline';
-    }
-   
-
-    
-    </script>
-
 </body>
 
 </html>
