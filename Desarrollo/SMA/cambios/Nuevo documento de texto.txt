@@ -1,0 +1,4 @@
+Te dejo la nueva version de alpha2
+Tambien esta listaExamen arreglado
+Hay dos archivos .js cada uno va a su carpeta correspondiente (SITIO/rol/js)
+tambien los html de conversacion padre/rofesor arreglados

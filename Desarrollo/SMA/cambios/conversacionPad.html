@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chat</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+   
+    <!-- archivos de angular -->
+    <script src="js/padreApp.js"></script>
+<!--    Exportar a pdf-->
+   <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+   <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+   <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+</head>
+
+<body ng-app = "padreApp">
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" ng-controller = "navController as nav">
+            <div class="containerHeader">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="pageAlumno.html"><img src="img/logoAlpha.png" class="img-responsive " alt="Logotipo" width="100 "></a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="pageAlumno.html"><span class="glyphicon glyphicon-triangle-left"></span> Volver</a>
+                    </li>
+
+                </ul>
+                <ul  class="nav navbar-nav navbar-right">
+                    <li class="user">
+                        <!--Con el enlace se accede a los datos del usuario "Mis Datos"  -->
+                        <h3><a href="datosAlum.html"><img src="img/chico.png" class="img-circle" alt="user"> {{nav.apellidos}}, {{nav.nombre}} </a></h3>
+                    </li>
+                    <li>
+                        <button type = "button" ng-click = "nav.logOut()"><span class="glyphicon glyphicon-log-out"></span> Logout</button>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    </br>   
+    <!-- Page Content -->
+    <div class="container" ng-controller = "msgHechosController as msghechos">
+        <!-- Marketing Icons Section -->
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="page-header">
+                    MENSAJES <small>Hechos</small>
+                </h1>
+                <ul class="nav nav-tabs">
+                    <li><a href="mensajesRecibPad.html" class="btn btn-default active">Pendientes <span class="glyphicon glyphicon-save"></span></a></li>
+                    <li class="active"><a href="mensajesEnviadosPad.html" class="btn btn-default active">Hechos <span class="glyphicon glyphicon-open"></span></a></li>
+                </ul>
+
+                    <!--button type="button" class="btn btn-default">Recibidos <span class="glyphicon glyphicon-save"></span></button>
+                    <button type="button" class="btn btn-default">Enviados <span class="glyphicon glyphicon-open"></button>
+                    <button type="button" class="btn btn-default">Eliminados <span class="glyphicon glyphicon-trash"></span></button>
+                    <button type="button" class="btn btn-default pull-right"><span class="glyphicon glyphicon-plus"></span> Nuevo Mensaje</button-->
+            </div>
+            
+            <div class="col-lg-12" ng-init="msghechos.init()">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4>
+                            {{msghechos.nProfesor}}, profesor de {{msghechos.nAsignatura}}
+                        </h4>
+                    </div>
+
+                    <div class="panel-body" ng-repeat="item in msghechos.todos" ng-if="msghechos.profesorCrea">
+<!--                       Profesor-->
+                        <div class="form-group pull-left" ng-if="$even">
+                          <p>{{msghechos.nProfesor}}:</p><br>
+                           <p>{{item.fecha}}</p>
+                            <p>{{item.texto}}</p>                                 
+                        </div>
+<!--                       Padre-->
+                        <div class="form-group pull-right" ng-if="$odd">
+                           <p>Yo:</p><br>
+                           <p>{{item.fecha}}</p>
+                            <p>{{item.texto}}</p>                                 
+                        </div>
+                    </div>                    
+                    
+                    <div class="panel-body" ng-repeat="item in msghechos.todos" ng-if="msghechos.padreCrea">
+<!--                       Padre-->
+                        <div class="form-group pull-right" ng-if="$even">
+                           <p>Yo:</p><br>
+                           <p>{{item.fecha}}</p>
+                            <p>{{item.texto}}</p>      
+                        </div>
+<!--                       Profesor-->
+                        <div class="form-group pull-left" ng-if="$odd">
+                          <p>{{msghechos.nProfesor}}:</p><br>
+                           <p>{{item.fecha}}</p>
+                            <p>{{item.texto}}</p>                                 
+                        </div>
+                    </div>
+                    <div class="panel-body" ng-if="msghechos.respon">
+                        <div class="form-group pull-right">
+                           <p>Yo:</p><br>
+                            <p>{{msghechos.formMensaje}}</p>                                 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-2" ng-show="!ocult">
+                <button ng-disabled="msghechos.dis == 1" ng-click="msghechos.responder=true; ocult=true" class="btn btn-primary active btn-xs-2 btn-block">
+                    <span class="glyphicon glyphicon-edit"></span> Responder
+                </button>
+            </div>  
+            <div class="col-xs-2" ng-if="msghechos.llegit==0">
+                <a ng-click="msghechos.marcarLeido(no); leido=true" class="btn btn-primary active btn-xs-2 btn-block">Marca como leído</a>
+            </div>
+            <div class="col-lg-12" ng-if="msghechos.responder">
+                <form name = "nuevoMensajeForm" class="form-horizontal col-xs-12" ng-submit = "msghechos.responderMensaje(); ocult=true">
+                    <div class="form-group col-md-12">
+                        <div class="col-md-12">
+                          <label for="comment">Respuesta:</label>
+                          <textarea ng-model = "msghechos.formMensaje" class="form-control" rows="6" id="comment"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-4">      
+
+                        <div class="col-sm-offset-2 col-xs-2 col-sm-2">
+                            <button type="submit" class="btn btn-info active btn-md" ng-disabled="!(!!msghechos.formMensaje)">
+                                <span class="glyphicon glyphicon-send"></span> Enviar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; AlphaSchool 2017 - Pagina Web sin animo de lucro</p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+</body>
+
+</html>
