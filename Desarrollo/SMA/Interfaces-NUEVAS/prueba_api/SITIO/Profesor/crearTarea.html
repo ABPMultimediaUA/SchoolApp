@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+    
+    <title>Crear Tarea</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+    
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+	<!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- archivos de angular -->
+    <script src="js/profesorApp.js"></script>
+    
+     <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>   
+    <!-- cdn for modernizr, if you haven't included it already -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+      webshims.setOptions('waitReady', false);
+      webshims.setOptions('forms-ext', {types: 'date'});
+      webshims.polyfill('forms forms-ext');
+    </script>
+
+</head>
+    
+<body ng-app = "profesorApp">
+	<header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageProfesor.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosProfe.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button" class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i> </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">		
+        <div class="container" ng-controller="tareaController as tarea">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="verTareas.html" class="btn btn-default">Ver Tarea</a></li>
+                        <li role="presentation" class="active"><a href="crearTarea.html" class="btn btn-default">Crear Tarea</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-10">
+                    <div class="col-lg-12">
+                        <h2 id="h2Titulo">
+                            CREAR TAREAS
+                        </h2>
+                    </div>
+
+                    <form class="form-horizontal col-md-12" ng-submit="tarea.crearTarea()" ng-show="tarea.checked">
+                        <div class="col-sm-10">
+                            <div class="form-group col-sm-4">
+                                <label for="sel1"> Curso: </label>
+                                <select class="form-control" id="sel1" ng-change="tarea.clickCurso()" ng-model="tarea.selectedCurso">
+                                    <option ng-repeat="item in tarea.lista" value="{{item.idCurso}}">{{item.nombre}} {{item.grupo}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-10">
+                            <div class="form-group col-sm-4">
+                                <label for="sel1"> Asignatura: </label>
+                                <select class="form-control" id="sel1" ng-model="tarea.selectedAsig" ng-change="tarea.clickAsignatura()">
+                                    <option ng-repeat="item in tarea.listAsignaturas" value="{{item.idAsignatura}}">{{item.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-4">
+                                <label for="sel1">Fecha</label></br>
+                                <input type="date" ng-model = "tarea.fecha" name = "fechaFalta" placeholder = "DD/MM/AAAA" />
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-4">
+                                <label for="titulo">Título:</label>
+                                <input type="text" ng-model="tarea.titulo" class="form-control" id="tituloTarea" placeholder="Título de la tarea">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-6">
+                                <label for="comment">Descripción:</label>
+                                <textarea class="form-control" ng-model="tarea.desc" rows="5" id="comment" placeholder="Descripción de la tarea"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="row col-sm-10">
+                            <div class="col-sm-2">
+                                <button class="btn btn-danger active btn-md">
+                                    <span class="glyphicon glyphicon-ban-circle"></span> Cancelar
+                                </button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="submit" class="btn btn-primary active btn-md">
+                                    <span class="glyphicon glyphicon-cloud-upload"></span> Crear
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+                
+                    <div class="col-lg-12" ng-show="!tarea.checked">
+                        <div>Tarea creada con éxito</div>
+                        <a href="verTareas.html"><button>Volver a tareas</button></a>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>{{tarea.titulo}}</h4>
+                            </div>
+                            <div class="panel-body">
+                                <p>{{tarea.desc}}</p> 
+                                <p><b>Fecha entrega: </b>{{tarea.fecha}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

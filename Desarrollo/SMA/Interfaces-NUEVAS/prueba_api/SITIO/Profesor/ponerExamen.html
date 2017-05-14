@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+    
+    <title>Publicar Examen</title>
+    
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+    
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+	<!-- jQuery -->
+    <script src="js/jquery.js"></script>
+        <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- archivos de angular -->
+    <script src="js/profesorApp.js"></script>
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>    
+    <!-- cdn for modernizr, if you haven't included it already -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+      webshims.setOptions('waitReady', false);
+      webshims.setOptions('forms-ext', {types: 'date'});
+      webshims.polyfill('forms forms-ext');
+    </script>
+</head>
+    
+<body ng-app="profesorApp">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageProfesor.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosProfe.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button" class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i> </button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="content">
+        <div class="container" ng-controller="examenController as examen">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="evaluar.html" class="btn btn-default">Evaluar</a></li>
+                        <li role="presentation"><a href="listaExamen.html" class="btn btn-default">Ver exámenes</a></li>
+                        <li role="presentation" class="active"><a href="ponerExamen.html" class="btn btn-default">Publicar Examen</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-10">
+
+                    <div class="col-lg-12">
+                        <h2 id="h2Titulo">
+                            PUBLICAR EXAMEN
+                        </h2>
+                    </div>
+                
+                    <form class="form-horizontal col-md-10" ng-submit="examen.crearExamen()" ng-show="!examen.publicado">
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-4">
+                                <label for="sel1"> Curso: </label>
+                                <select class="form-control" id="sel1" ng-model="examen.selectedCurso" ng-change="examen.clickCurso()">
+                                    <option ng-repeat="item in examen.lista" value="{{item.idCurso}}">{{item.nombre}} {{item.grupo}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-4">
+                                <label for="sel1"> Asignatura: </label>
+                                <select class="form-control" id="sel1" ng-model="examen.selectedAsig" ng-change="examen.clickAsignatura()">
+                                    <option ng-repeat="item in examen.listAsignaturas" value="{{item.idAsignatura}}">{{item.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-4">
+                                <p><b>Fecha:</b> <input type="date" name = "fechaExamen" ng-model="examen.fecha" placeholder = "DD/MM/AAAA">
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-4">
+                                <label for="sel1"> Evaluación: </label>
+                                <select class="form-control" id="sel1" ng-model="examen.evaluacion">
+                                    <option value="1">1º</option>
+                                    <option value="2">2º</option>
+                                    <option value="3">3º</option>
+                                </select>
+                            </div>
+                        </div>
+                    
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-4">
+                                <label for="titulo">Título:</label>
+                                <input type="text" class="form-control" ng-model="examen.titulo" id="tituloTarea" placeholder="Tema del examen">
+                            </div>
+                        </div>
+                        
+                        <div class="col-sm-12">
+                            <div class="form-group col-sm-12">
+                                <label for="comment">Descripción:</label>
+                                <textarea class="form-control" rows="5" ng-model="examen.texto" id="comment" placeholder="Descripción del examen"></textarea>
+                            </div>
+                        </div>
+                    
+                        <div class="row col-sm-12">
+                            <div id="alinear" class="col-sm-2">
+                                <button type="submit" class="btn btn-primary btn-md" ng-disabled="!(!!examen.selectedCurso) || !(!!examen.selectedAsig)
+                                     || !(!!examen.evaluacion) || !(!!examen.titulo) || !(!!examen.texto)">
+                                    <span class="glyphicon glyphicon-cloud-upload"></span> Crear
+                                </button>
+                            </div>
+                        </div>            
+
+                    </form>
+                
+                    <div class="col-lg-12" ng-show="examen.publicado">
+                        <h3>Publicado con éxito</h3>
+                        <div ng-show="editar">
+                            <label for="sel1"> Curso: </label>
+                            <select class="form-control" id="sel1" ng-model="examen.selectedCurso" ng-change="examen.clickCurso()">
+                                <option ng-repeat="item in examen.lista" value="{{item.idCurso}}">{{item.nombre}} {{item.grupo}}</option>
+                            </select>
+                            <label for="sel1"> Asignatura: </label>
+                            <select class="form-control" id="sel1" ng-model="examen.selectedAsig" ng-change="examen.clickAsignatura()">
+                                <option ng-repeat="item in examen.listAsignaturas" value="{{item.idAsignatura}}">{{item.nombre}}</option>
+                            </select>
+                            Fecha: <input type="text" ng-model="examen.fechaB"><br>
+                            <label for="sel1"> Evaluación: </label>
+                            <select class="form-control" id="sel1" ng-model="examen.evaluacion">
+                                <option value="1">1º</option>
+                                <option value="2">2º</option>
+                                <option value="3">3º</option>
+                            </select>
+                            Título: <input type="text" ng-model="examen.titulo" id="titulo"> <br>
+                            Descripcion: <input type="text" ng-model="examen.texto">
+                            <button class="btn btn-primary btn-md" ng-click="editar = false; examen.editarExamen()">Aceptar</button>
+                        </div><br>    
+                        <div ng-show="!editar">
+                            <h4><b>Título: </b></h4><h5>{{examen.titulo}} </h5>
+                            <h4><b>Curso: </b></h4><h5>{{examen.nombreCurso}} {{examen.grupoCurso}} </h5>
+                            <h4><b>Fecha: </b></h4><h5>{{examen.fechaB}} </h5>
+                            <h4><b>Evaluacion: </b></h4><h5>{{examen.evaluacion}} º</h5>
+                            <h4><b>Descripción: </b></h4><h5>{{examen.texto}}</h5>
+                            <br>
+
+                            <div class="col-md-12">
+                                <div class="col-md-6 colocarDerecha">
+                                    <button class="btn btn-primary btn-md" ng-click="editar = true">Editar</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <a href="ponerExamen.html"><button class="btn btn-primary btn-md">Volver</button></a>
+                                </div>
+
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

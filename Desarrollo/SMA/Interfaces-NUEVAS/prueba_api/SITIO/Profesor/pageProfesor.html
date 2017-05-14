@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+
+    <title>Página Profesor</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- archivos de angular -->
+    <script src="js/profesorApp.js"></script>
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+
+</head>
+
+<body ng-app="profesorApp" class="page1" id="top">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageProfesor.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosProfe.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+        
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="gallery">
+                        <div class="flex-container"> 
+                            <div class="flex-item">
+                                <a href="mensajesRecibProfe.html" class="gal_item">
+                                    <img src="img/mensajes.jpg" alt="">
+                                    <div class="gal_caption">Mensajes</div>
+                                    <span class="gal_magnify"></span->
+                                </a>
+                            </div>
+                            <div class="flex-item">
+                                <a href="subirMaterial.html" class="gal_item">
+                                    <img src="img/subirMaterial.jpg" alt="">
+                                    <div class="gal_caption">Subir</div>
+                                </a>
+                            </div>
+                            <div class="flex-item">
+                                <a href="ponerFaltaAsistencia.html" class="gal_item">
+                                    <img src="img/faltas.jpg" alt="">
+                                    <div class="gal_caption">Faltas</div>
+                                </a>
+                            </div>
+                            <div class="flex-item">
+                                <a href="verTareas.html" class="gal_item">
+                                    <img src="img/tareas.jpg" alt="">
+                                    <div class="gal_caption">Tareas</div>
+                                </a>
+                            </div>
+                            
+                            <div class="flex-item">
+                                <a href="evaluar.html" class="gal_item">
+                                    <img src="img/evaluar.jpg" alt="">
+                                    <div class="gal_caption">Evaluar</div>
+                                </a>
+                            </div>
+                            <div class="flex-item">
+                                <a href="comunicado.html" class="gal_item">
+                                    <img src="img/comunicado.jpg" alt="">
+                                    <div class="gal_caption">Comunicado</div>
+                                </a>
+                            </div>
+                            
+                            <div class="flex-item">
+                                <a href="crearMencion.html" class="gal_item">
+                                    <img src="img/menciones.jpg" alt="">
+                                    <div class="gal_caption">Menciones</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+<!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="footer_socials">
+                        <a href="#" class="fa fa-twitter"></a>
+                        <a href="#" class="fa fa-facebook"></a>
+                        <a href="#" class="fa fa-google-plus"></a>
+                    </div>
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                        <div class="sub_copy">
+                            Website designed by <a href="http://www.templatemonster.com/" rel="nofollow">TemplateMonster.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+</body>
+
+</html>
