@@ -431,7 +431,7 @@
         })
         
         examen.clickCurso = function(){
-            examen.idCurso = examen.selectedCurso2;
+            examen.idCurso = examen.selectedCurso;
             examen.nombreCurso = "";
             examen.grupoCurso = "";
             for(var i=0;i<examen.lista.length;i++){
@@ -440,6 +440,17 @@
                     examen.grupoCurso = examen.lista[i].grupo;
                 }
             }
+            
+            var cont = 0;
+            examen.listAsignaturas = [];
+            for(var i=0;i<examen.asignaturas.length;i++){
+                if(examen.asignaturas[i].idCurso == examen.idCurso){
+                    examen.listAsignaturas[cont] = examen.asignaturas[i];
+                    cont++;
+                }
+            }
+            
+            console.log(examen.listAsignaturas)
         }
         
         examen.clickAsignatura = function(){
@@ -847,6 +858,7 @@
                 mensaje.noLeidos = angular.fromJson(response.data); 
                 mensaje.deAlumnos = mensaje.noLeidos.Alumno;
                 mensaje.dePadres = mensaje.noLeidos.Padre;
+                console.log(mensaje.noLeidos)
                 }, function errorCallback(response) {
                  mensaje.vacio = true;
             });
