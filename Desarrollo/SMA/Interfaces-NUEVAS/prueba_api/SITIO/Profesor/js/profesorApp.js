@@ -431,31 +431,13 @@
         })
         
         examen.clickCurso = function(){
-            examen.idCurso = examen.selectedCurso;
+            examen.idCurso = examen.selectedCurso2;
             examen.nombreCurso = "";
             examen.grupoCurso = "";
             for(var i=0;i<examen.lista.length;i++){
                 if(examen.lista[i].idCurso == examen.idCurso){
                     examen.nombreCurso = examen.lista[i].nombre;
                     examen.grupoCurso = examen.lista[i].grupo;
-                }
-            }
-            
-            examen.listAsignaturas = {}
-            var cont = 0;
-            for(var i=0;i<examen.asignaturas.length;i++){
-                if(examen.asignaturas[i].idCurso == examen.idCurso){
-                    examen.listAsignaturas[cont] = examen.asignaturas[i];
-                    cont++;
-                }
-            }
-            
-            var aux = 0;
-            examen.listExamenes = [];
-            for(var i=0; i<examen.examenes.length;i++){
-                if(examen.examenes[i].idCurso == examen.idCurso && examen.examenes[i].grupoCurso == examen.grupoCurso){
-                    examen.listExamenes[aux] = examen.examenes[i];
-                    aux++;
                 }
             }
         }
@@ -500,33 +482,30 @@
         }
         
         examen.filtrarCurso = function(){
-            examen.idCurso = examen.selectedCurso;
-            examen.verAsi = true;
-            examen.nombreCurso = "";
-            examen.grupoCurso = "";
-            for(var i=0;i<examen.lista.length;i++){
-                if(examen.lista[i].idCurso == examen.idCurso){
-                    examen.nombreCurso = examen.lista[i].nombre;
-                    examen.grupoCurso = examen.lista[i].grupo;
+            if(examen.selectedCurso == null){
+               
+            }else{
+                examen.idCurso = examen.selectedCurso;
+                examen.verAsi = true;
+                examen.nombreCurso = "";
+                examen.grupoCurso = "";
+                for(var i=0;i<examen.lista.length;i++){
+                    if(examen.lista[i].idCurso == examen.idCurso){
+                        examen.nombreCurso = examen.lista[i].nombre;
+                        examen.grupoCurso = examen.lista[i].grupo;
+                    }
                 }
+                var aux = 0;
+                examen.listExamenes = [];
+                for(i=0; i<examen.examenes.length;i++){
+                    if(examen.examenes[i].idCurso == examen.idCurso
+                        && examen.examenes[i].grupoCurso == examen.grupoCurso){
+                        examen.listExamenes[aux] = examen.examenes[i];
+                        aux++;
+                    }
+                }                
             }
-            var aux = 0;
-            examen.listExamenes = [];
-            for(i=0; i<examen.examenes.length;i++){
-                if(examen.examenes[i].idCurso == examen.idCurso && examen.examenes[i].grupoCurso == examen.grupoCurso){
-                    examen.listExamenes[aux] = examen.examenes[i];
-                    aux++;
-                }
-            }
-            
-//            examen.listAsignaturas = {}
-//            var cont = 0;
-//            for(var i=0;i<examen.asignaturas.length;i++){
-//                if(examen.asignaturas[i].idCurso == examen.idCurso){
-//                    examen.listAsignaturas[cont] = examen.asignaturas[i];
-//                    cont++;
-//                }
-//            }
+
         }
         
         examen.filtrarAsignatura = function(){
@@ -625,7 +604,6 @@
         
         examen.editarExamen2 = function(){
             fechaSeparada = examen.fechaB.split('/');
-            console.log(examen.fechaParam)
             var dia = fechaSeparada[0];
             var mes = fechaSeparada[1];
             var anyo = fechaSeparada[2];
@@ -640,6 +618,17 @@
             }).success(function(response){
                 console.log("Editado")
                 examen.publicado = true;
+                //LLAMADA PARA RECOGER LOS EXAMENES DEL PROFESOR
+                $http({
+                    url: "http://localhost/prueba_api/alpha2/index.php/examen/examen/", 
+                    method: "GET",
+                    params: {idProfesor: idProfesor}
+                }).then(function(response){
+                    examen.compuesto = angular.fromJson(response.data);
+                    examen.examenes = examen.compuesto;
+                    examen.listExamenes = examen.examenes;
+                    examen.filtrarCurso();
+                })
             })
         }
         
@@ -961,7 +950,6 @@
             idProfesor = sessionStorage.getItem('idProfesor');
         } 
             var msghechos = this;
-        console.log(idProfesor)
             
 //            //LLAMADA PARA RECOGER ASIGNATURAS DEL PROFESOR
             $http({
@@ -1001,13 +989,14 @@
 //                }
             }
             
-            msghechos.selectDatos = function(idProfesor, idAsignatura, persona, asignatura, rol){
+            msghechos.selectDatos = function(idProfesor, idAsignatura, persona, asignatura, rol, idPerson){
                 if(sesionLocal){
                     localStorage.setItem('persona', persona);
                     localStorage.setItem('asignatura', asignatura);
                     localStorage.setItem('idProfesor2', idProfesor);
                     localStorage.setItem('idAsignatura', idAsignatura);
                     localStorage.setItem('rol', rol);
+                    localStorage.setItem('idPerson', idPerson);
                 }
                 if(sesionSesion){
                     sessionStorage.setItem('persona', persona);
@@ -1015,7 +1004,10 @@
                     sessionStorage.setItem('idProfesor2', idProfesor);
                     sessionStorage.setItem('idAsignatura', idAsignatura);
                     sessionStorage.setItem('rol', rol);
+                    sessionStorage.setItem('idPerson', idPerson);
                 }
+                
+                      
             }
             
             msghechos.init = function(){
@@ -1024,6 +1016,7 @@
                     msghechos.nAsignatura = localStorage.asignatura;
                     msghechos.idAsignatura = localStorage.idAsignatura;
                     msghechos.rol = localStorage.rol;
+                    msghechos.idPerson = localStorage.idPerson;
                     var idAsignatura = localStorage.idAsignatura;
                 }
                 if(sesionSesion){    
@@ -1031,6 +1024,7 @@
                     msghechos.nAsignatura = sessionStorage.getItem('asignatura');
                     msghechos.idAsignatura = sessionStorage.getItem('idAsignatura');
                     msghechos.rol = sessionStorage.getItem('rol');
+                    msghechos.idPerson = sessionStorage.getItem('idPerson');
                     var idAsignatura = sessionStorage.getItem('idAsignatura');
                 }
                 msghechos.idPro = idProfesor;
@@ -1047,48 +1041,151 @@
                     
                     if(msghechos.rol == "alumno"){
                         msghechos.mensajesLol = msghechos.mensajes.Alumno;
+                        msghechos.padreCrea = true;
+                        //msghechos.conver = [];
+                        var con = 0;
+                        for(var i=0;i<msghechos.mensajesLol.length;i++){
+                            if(msghechos.mensajesLol[i].idAsignatura == msghechos.idAsignatura){
+                                msghechos.conver = msghechos.mensajesLol[i];
+                                con++;
+                            }
+                        }
+                        
+                        
+                        if(msghechos.rol == "alumno"){
+                            msghechos.menPerson = msghechos.conver.MensajesAlumno;
+                            msghechos.idAlum = msghechos.menPerson[0].idAlumno;
+                        }
+                        msghechos.menProf = msghechos.conver.MensajesProfesor;
+
+                        var par = 0;
+                        var impar = 1;
+                        msghechos.todos = [];
+                        for(var i=0;i<msghechos.menProf.length;i++){
+                            msghechos.todos[impar] = msghechos.menProf[i];
+                            impar = impar+2;
+                        }
+                        for(var j=0;j<msghechos.menPerson.length;j++){
+                            msghechos.todos[par] = msghechos.menPerson[j];
+                            par = par+2;
+                        }
+                        if(msghechos.todos.length % 2 != 0){
+                            //
+                            msghechos.llegit = msghechos.todos[msghechos.todos.length-1].leido;
+                        }else{
+                            msghechos.llegit = 1;
+                            msghechos.dis = 1;
+                        }
+                        console.log(msghechos.todos)
+                        msghechos.idM = msghechos.todos[msghechos.todos.length-1].idMensaje;
                     }
                     if(msghechos.rol == "padre"){
                         msghechos.mensajesLol = msghechos.mensajes.Padre;
-                    }
-                    //msghechos.conver = [];
-                    var con = 0;
-                    for(var i=0;i<msghechos.mensajesLol.length;i++){
-                        if(msghechos.mensajesLol[i].idProfesor == msghechos.idPro && msghechos.mensajesLol[i].idAsignatura == idAsignatura){
-                            msghechos.conver = msghechos.mensajesLol[i];
-                            con++;
+                        
+                        //msghechos.conver = [];
+                        var con = 0;
+                        for(var i=0;i<msghechos.mensajesLol.length;i++){
+                            if(msghechos.mensajesLol[i].idPadre == msghechos.idPerson){
+                                msghechos.conver = msghechos.mensajesLol[i];
+                                con++;
+                            }
                         }
+                        msghechos.idPadre = msghechos.idPerson;
+                        msghechos.menProf = msghechos.conver.MensajesProfesor;    
+                        if(msghechos.conver.MensajesPadre != null){ 
+                                //Existen mensajes de padre
+                            msghechos.menPerson = msghechos.conver.MensajesPadre;
+                                
+                            if(msghechos.menProf == null){
+                                console.log("sies null")
+                                msghechos.padreCrea = true;
+                                var par = 0;
+                                var impar = 1;
+                                msghechos.todos = [];
+                                for(var j=0;j<msghechos.menPerson.length;j++){
+                                    msghechos.todos[par] = msghechos.menPerson[j];
+                                    par = par+2;
+                                }
+                                msghechos.dis = 0;
+                                msghechos.llegit = msghechos.todos[0].leido;
+                                msghechos.idM = msghechos.todos[msghechos.todos.length-1].idMensaje; 
+                            }else{
+                                console.log("soy miii")
+                                 msghechos.fechaProf = msghechos.menProf[0].fecha;
+                                msghechos.fechapadr = msghechos.menPerson[0].fecha;
+                     
+                            var fechaProfesor = new Date(msghechos.fechaProf)
+                            var fechaPadre = new Date(msghechos.fechapadr)
+                            if(fechaProfesor < fechaPadre){//Profesor lo hizo primero
+                                console.log("soy guao")
+                                msghechos.profesorCrea = true;
+                                var par = 0;
+                                var impar = 1;
+                                msghechos.todos = [];
+                            
+                                for(var i=0;i<msghechos.menProf.length;i++){
+                                    msghechos.todos[par] = msghechos.menProf[i];
+                                    par = par+2;
+                                }
+                                for(var j=0;j<msghechos.menPerson.length;j++){
+                                    msghechos.todos[impar] = msghechos.menPerson[j];
+                                    impar = impar+2;
+                                }
+                                if(msghechos.todos.length % 2 == 0){
+                                    //
+                                    msghechos.llegit = msghechos.todos[msghechos.todos.length-1].leido;
+                                }else{
+                                    msghechos.llegit = 1;
+                                    msghechos.dis = 1;
+                                }
+                                msghechos.idM = msghechos.todos[msghechos.todos.length-1].idMensaje;              
+                            }else{ //Lo crea el padre primero
+                                msghechos.padreCrea = true;
+                                var par = 0;
+                                var impar = 1;
+                                msghechos.todos = [];
+                            
+                                for(var i=0;i<msghechos.menProf.length;i++){
+                                    msghechos.todos[impar] = msghechos.menProf[i];
+                                    impar = impar+2;
+                                }
+                                for(var j=0;j<msghechos.menPerson.length;j++){
+                                    msghechos.todos[par] = msghechos.menPerson[j];
+                                    par = par+2;
+                                }
+                                if(msghechos.todos.length % 2 != 0){
+                                    //
+                                    msghechos.llegit = msghechos.todos[msghechos.todos.length-1].leido;
+                                }else{
+                                    msghechos.llegit = 1;
+                                    msghechos.dis = 1;
+                                }
+                                msghechos.idM = msghechos.todos[msghechos.todos.length-1].idMensaje;  
+                            }                               
+                            }
+                        }else{ //El profesor lo crea y el padre aun no ha respndido
+                            msghechos.menPerson = [];
+                            msghechos.profesorCrea = true;
+                            var par = 0;
+                            var impar = 1;
+                            msghechos.todos = [];
+                            for(var i=0;i<msghechos.menProf.length;i++){
+                                msghechos.todos[par] = msghechos.menProf[i];
+                                impar = impar+2;
+                            }
+                            if(msghechos.todos.length % 2 != 0){
+                                //msghechos.llegit = msghechos.todos[msghechos.todos.length-1].leido;
+                                
+                            }else{
+                                msghechos.llegit = 1;
+                                msghechos.dis = 1;
+                            }
+                            msghechos.idM = msghechos.todos[msghechos.todos.length-1].idMensaje;
+                        }
+                            
+
                     }
-                    if(msghechos.rol == "alumno"){
-                        msghechos.menPerson = msghechos.conver.MensajesAlumno;
-                        msghechos.idAlum = msghechos.menPerson[0].idAlumno;
-                    }
-                    if(msghechos.rol == "padre"){
-                        msghechos.menPerson = msghechos.conver.MensajesPadre;
-                        msghechos.idPadre = msghechos.menPerson[0].idPadre;
-                    }
-                    msghechos.menProf = msghechos.conver.MensajesProfesor;
-                    
-                    var par = 0;
-                    var impar = 1;
-                    msghechos.todos = [];
-                    for(var i=0;i<msghechos.menProf.length;i++){
-                        msghechos.todos[impar] = msghechos.menProf[i];
-                        impar = impar+2;
-                    }
-                    for(var j=0;j<msghechos.menPerson.length;j++){
-                        msghechos.todos[par] = msghechos.menPerson[j];
-                        par = par+2;
-                    }
-                    if(msghechos.todos.length % 2 != 0){
-                        //
-                        msghechos.llegit = msghechos.todos[msghechos.todos.length-1].leido;
-                    }else{
-                        msghechos.llegit = 1;
-                        msghechos.dis = 1;
-                    }
-                    console.log(msghechos.todos)
-                    msghechos.idM = msghechos.todos[msghechos.todos.length-1].idMensaje;
+
                     
                     }, function errorCallback(response) {
                     console.log("No hay mensajes")
@@ -1175,6 +1272,88 @@
                     })  
                 }
 
+            }
+    }
+
+    mensajeNuevoController.$inject = ['$scope', '$http', '$window'];
+    function mensajeNuevoController($scope, $http, $window){
+        if(sesionLocal){
+            user1 = localStorage.user;
+            idProfesor = localStorage.idProfesor;
+        }
+        if(sesionSesion){
+            user1 = sessionStorage.getItem('user2');
+            idProfesor = sessionStorage.getItem('idProfesor');
+        } 
+            var nuevo = this;
+        
+        //LLAMADA PARA RECOGER LOS CURSOS DEL PROFESOR
+        $http({
+            url: "http://localhost/prueba_api/alpha2/index.php/curso/curso/", 
+            method: "GET",
+            params: {idProfesor: idProfesor}
+        }).then(function(response){
+            nuevo.compuesto = angular.fromJson(response.data);
+            nuevo.lista = nuevo.compuesto;
+        })
+        
+        nuevo.selectCurso = function(){
+            //LLAMADA PARA RECOGER LOS ASIGNATURAS DEL PROFESOR
+            $http({
+                url: "http://localhost/prueba_api/alpha2/index.php/asignatura/asignatura/", 
+                method: "GET",
+                params: {idProfesor: idProfesor, idCurso: nuevo.curso}
+            }).then(function(response){
+                nuevo.compuesto = angular.fromJson(response.data);
+                nuevo.asignaturas = nuevo.compuesto;
+            })
+        }            
+            
+        nuevo.selectAsig = function(){
+            nuevo.alumnos = [];
+            nuevo.alumnos3 = [];
+            var cont = 0;
+            for(var i=0;i<nuevo.asignaturas.length;i++){
+                if(nuevo.asignaturas[i].idAsignatura == nuevo.idAsignatura){
+                    nuevo.alumnos = nuevo.asignaturas[i].alumnos;
+                    nuevo.alumnos2 = true;
+                }
+            }
+
+        }
+                
+        nuevo.selectAlum = function(){
+            //LLAMADA PARA RECOGER LOS ALUMNOS DEL PROFESOR
+            $http({
+                url: "http://localhost/prueba_api/alpha2/index.php/padre/padre/", 
+                method: "GET",
+                params: {idAlumno: nuevo.idAlumno, padres: 1}
+            }).then(function(response){
+                nuevo.padres = angular.fromJson(response.data);
+                
+                
+            })
+        }
+        
+        nuevo.padre = function(){
+            nuevo.mostrar = true;
+            nuevo.padre = {};
+            for(var i=0;i<nuevo.padres.length;i++){
+                if(nuevo.padres[i].idPadre == nuevo.idPadre){
+                    nuevo.padre = nuevo.padres[i].nombre
+                }
+            }
+        }
+        
+            nuevo.crearMensaje = function(){
+                //LLAMADA PARA CREAR MENSAJE
+                $http.post("http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje",
+                              {emisor: "pro", idPadre: nuevo.idPadre, receptor: "pa", 
+                               idProfesor: idProfesor, asunto: nuevo.asunto, texto: nuevo.texto,
+                               idAsignatura: nuevo.idAsignatura}
+                ).then(function(response){
+                    console.log("enviado")
+                })
             }
     }
 
