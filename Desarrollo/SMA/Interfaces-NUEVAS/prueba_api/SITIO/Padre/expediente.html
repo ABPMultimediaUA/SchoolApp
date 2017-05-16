@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+    
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+    
+    <title>Expediente</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+   
+    <!-- archivos de angular -->
+    <script src="js/padreApp.js"></script>
+    
+    <!--Exportar a pdf-->
+   <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+   <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+   <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+</head>
+
+<body ng-app = "padreApp">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pagePadre.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosPad.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="content">
+        <div class="container" ng-controller = "expedienteController as expediente">
+            <div class="row">
+
+                <div class="col-md-1">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="pagePadre.html" class="btn btn-default">Atrás</a></li>
+                        <br>
+                    </ul>
+                </div>
+
+                <div class="col-md-11">
+                    <div class="col-lg-12">
+                        <h2 id="h2Titulo">EXPEDIENTE ACADÉMICO</h2>
+                    </div>
+                
+            
+                    <div class="row" pdf-save-content="idOne" >
+                        <div class="col-sm-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2>Datos del alumno</h2>
+                                </div>
+                                <div class="panel-body" >
+                                    <div class="form-group">
+                                        <label for="nombre" class="col-xs-3 control-label">Nº Expediente</label>
+                                            <div class="col-xs-3">
+                                                <p class="form-control-static">{{expediente.compuesto.idAlumno}}</p>
+                                            </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nombre" class="col-xs-3 control-label">Nombre</label>
+                                        <div class="col-xs-3">
+                                            <p class="form-control-static">{{expediente.compuesto.nombre | uppercase}}</p>
+                                        </div>
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="apellidos" class="col-xs-3 control-label">Apellidos</label>
+                                        <div class="col-xs-3">
+                                            <p class="form-control-static">{{expediente.compuesto.apellidos | uppercase}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="curso" class="col-xs-3 control-label">Curso</label>
+                                        <div class="col-xs-3">
+                                            <p class="form-control-static">{{expediente.compuesto.nombreCurso}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="grupo" class="col-xs-3 control-label">Grupo</label>
+                                        <div class="col-xs-3">
+                                            <p class="form-control-static">{{expediente.compuesto.grupo}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword2" class="col-xs-3 control-label">Email</label>
+                                        <div class="col-xs-3">
+                                           <p class="form-control-static">{{expediente.compuesto.email}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputPassword2" class="col-xs-3 control-label">Tutor/a</label>
+                                        <div class="col-xs-3">
+                                           <p class="form-control-static">{{expediente.compuesto.tutor}}</p>
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button pdf-save-button="idOne" pdf-name="expediente.pdf" class="btn btn-danger active pull-right">
+                        <span class="glyphicon glyphicon-download-alt"></span> Exportar a PDF
+                    </button>
+
+                    <div class="col-sm-2">
+                        <div class="form-group">
+                            <label for="sel1">Año:</label>
+                            <select class="form-control" id="sel1" ng-model="expediente.selectedItem" ng-change="expediente.selec()">
+                               <option></option>
+                                <option ng-repeat="item in expediente.respuesta" value="{{item.anyo}}">{{item.anyo}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--<div class="row" ng-show="!expediente.mostrar">
+                        <div class="col-sm-12">Consulta tus notas</div>
+                    </div>-->
+                
+                    <div class="row" ng-show="expediente.mostrar" pdf-save-content="historial">
+                        <div class="col-sm-12">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h2>Curso {{expediente.nCurso}}</h2>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <h3>ASIGNATURAS</h3>
+                                            <h4 ng-repeat="item in expediente.listHist">{{item.nombre}}</h4>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <h4>1ª EVALUCIÓN</h4>
+                                            <h4 ng-repeat="item in expediente.listHist">{{item.notaEvaluacion1}}</h4>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <h4>2ª EVALUCIÓN</h4>
+                                            <h4  ng-repeat="item in expediente.listHist">{{item.notaEvaluacion2}}</h4>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <h4>3ª EVALUCIÓN</h4>
+                                            <h4  ng-repeat="item in expediente.listHist">{{item.notaEvaluacion3}}</h4>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <h4>NOTA FINAL</h4>
+                                            <h4 ng-repeat="item in expediente.listHist">{{item.NotaFinal}}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+                
+                    <button pdf-save-button="historial" pdf-name="historialAcademico.pdf" ng-show="expediente.mostrar" class="btn btn-danger active pull-right">
+                        <span class="glyphicon glyphicon-download-alt"></span> Exportar a PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+        
+</body>
+</html>

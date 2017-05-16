@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Justificante Nuevo</title>
+    
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+	<!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- archivos de angular -->
+    <script src="js/padreApp.js"></script>
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>    
+    
+    <!-- cdn for modernizr, if you haven't included it already -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+<!-- polyfiller file to detect and load polyfills -->
+<script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+<script>
+  webshims.setOptions('waitReady', false);
+  webshims.setOptions('forms-ext', {types: 'date'});
+  webshims.polyfill('forms forms-ext');
+</script>
+
+</head>
+    
+<body ng-app = "padreApp">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pagePadre.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosPad.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="content">
+        <div class="container" ng-controller="justifiController as just">
+            <div class="row">
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="pagePadre.html" class="btn btn-default">Atrás</a></li>
+                        <br>
+                        <li role="presentation"><a href="faltaAsistenciaAlum.html" class="btn btn-default">Faltas de Asistencias</a></li>
+                        <li role="presentation"><a href="justificanteHechosPad.html" class="btn btn-default">Justificantes Hechos</a></li>
+                        <li role="presentation" class="active"><a href="justificanteNuevoPad.html" class="btn btn-default">Nuevo Justificante</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-10 well">
+                    <div class="col-lg-12">
+                        <h2 id="h2Titulo">
+                            JUSTIFICANTE <small>Nuevo</small>
+                        </h2>
+                    </div>
+            
+                    <form class="form-horizontal col-sm-12" ng-submit="just.crearJustificante()" ng-if="!just.enviado"><br>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <label for="sel1">Asignatura:</label>
+                                <select ng-model="just.selectedItem" ng-change="just.selectAsignatura()" class="form-control" id="sel1">
+                                    <!-- ASIGNATURAS DE CADA ALUMNO-->
+                                    <option ng-repeat = "item in just.asignaturas" value = "{{item.idAsignatura}}">{{item.nombre}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12" ng-if="just.falta">
+                            <div class="panel-heading">
+                                <p>No hay faltas de esta asignatura</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12" ng-if="!just.mostrar">
+                            <label for="sel1" class= "col-md-6">Para: </label>
+                                <div class="col-md-8">
+                                    <p>{{just.profesor}}</p>
+                                </div>
+                        </div>
+
+                        <div class="form-group col-md-12" ng-if="!just.mostrar">
+                            <div class="panel-heading">
+                                <h3>JUSTIFICANTE DE AUSENCIA DEL ALUMNADO AL CENTRO EDUCATIVO</h3>
+                            </div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="form-control-static">
+                                            D.Dña <b>{{just.nombre}} {{just.apellidos}}</b> padre/madre/tutor-a del alumno-a
+                                            <b>{{just.nombreAlum}} {{just.apellidosAlum}}</b> del curso <b>{{just.nombreCurso}} {{just.grupo}}</b> 
+                                            comunico mediante el escrito que la ausencia de mi hijo-a/tutelado-a del pasado día 
+                                            <select ng-model="just.selectedId" ng-change="just.selectFecha()" name="fechaFalta" id="fecha">
+                                                <option ng-repeat = "item in just.lista" value = "{{item.idAsistencia}}">{{item.fecha}}</option>
+                                            </select> 
+                                            ,ha sido motivada por
+                                            <div class="form-group">
+                                                <label for="comment">Comentario:</label>
+                                                <textarea ng-model="just.descrip" class="form-control" rows="2" id="comment"></textarea>
+                                            </div>
+                                            si fuera necesario, será explicado antes las instancias oportunas que tengan capacidad y derecho a conocer la misma.</br></br>
+                                            Firmado el día <b>{{just.date | date:'dd/MM/yyyy'}}</b></br></br>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            <div class="form-group col-md-4" ng-if="!just.mostrar">  
+                                <div class="col-sm-offset-2 col-sm-2">
+                                    <button type="submit" class="btn btn-info btn-md active" ng-disabled="!(!!just.selectedId) || !(!!just.descrip)">
+                                        <span class="glyphicon glyphicon-send"></span> Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-lg-12" ng-if="just.enviado">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="form-control-static">
+                                        D.Dña <b>{{just.nombre}} {{just.apellidos}}</b> padre/madre/tutor-a del alumno-a
+                                        <b>{{just.nombreAlum}} {{just.apellidosAlum}}</b> del curso <b>{{just.nombreCurso}} {{just.grupo}}</b> 
+                                        comunico mediante el escrito que la ausencia de mi hijo-a/tutelado-a del pasado día 
+                                        {{just.fec}} ,ha sido motivada por <b>{{just.descrip}}.</b> 
+                                        Si fuera necesario, será explicado antes las instancias oportunas que tengan capacidad y derecho a conocer la misma.</br></br>
+                                        Firmado el día <b>{{just.date | date:'dd/MM/yyyy'}}</b></br></br>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

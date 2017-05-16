@@ -42,16 +42,14 @@
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
-    <!-- Angular -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
-    <!-- Exportar a pdf-->
+<!-- Exportar a pdf-->
     <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
     <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
     <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
 
 </head>
 
-<body>
+<body ng-app = "profesorApp">
     <header>
         <div id="stuck_container">
             <div class="container">
@@ -81,46 +79,41 @@
         </div>
     </header>
     
-    <section class="contenido">
+    <section class="contenido" ng-controller = "contrasenyaController as contra">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12"></br>
                     <h2 id="h2Titulo">AJUSTES</h2>
                 </div>
-            
+                <div ng-if="contra.cambiada">Contrasena modificada con éxito</div>
                 <!-- Formulario -->
-                <form class="form-horizontal col-md-10" role="form">
-
-                    <!--<div class="form-group">
-                        <label for="notificacion" class="col-xs-2 control-label">Notificaciones</label>
-                        <div class="material-switch">
-                            <input class="col-xs-2" id="someSwitchOptionSuccess" name="someSwitchOption001" type="checkbox"/>
-                            <label for="someSwitchOptionSuccess" class="label-success"></label>
-                        </div>
-                    </div>-->
+                <form class="form-horizontal col-md-10" role="form"  ng-if="!contra.cambiada">
 
                     <div class="form-group">
-                        <label class="col-md-2 control-label">Email</label>
+                        <label for="inputPassword" class="col-md-2 control-label">Contraseña antigua</label>
                         <div class="col-md-4">
-                          <p class="form-control-static">email@ejemplo.com</p>
+                          <input type="password" class="form-control" ng-model="contra.contrasenyaAnt" id="inputPassword" placeholder="Contraseña">
                         </div>
-                    </div> 
+                    </div>
+                    <label for="incorrecta" ng-if="contra.inco">Contraseña incorrecta</label>
                     <div class="form-group">
-                        <label for="inputPassword" class="col-md-2 control-label">Contraseña</label>
+                        <label for="inputPassword" class="col-md-2 control-label">Contraseña nueva</label>
                         <div class="col-md-4">
-                          <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
+                          <input type="password" class="form-control" ng-model="contra.contrasenyaNueva1" id="inputPassword" placeholder="Contraseña">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="inputPassword2" class="col-md-2 control-label">Repite la contraseña</label>
                         <div class="col-md-4">
-                          <input type="password2" class="form-control" id="inputPassword2" placeholder="Contraseña">
+                          <input type="password" class="form-control"  ng-model="contra.contrasenyaNueva2" id="inputPassword2" placeholder="Contraseña">
                         </div>
                     </div>
-                    
+                    <label for="noCoinciden" ng-if="contra.coin">Las contraseñas no coinciden</label>
                     <div class="form-group">
                         <div class="col-md-10 pull-right">
-                            <button type="button" class="btn btn-primary">Cambiar contraseña</button>
+                            <button type="button" class="btn btn-primary" 
+                             ng-disabled="!(!!contra.contrasenyaAnt) || !(!!contra.contrasenyaNueva1) || !(!!contra.contrasenyaNueva2)"
+                             ng-click="contra.cambiarCon()">Cambiar contraseña</button>
                         </div>
                     </div>
 
@@ -142,11 +135,7 @@
         </div>
     </footer>
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
 
 </body>
 

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mensaje Nuevo</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+
+    <!-- archivos de angular -->
+    <script src="js/padreApp.js"></script>
+    <!--    Exportar a pdf-->
+   <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+   <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+   <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+</head>
+
+<body ng-app = "padreApp">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pagePadre.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosPad.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">
+        <div class="container" ng-controller = "mensajeNuevoController as nuevo">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="pagePadre.html" class="btn btn-default">Atrás</a></li>
+                        <br>
+                        <li role="presentation"><a href="mensajesRecibPad.html" class="btn btn-default">Pendientes</a></li>
+                        <li role="presentation"><a href="mensajesEnviadosPad.html" class="btn btn-default">Hechos</a></li>
+                        <li role="presentation" class="active"><a href="mensajeNuevoPad.html" class="btn btn-default">Nuevo Mensaje</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-10 well">
+                    <div class="col-lg-12">
+                        <h2 id="h2Titulo">
+                            NUEVO MENSAJE
+                        </h2>
+                    </div>
+                
+
+                    <form name = "nuevoMensajeForm" class="form-horizontal col-xs-12" ng-submit = "nuevo.crearMensaje(); enviado=true" ng-show="!enviado">
+
+                       
+                        <div class="form-group col-md-12">
+                            <label for="sel1" class= "col-md-6">Asignatura: </label>
+                                <div class="col-md-8">
+                                    <select class="form-control col-md-4" id="sel1" ng-change="nuevo.selectAsig()" ng-model="nuevo.selectedItem"  ng-init="nuevo.mostrar=true">
+                                        <option ng-repeat="item in nuevo.listAsignaturas" value="{{item.nombreProfesor}},{{item.idAsignatura}},{{item.idProfesor}},{{item.nombre}}">{{item.nombre}}</option>
+                                    </select>
+                                </div>
+                        </div>
+                        <div class="form-group col-md-12" ng-if="!nuevo.mostrar">
+                            <label for="sel1" class= "col-md-6">Para: </label>
+                                <div class="col-md-8">
+                                    <p>{{nuevo.profesor}}</p>
+                                </div>
+                        </div>
+                        
+                        <div class="form-group col-md-12" ng-if="!nuevo.mostrar">
+                            <label for="inputPassword" class= "col-md-6">Asunto:</label>
+                            <div class="col-md-8">
+                              <input type="asunto" ng-model="nuevo.asunto"class="form-control" id="inputPassword" placeholder="Escriba el motivo de su mensaje">
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12" ng-if="!nuevo.mostrar">
+                            <div id="alinear2" class="col-md-12">
+                              <label id="alinear2" for="comment">Pregunta:</label>
+                              <textarea ng-model = "nuevo.texto" class="form-control" rows="6" id="comment"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-12" ng-if="!nuevo.mostrar">    
+                            <div class="col-xs-2 col-sm-2">
+                                <button type="submit" class="btn btn-primary btn-md">
+                                    <span class="glyphicon glyphicon-send"></span> Enviar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                
+                    <div ng-show="enviado" class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4>
+                                    {{nuevo.asunto}}
+                                </h4>
+                                <h5>
+                                    Para: {{nuevo.profesor}}, profesor de {{nuevo.nombreAsignatura}}
+                                </h5>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <p>{{nuevo.texto}}</p>                            
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

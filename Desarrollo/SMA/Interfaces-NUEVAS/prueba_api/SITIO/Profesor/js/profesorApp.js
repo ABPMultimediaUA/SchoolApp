@@ -21,7 +21,9 @@
     .controller('mensajeNuevoController', mensajeNuevoController)
     .controller('mensajeController', mensajeController)
     .controller('mencionController', mencionController)
-    .controller('msgHechosController', msgHechosController);
+    .controller('msgHechosController', msgHechosController)
+    .controller('contrasenyaController', contrasenyaController)
+    .controller('principalController', principalController);
 
     navController.$inject = ['$scope', '$http', '$window'];
     function navController($scope, $http, $window){        
@@ -47,6 +49,8 @@
             nav.compuesto = angular.fromJson(response.data);
             nav.nombre = nav.compuesto.nombre;
             nav.apellidos = nav.compuesto.apellidos;
+            nav.telefono = nav.compuesto.telefono;
+            nav.email = nav.compuesto.email;
             if(sesionLocal)
                 localStorage.setItem('idProfesor', nav.compuesto.idProfesor);
             if(sesionSesion)    
@@ -66,6 +70,75 @@
             }
         }
     };
+
+    contrasenyaController.$inject = ['$scope', '$http', '$window'];
+    function contrasenyaController($scope, $http, $window){        
+        var contra = this;
+
+        if(sesionLocal){
+            user1 = localStorage.user;
+            idProfesor = localStorage.idProfesor;
+        }
+        if(sesionSesion){
+            user1 = sessionStorage.getItem('user2');
+            idProfesor = sessionStorage.getItem('idProfesor');
+        }
+        //LLAMADA HTTP
+        $http({
+            url: "http://localhost/prueba_api/alpha2/index.php/profesor/profesor/", 
+            method: "GET",
+            params: {usuario: contra.user1}
+        })
+         .then(function(response) {
+            contra.compuesto = angular.fromJson(response.data);
+            contra.contrasenyaActual = contra.compuesto.password;
+        }, function errorCallback(response) {
+            //$window.location.href = '/prueba_api/SITIO/PagPrincipal/index.html';
+        });
+
+        contra.cambiarCon = function(){
+            if(contra.contrasenyaActual == contra.contrasenyaAnt){
+               if(contra.contrasenyaNueva1 == contra.contrasenyaNueva2){
+                   contra.inco = false;
+                   contra.coin = false;
+                    $http.put("http://localhost/prueba_api/alpha2/index.php/profesor/profesor",
+                            {idProfesor: idProfesor, password: contra.contrasenyaNueva1}
+                    ).then(function(response){
+                        contra.cambiada = true;
+                    });
+               }else{
+                   contra.coin = true;
+               }
+            }else{
+                contra.inco = true;
+            }
+        }
+    };
+
+    principalController.$inject = ['$scope', '$http', '$window'];
+    function principalController($scope, $http, $window){
+        if(sesionLocal){
+            user1 = localStorage.user;
+            idProfesor = localStorage.idProfesor;
+        }
+        if(sesionSesion){
+            user1 = sessionStorage.getItem('user2');
+            idProfesor = sessionStorage.getItem('idProfesor');
+        }
+            var prin = this;
+            $http({
+                url: "http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje",
+                method: "GET",
+                params: {idProfesor: idProfesor, noleidos: 1}
+            })
+             .then(function(response) {
+                prin.noLeidos = angular.fromJson(response.data);
+                prin.mensaje = true;
+                }, function errorCallback(response) {
+                    
+            });
+        
+    }
 
     tareaController.$inject = ['$scope', '$http', '$window'];
     function tareaController($scope, $http, $window){
@@ -851,16 +924,24 @@
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje",
                 method: "GET",
-                params: {idProfesor: idProfesor,
-                         noleidos: 1}
+                params: {idProfesor: idProfesor, noleidos: 1}
             })
              .then(function(response) {
                 mensaje.noLeidos = angular.fromJson(response.data); 
+                console.log(mensaje.noLeidos)
                 mensaje.deAlumnos = mensaje.noLeidos.Alumno;
                 mensaje.dePadres = mensaje.noLeidos.Padre;
-                console.log(mensaje.noLeidos)
+                mensaje.notifi = true;
+                if(mensaje.deAlumnos == null){
+                    mensaje.vacio = true;
+                }
+                if(mensaje.dePadres == null){
+                    mensaje.vacioPadre = true;
+                }
                 }, function errorCallback(response) {
-                 mensaje.vacio = true;
+                    mensaje.vacio = true;
+                    mensaje.vacioPadre = true;
+                    mensaje.notifi = false;
             });
         
             mensaje.selectDatos = function(idProfesor, idAsignatura, persona, asignatura, rol){
@@ -879,76 +960,7 @@
                     sessionStorage.setItem('rol', rol);
                 }
             }
-            
-            mensaje.crearMensaje = function(idProfe, asunt, idMens){
-                //LLAMADA PARA CREAR MENSAJE
-                $http.post("http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje",
-                              {emisor: "pro", idProfesor: idProfesor, receptor: "al", 
-                               idProfesor: idProfe, asunto: asunt, texto: mensaje.formMensaje}
-                ).then(function(response){
-                    $http.put("http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje",
-                                  {idMensaje: idMens, idProfesor: idProfesor, leido: 1}
-                    ).then(function(response){
-                        //$route.reload();
-                        $window.location.reload();
-                    })
-                })
-            }
-            
-            mensaje.marcarLeido = function(id){
-                $http.put("http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje",
-                              {idMensaje: id, idProfesor: idProfesor, leido: 1}
-                ).then(function(response){
-                    
-                })
-            }
         
-    }
-
-    mensajeNuevoController.$inject = ['$scope', '$http', '$window'];
-    function mensajeNuevoController($scope, $http, $window){
-        if(sesionLocal){
-            user1 = localStorage.user;
-            idProfesor = localStorage.idProfesor;
-        }
-        if(sesionSesion){
-            user1 = sessionStorage.getItem('user2');
-            idProfesor = sessionStorage.getItem('idProfesor');
-        }
-            noLei="idAlumno/"+idAlumno+"/noleidos/1";
-            var nuevo = this;
-            
-//            //LLAMADA PARA RECOGER ASIGNATURAS DEL ALUMNO
-            $http({
-                url: "http://localhost/prueba_api/alpha2/index.php/asignatura/asignatura", 
-                method: "GET",
-                params: {idAlumno: idAlumno}
-            })
-             .then(function(response) {
-                nuevo.listAsignaturas = angular.fromJson(response.data);
-            }, function errorCallback(response) {
-                alert()
-            });
-        
-            nuevo.selectAsig = function(){
-                nuevo.arr = nuevo.selectedItem.split(',');
-                             
-                nuevo.profesor = nuevo.arr[0];
-                nuevo.idAsignatura = nuevo.arr[1];
-                nuevo.idProfesor = nuevo.arr[2];
-                nuevo.nombreAsignatura = nuevo.arr[3];
-                nuevo.mostrar=false;
-            }
-            
-            nuevo.crearMensaje = function(){
-                //LLAMADA PARA CREAR MENSAJE
-                $http.post("http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje",
-                              {emisor: "pro", idProfesor: idProfesor, receptor: "al", 
-                               idProfesor: nuevo.idProfesor, asunto: nuevo.asunto, texto: nuevo.texto}
-                ).then(function(response){
-                    console.log("enviado")
-                })
-            }
     }
 
     msgHechosController.$inject = ['$scope', '$http', '$window'];
@@ -963,6 +975,19 @@
         } 
             var msghechos = this;
             
+            //SABER SI HAY MENSAJES NO LEIDOS
+            $http({
+                url: "http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje/",
+                method: "GET",
+                params: {idProfesor: idProfesor, noleidos: 1}
+            })
+             .then(function(response) {
+                msghechos.noLeidos = angular.fromJson(response.data); 
+                msghechos.notifi = true;
+                }, function errorCallback(response) {
+                    msghechos.notifi = false;
+            });
+        
 //            //LLAMADA PARA RECOGER ASIGNATURAS DEL PROFESOR
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/asignatura/asignatura", 
@@ -1298,7 +1323,18 @@
             idProfesor = sessionStorage.getItem('idProfesor');
         } 
             var nuevo = this;
-        
+            //SABER SI HAY MENSAJES NO LEIDOS
+            $http({
+                url: "http://localhost/prueba_api/alpha2/index.php/mensaje/mensaje/",
+                method: "GET",
+                params: {idProfesor: idProfesor, noleidos: 1}
+            })
+             .then(function(response) {
+                nuevo.noLeidos = angular.fromJson(response.data); 
+                nuevo.notifi = true;
+                }, function errorCallback(response) {
+                    nuevo.notifi = false;
+            });
         //LLAMADA PARA RECOGER LOS CURSOS DEL PROFESOR
         $http({
             url: "http://localhost/prueba_api/alpha2/index.php/curso/curso/", 
