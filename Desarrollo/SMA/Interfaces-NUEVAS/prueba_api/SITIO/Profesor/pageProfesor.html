@@ -65,16 +65,19 @@
         </div>
     </header>
         
-    <section class="content">
+    <section class="content" ng-controller = "principalController as prin">
         <div class="container">
             <div class="row">
-                <div class="grid_12">
+                <div class="grid_12">    
                     <div class="gallery">
                         <div class="flex-container"> 
                             <div class="flex-item">
                                 <a href="mensajesRecibProfe.html" class="gal_item">
                                     <img src="img/mensajes.jpg" alt="">
-                                    <div class="gal_caption">Mensajes</div>
+                                    <div class="gal_caption">
+                                       <p ng-if="prin.mensaje">*</p>
+                                        Mensajes
+                                    </div>
                                     <span class="gal_magnify"></span->
                                 </a>
                             </div>
@@ -130,9 +133,9 @@
             <div class="row">
                 <div class="grid_12">
                     <div class="footer_socials">
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-google-plus"></a>
+                        <a href="https://twitter.com/AlphaSchool_UA" target="_blank" class="fa fa-twitter"></a>
+                        <a href="#"  target="_blank" class="fa fa-facebook"></a>
+                        <a href="#" target="_blank"  class="fa fa-google-plus"></a>
                     </div>
                     <div class="copy">
                         <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
