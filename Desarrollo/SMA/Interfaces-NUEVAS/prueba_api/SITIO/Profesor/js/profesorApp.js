@@ -1373,7 +1373,8 @@
         }
                 
         nuevo.selectAlum = function(){
-            //LLAMADA PARA RECOGER LOS ALUMNOS DEL PROFESOR
+            console.log()
+            //LLAMADA PARA RECOGER LOS Padres de alumno DEL PROFESOR
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/padre/padre/", 
                 method: "GET",
