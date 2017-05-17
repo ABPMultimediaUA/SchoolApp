@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-05-2017 a las 15:11:39
+-- Tiempo de generación: 17-05-2017 a las 16:31:00
 -- Versión del servidor: 10.1.19-MariaDB
 -- Versión de PHP: 5.6.28
 
@@ -104,8 +104,8 @@ INSERT INTO `alumno` (`idAlumno`, `nombre`, `apellidos`, `user`, `password`, `em
 (28, 'Clotilde', 'Pérez Gutiérrez', 'semperfidelisclot', '1234', 'cloti@lol.co', 666666666, '78945612N', 1, 3),
 (29, 'Cole', 'Pito Madre', 'cole23', '1234', 'cole@lol.co', 666666666, '78945612S', 1, 1),
 (30, 'Romano', 'Tetriminio Lopera', 'lope23', '1234', 'lope@lol.co', 666666666, '78945612D', 1, 1),
-(45, 'Queque', 'Sópor', 'kkzopor', '1234', 'quemedices@sopor.com', 267267267, '33445566Q', 1, 1),
-(47, 'Ana', 'Gabriel', 'ag96', '5EozHDpf', NULL, NULL, NULL, 1, 1);
+(31, '', NULL, 'elchacheesgenial', '1234', NULL, NULL, NULL, 1, 1),
+(45, 'Queque', 'Sópor', 'kkzopor', '1234', 'quemedices@sopor.com', 267267267, '33445566Q', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -155,9 +155,7 @@ INSERT INTO `alumno_has_curso` (`idAlumno`, `idCurso`, `anyo`, `anyo2`) VALUES
 (29, 3, 2016, 2017),
 (30, 3, 2016, 2017),
 (31, 5, 2016, 2017),
-(45, 1, 2016, 2017),
-(46, 1, 2016, 2017),
-(47, 1, 2016, 2017);
+(45, 1, 2016, 2017);
 
 -- --------------------------------------------------------
 
@@ -179,11 +177,11 @@ INSERT INTO `alumno_has_examen` (`alumno_idAlumno`, `examen_idExamen`, `nota`) V
 (1, 1, 2),
 (1, 2, 7),
 (1, 3, NULL),
-(1, 20, NULL),
+(1, 20, 7),
 (1, 21, NULL),
-(2, 20, NULL),
+(2, 20, 9),
 (2, 21, NULL),
-(3, 20, NULL),
+(3, 20, 6),
 (3, 21, NULL),
 (4, 20, NULL),
 (4, 21, NULL),
@@ -207,11 +205,10 @@ CREATE TABLE `alumno_has_padre` (
 
 INSERT INTO `alumno_has_padre` (`Alumno_idAlumno`, `Padre_idPadre`) VALUES
 (1, 1),
+(1, 4),
 (2, 2),
 (3, 2),
-(4, 3),
-(30, 13),
-(45, 13);
+(4, 3);
 
 -- --------------------------------------------------------
 
@@ -231,7 +228,7 @@ CREATE TABLE `alumno_has_tarea` (
 --
 
 INSERT INTO `alumno_has_tarea` (`idTarea`, `idAlumno`, `nota`, `completada`) VALUES
-(22, 1, NULL, 1),
+(22, 1, NULL, 0),
 (22, 2, NULL, 0),
 (22, 3, NULL, 0),
 (22, 4, NULL, 0),
@@ -255,7 +252,13 @@ INSERT INTO `alumno_has_tarea` (`idTarea`, `idAlumno`, `nota`, `completada`) VAL
 (28, 2, NULL, 0),
 (28, 3, NULL, 0),
 (28, 4, NULL, 0),
-(28, 5, NULL, 0);
+(28, 5, NULL, 0),
+(29, 1, NULL, 0),
+(29, 2, NULL, 0),
+(29, 3, NULL, 0),
+(29, 4, NULL, 0),
+(29, 5, NULL, 0),
+(29, 45, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -273,6 +276,13 @@ CREATE TABLE `anuncio_gestor` (
   `tipo` int(11) NOT NULL DEFAULT '1',
   `creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `anuncio_gestor`
+--
+
+INSERT INTO `anuncio_gestor` (`idGestor`, `idCentro`, `titulo`, `texto`, `fecha`, `idAnuncio`, `tipo`, `creacion`) VALUES
+(1, 1, 'Vacas Locas', 'Ha vuelto la fiebre de las vacas locas. Señoras, guarden a sus hijas.', '2017-05-10', 1, 1, '2017-05-09 19:24:28');
 
 -- --------------------------------------------------------
 
@@ -299,7 +309,7 @@ INSERT INTO `asignatura` (`idAsignatura`, `nombre`) VALUES
 (8, 'Tutoría'),
 (9, 'Plástica'),
 (10, 'Siesta'),
-(13, 'Historia');
+(16, 'Educación Sexual');
 
 -- --------------------------------------------------------
 
@@ -315,43 +325,36 @@ CREATE TABLE `asignatura_has_curso_has_alumno` (
   `idProfesor` int(11) NOT NULL,
   `notaEvaluacion1` int(11) DEFAULT NULL,
   `notaEvaluacion2` int(11) DEFAULT NULL,
-  `notaEvaluacion3` int(11) DEFAULT NULL
+  `notaEvaluacion3` int(11) DEFAULT NULL,
+  `idCentro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `asignatura_has_curso_has_alumno`
 --
 
-INSERT INTO `asignatura_has_curso_has_alumno` (`idAsignatura`, `idCurso`, `idAlumno`, `NotaFinal`, `idProfesor`, `notaEvaluacion1`, `notaEvaluacion2`, `notaEvaluacion3`) VALUES
-(1, 1, 1, 6, 1, 6, 6, 6),
-(1, 1, 2, 5, 0, 5, 5, 5),
-(1, 1, 3, 4, 3, 4, 4, 4),
-(1, 1, 4, 8, 2, 8, 8, 8),
-(1, 1, 5, 10, 1, 10, 10, 10),
-(1, 1, 45, NULL, 0, NULL, NULL, NULL),
-(1, 1, 47, NULL, 0, NULL, NULL, NULL),
-(2, 1, 1, 7, 0, 7, 7, 7),
-(2, 1, 2, 5, 3, 5, 5, 5),
-(2, 1, 3, 10, 2, 10, 10, 10),
-(2, 1, 45, NULL, 0, NULL, NULL, NULL),
-(2, 1, 47, NULL, 0, NULL, NULL, NULL),
-(3, 1, 1, 9, 1, 9, 9, 9),
-(3, 1, 2, 4, 0, 4, 4, 4),
-(3, 1, 3, 5, 3, 5, 5, 5),
-(3, 1, 4, 7, 2, 7, 7, 7),
-(3, 1, 5, 6, 3, 6, 6, 6),
-(3, 1, 45, NULL, 0, NULL, NULL, NULL),
-(3, 1, 47, NULL, 0, NULL, NULL, NULL),
-(4, 1, 45, NULL, 0, NULL, NULL, NULL),
-(5, 1, 45, NULL, 0, NULL, NULL, NULL),
-(5, 1, 47, NULL, 0, NULL, NULL, NULL),
-(6, 1, 47, NULL, 0, NULL, NULL, NULL),
-(7, 1, 47, NULL, 0, NULL, NULL, NULL),
-(8, 1, 47, NULL, 0, NULL, NULL, NULL),
-(9, 1, 1, 8, 9, 8, 8, 8),
-(9, 1, 47, NULL, 0, NULL, NULL, NULL),
-(10, 14, 1, 10, 2, 8, 9, 10),
-(10, 15, 1, 10, 13, 10, 10, 10);
+INSERT INTO `asignatura_has_curso_has_alumno` (`idAsignatura`, `idCurso`, `idAlumno`, `NotaFinal`, `idProfesor`, `notaEvaluacion1`, `notaEvaluacion2`, `notaEvaluacion3`, `idCentro`) VALUES
+(1, 1, 1, 6, 1, 6, 6, 6, 1),
+(1, 1, 2, 5, 1, 5, 5, 5, 1),
+(1, 1, 3, 4, 1, 4, 4, 4, 1),
+(1, 1, 4, 8, 1, 8, 8, 8, 1),
+(1, 1, 5, 10, 1, 10, 10, 10, 1),
+(1, 1, 45, NULL, 1, NULL, NULL, NULL, 1),
+(2, 1, 1, 7, 0, 7, 7, 7, 1),
+(2, 1, 2, 5, 3, 5, 5, 5, 1),
+(2, 1, 3, 10, 2, 10, 10, 10, 1),
+(2, 1, 45, NULL, 0, NULL, NULL, NULL, 1),
+(3, 1, 1, 9, 1, 9, 9, 9, 1),
+(3, 1, 2, 4, 0, 4, 4, 4, 1),
+(3, 1, 3, 5, 3, 5, 5, 5, 1),
+(3, 1, 4, 7, 2, 7, 7, 7, 1),
+(3, 1, 5, 6, 3, 6, 6, 6, 1),
+(3, 1, 45, NULL, 0, NULL, NULL, NULL, 1),
+(4, 1, 45, NULL, 0, NULL, NULL, NULL, 1),
+(5, 1, 45, NULL, 0, NULL, NULL, NULL, 1),
+(9, 1, 1, 8, 9, 8, 8, 8, 1),
+(10, 14, 1, 10, 2, 8, 9, 10, 1),
+(10, 15, 1, 10, 13, 10, 10, 10, 1);
 
 -- --------------------------------------------------------
 
@@ -383,10 +386,10 @@ INSERT INTO `asignatura_has_curso_has_centro` (`Asignatura_idAsignatura`, `Curso
 (6, 1, 6, 1, '00:00:00', 1),
 (7, 1, 7, 1, '00:00:00', 2),
 (8, 1, 1, 1, '00:00:00', 3),
-(9, 1, 17, 1, '00:00:00', 4),
+(9, 1, 9, 1, '00:00:00', 4),
 (10, 14, 12, 1, '06:12:13', 4),
 (10, 15, 13, 1, '07:00:00', 2),
-(13, 1, 6, 1, '00:00:00', 0);
+(16, 1, 8, 3, '00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -561,11 +564,14 @@ CREATE TABLE `comunicado` (
 --
 
 INSERT INTO `comunicado` (`idComunicado`, `titulo`, `texto`, `idAsignatura`, `idCurso`, `fecha`, `tipo`, `idProfesor`, `creacion`, `precio`) VALUES
-(1, 'Reunión', 'Se convoca a los padres de los alumnos de Primero A a una reunión en el salón de actos mañana', 1, 1, '2017-05-09', 1, 1, '2017-03-29 15:05:30', NULL),
-(2, NULL, 'aaaaaa', 1, 1, '2008-10-10', 2, 1, '2017-03-29 15:05:30', NULL),
+(1, 'Reunión', 'Se convoca a los padres de los alumnos de Primero A a una reunión en el salón de actos mañana', 1, 1, '0000-00-00', 1, 1, '2017-03-29 15:05:30', NULL),
 (3, NULL, 'Nos vamos al mar de Bering', 1, 1, '2008-10-10', 1, 1, '2017-03-29 15:05:30', NULL),
 (4, 'Autorización', 'Nos vamos al mar de Bering', 1, 1, '2008-10-10', 2, 1, '2017-03-29 15:05:30', NULL),
-(5, 'Falta del jueves', 'Mi hijo tuvo paperas espontáneas, le duraron 6 horas. O eso dice él, yo no estaba. Total que no pudo venir, quítale la falta que luego le bajáis la nota y me dáis un disgusto.', 1, 1, '2017-04-12', 3, 1, '2017-04-22 12:55:50', NULL);
+(5, 'Falta del jueves', 'Mi hijo tuvo paperas espontáneas, le duraron 6 horas. O eso dice él, yo no estaba. Total que no pudo venir, quítale la falta que luego le bajáis la nota y me dáis un disgusto.', 1, 1, '2017-04-12', 3, 1, '2017-04-22 12:55:50', NULL),
+(11, '1', '1', 1, 1, '2017-05-25', 1, 1, '2017-05-02 14:56:52', NULL),
+(12, '1', '1', 1, 1, '2017-05-25', 1, 1, '2017-05-02 15:01:16', NULL),
+(13, '1', '1', 1, 1, '2017-05-25', 1, 1, '2017-05-02 15:01:55', NULL),
+(14, '1', '1', 1, 1, '2017-05-25', 1, 1, '2017-05-02 15:02:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -586,11 +592,11 @@ CREATE TABLE `confirmacion_comunicado` (
 --
 
 INSERT INTO `confirmacion_comunicado` (`comunicado_idComunicado`, `alumno_idAlumno`, `firmado`, `leidoAlumno`, `leidoPadre`) VALUES
-(1, 1, 1, 0, 0),
+(1, 1, 1, 0, 1),
 (1, 2, 1, 1, 1),
 (2, 1, 1, 1, 1),
-(3, 1, 0, 0, 0),
-(14, 1, 0, 0, 0),
+(3, 1, 0, 0, 1),
+(14, 1, 0, 0, 1),
 (14, 2, 0, 0, 0),
 (14, 3, 0, 0, 0),
 (14, 4, 0, 0, 0),
@@ -606,7 +612,7 @@ CREATE TABLE `curso` (
   `idCurso` int(11) NOT NULL,
   `nombre` varchar(45) DEFAULT NULL,
   `grupo` varchar(45) DEFAULT NULL,
-  `Profesor_idProfesor` int(11) NOT NULL,
+  `Profesor_idProfesor` int(11) DEFAULT NULL,
   `centro_idCentro` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -628,7 +634,7 @@ INSERT INTO `curso` (`idCurso`, `nombre`, `grupo`, `Profesor_idProfesor`, `centr
 (12, 'Sexto', 'B', 12, 1),
 (13, 'Primero', 'A', 5, 2),
 (14, 'párvulos 5', 'C', 1, 1),
-(15, 'párvulos 4', 'A', 13, 1);
+(15, 'párvulos 4', 'A', 12, 1);
 
 -- --------------------------------------------------------
 
@@ -696,11 +702,11 @@ CREATE TABLE `examen` (
 --
 
 INSERT INTO `examen` (`idExamen`, `fecha`, `idProfesor`, `idAsignatura`, `idCurso`, `descripcion`, `titulo`, `evaluacion`) VALUES
-(1, '2016-12-08', 1, 1, 1, '', '', 1),
-(2, '2008-10-10', 1, 1, 1, '', '', 2),
-(3, '2017-06-30', 1, 1, 1, 'Sale todo', 'Los climas', 2),
-(20, '2017-06-10', 1, 1, 1, 'Temas 6 y 7, descripcion de los nutrientes y la pirámide alimenticia 3', 'Nutrición y alimentación ', 3),
-(21, '2017-06-11', 1, 1, 1, 'Temas 8 y 9', 'Las plantas', 3);
+(1, '2016-12-08', 1, 1, 2, 'El apartado 5.2 no entra', 'Ciclo del agua', 1),
+(2, '2015-10-10', 1, 1, 3, 'Solo comen y duermen', 'Los animales', 2),
+(3, '2017-06-30', 1, 1, 1, 'Sale todo del temario', 'Los climas', 2),
+(20, '2017-06-10', 1, 1, 1, 'Temas 6 y 7, descripcion de los nutrientes y la pirámide alimenticia 3', 'Nutrición y alimentaciónn', 3),
+(21, '2017-06-11', 1, 1, 1, 'Temas 8 y 9', 'Las plantas verdes', 3);
 
 -- --------------------------------------------------------
 
@@ -818,8 +824,7 @@ CREATE TABLE `gestor` (
 
 INSERT INTO `gestor` (`idGestor`, `nombre`, `apellidos`, `usuario`, `password`, `email`, `telefono`, `idCentro`) VALUES
 (1, 'Polonio', 'Sempere Mastuerta', 'polonio2016', '1234', 'polonio@lol.co', 666666666, 1),
-(5, 'david', 'broncano', 'db34', 'ggdshbfa', 'sss@gmail.com', 96969696, 1),
-(8, 'Ricardo', 'Espí', 're26', 'BUrdDiW9', NULL, NULL, 2);
+(3, 'Paraguayo', 'Ukelele Terminator', '', '1234', 'pitaonopita@lol.co', 689689689, 0);
 
 -- --------------------------------------------------------
 
@@ -881,8 +886,7 @@ CREATE TABLE `mensaje_alumno` (
 --
 
 INSERT INTO `mensaje_alumno` (`idMensaje`, `asunto`, `texto`, `fecha`, `idAlumno`, `idProfesor`, `leido`, `idAsignatura`) VALUES
-(7, 'Ciclo del agua', 'Hola, me explicas el ciclo del agua?', '2017-05-08 19:16:45', 1, 1, 1, 1),
-(8, NULL, 'Aun no me ha quedado claro', '2017-05-09 18:15:38', 1, 1, 1, 1);
+(1, 'Soy un alumno', 'has visto lalaland?', '2017-05-12 19:19:10', 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -906,7 +910,11 @@ CREATE TABLE `mensaje_padre` (
 --
 
 INSERT INTO `mensaje_padre` (`idMensaje`, `texto`, `fecha`, `idPadre`, `idProfesor`, `idAsignatura`, `asunto`, `leido`) VALUES
-(1, 'Hola, mi hijo no podrá hacer el examen el próximo martes, podemos posponerlo?', '2017-05-09 18:20:43', 1, 1, 1, 'Examen', 1);
+(1, 'pos vale', '2017-05-12 17:30:29', 4, 1, 1, NULL, 1),
+(2, 'Mi hijo no puede ir al examen', '2017-05-12 18:34:48', 1, 1, 1, 'Examen', 1),
+(3, 'Porque esta con la fiebre española', '2017-05-12 19:04:05', 1, 1, 1, NULL, 1),
+(5, 'beeeeeeerrr', '2017-05-12 19:33:01', 4, 2, 2, 'numelo 8', 0),
+(6, 'Y yo anarco comunista', '2017-05-12 21:17:40', 4, 1, 1, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -931,8 +939,11 @@ CREATE TABLE `mensaje_profesor` (
 --
 
 INSERT INTO `mensaje_profesor` (`idMensaje`, `asunto`, `texto`, `fecha`, `idPadre`, `idProfesor`, `idAlumno`, `leido`, `idAsignatura`) VALUES
-(8, NULL, 'El ciclo hidrológico o ciclo del agua es el proceso de circulación del agua entre los distintos compartimentos que forman la hidrosfera o hidrósfera (océanos, glaciares,etc.). Se trata de un ciclo biogeoquímico en el que hay una intervención mínima de reacciones químicas, porque el agua casi sólo se traslada de unos lugares a otros o cambia de estado físico.1', '2017-05-08 19:28:21', NULL, 1, 1, 1, 1),
-(9, NULL, 'Claro, sin nigun problema', '2017-05-09 18:23:19', 1, 1, NULL, 1, 1);
+(1, 'Agua bendita', 'Báñese gratis en agua bendita', '2017-05-11 22:45:47', 4, 1, NULL, 1, 1),
+(3, NULL, 'Soy hippie', '2017-05-12 18:17:59', 4, 1, NULL, 0, 1),
+(4, 'Wee', 'nsdadklJASDNK<AS', '2017-05-12 18:24:51', 2, 1, NULL, 1, 1),
+(5, NULL, 'por que?', '2017-05-12 18:58:50', 1, 1, NULL, 1, 1),
+(6, NULL, 'No estoy esperando para verla con mi señora', '2017-05-12 19:27:18', NULL, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -959,11 +970,8 @@ INSERT INTO `padre` (`idPadre`, `nombre`, `apellidos`, `user`, `dni`, `email`, `
 (1, 'Clotilde', 'Pérez Gutiérrez', 'semperfidelisclotmadre', '78945612A', 'cloti2@lol.co', 666666666, '1234'),
 (2, 'Auxiliadora', 'Valderrama Mendoza', 'gastroenteritis', '45645645R', 'lagastro@hotmail.com', 666666666, '1234'),
 (3, 'Marieta', 'Sánchez', 'Gorgorito', '14714721F', 'asdfg@lol.co', 852852852, '1234'),
-(4, 'Rodolfo', 'Summers', 'rudolf', '45824735H', 'rudolf@lol.co', 656565655, '1234'),
-(6, 'Clotilde', 'Pérez Gutiérrez', 'semperfidelisclotprofe', '78945612A', 'cloti3@lol.co', 666666666, '1234'),
-(11, 'Michael', 'Fassbender', 'mf47', '555444666', 'michef@gmail.com', 66666666, 'ebe3QRrP'),
-(12, 'nfdsknvjfsd', 'ndvkjsdnvjkn', 'nn89', '584654', 'kfkfkfkf@gmail.com', 4554545, 'AyNjsK68'),
-(13, 'Facundo', 'Diaz', 'fd77', '88888888A', 'facu@gmail.com', 999999999, 'vXrJMiz6');
+(4, 'Rodolfo', 'Summers', 'rudolf', '45824735H', 'rudolf@lol.co', 656565655, '4321'),
+(6, 'Clotilde', 'Pérez Gutiérrez', 'semperfidelisclotprofe', '78945612A', 'cloti3@lol.co', 666666666, '1234');
 
 -- --------------------------------------------------------
 
@@ -988,7 +996,7 @@ CREATE TABLE `profesor` (
 --
 
 INSERT INTO `profesor` (`idProfesor`, `nombre`, `apellidos`, `email`, `dni`, `telefono`, `user`, `password`, `idCentro`) VALUES
-(1, 'Diego', 'Mendoza', 'dm1@alu.ua.es', '4545647P', 666666666, 'payo1', '1234', 1),
+(1, 'Diego', 'Mendoza', 'dm1@alu.ua.es', '4545647P', 666666666, 'payo1', '4321', 1),
 (2, 'Bernardo', 'Galipienso', 'bg2@alu.ua.es', '85285285J', 666666666, 'payo2', '1234', 1),
 (3, 'Luisa', 'Ramos', 'bg2@alu.ua.es', '85285285J', 666666666, 'paya3', '1234', 1),
 (5, 'Angustias', 'López', 'bg2@alu.ua.es', '85285285J', 666666666, 'paya5', '1234', 1),
@@ -1006,10 +1014,7 @@ INSERT INTO `profesor` (`idProfesor`, `nombre`, `apellidos`, `email`, `dni`, `te
 (17, 'Auxiliadora', 'Spencer', 'aux@aux.x', '12345678X', 123456789, 'aux34', '1234', 1),
 (18, 'Muñón', 'Bombín Esperanza', 'munion@hope.com', '55555555K', 666666666, 'munion', '1234', 1),
 (19, 'Clotilde', 'Pérez Gutiérrez', 'cloti3@lol.co', '78945612A', 666666666, 'semperfidelisclotprofe', '1234', 1),
-(21, 'Rebujito', 'Almádena Miño', 'rebu@lol.co', '78945612Q', 666666666, 'rebu3', '1234', 1),
-(22, 'Hector', 'De Miguel', 'qq@gmail.com', '99999999D', 666666666, 'hd93', 'hcXRfpy9', 1),
-(23, 'Pepe', 'Frog', 'oeoe@gmail.com', '898989898', 585858585, 'pf46', 'zsyWGS4M', 0),
-(24, 'Remus', 'Lupin', 'rli@gmail.com', '48594859D', NULL, 'rl86', 'pGrtLhgH', 1);
+(21, 'Rebujito', 'Almádena Miño', 'rebu@lol.co', '78945612Q', 666666666, 'rebu3', '1234', 2);
 
 -- --------------------------------------------------------
 
@@ -1039,7 +1044,8 @@ INSERT INTO `tarea` (`idTarea`, `descripcion`, `fecha_limite`, `fechaCreacion`, 
 (25, 'Diseccionar un pollito', '2017-03-01', '2017-04-18 09:06:30', 1, 1, 1, 'Amor a la naturaleza'),
 (26, 'La lannister se ha cargao a los tyrell y está muy emocionante xdd', '2017-03-09', '2017-04-18 09:10:01', 2, 2, 1, 'Ver juego de tronos'),
 (27, 'Es tiempo ya', '2017-04-25', '2017-04-18 09:11:04', 1, 1, 1, 'Ir a por un zumo'),
-(28, 'Y quien no vaya, que se prepare para julio', '2017-04-25', '2017-04-18 09:27:37', 1, 1, 1, 'Ir al Mad Pilots');
+(28, 'Y quien no vaya, que se prepare para julio', '2017-04-25', '2017-04-18 09:27:37', 1, 1, 1, 'Ir al Mad Pilots'),
+(29, 'Hacer los ejercicios 3, 4 y 7', '2017-05-11', '2017-05-14 18:03:13', 1, 1, 1, 'Tabla del 2');
 
 -- --------------------------------------------------------
 
@@ -1292,17 +1298,17 @@ ALTER TABLE `administrador`
 -- AUTO_INCREMENT de la tabla `alumno`
 --
 ALTER TABLE `alumno`
-  MODIFY `idAlumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `idAlumno` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 --
 -- AUTO_INCREMENT de la tabla `anuncio_gestor`
 --
 ALTER TABLE `anuncio_gestor`
-  MODIFY `idAnuncio` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idAnuncio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `asignatura`
 --
 ALTER TABLE `asignatura`
-  MODIFY `idAsignatura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idAsignatura` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 --
 -- AUTO_INCREMENT de la tabla `asistencia`
 --
@@ -1322,7 +1328,7 @@ ALTER TABLE `comentarios_sobre_el_alumno`
 -- AUTO_INCREMENT de la tabla `comunicado`
 --
 ALTER TABLE `comunicado`
-  MODIFY `idComunicado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `idComunicado` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT de la tabla `curso`
 --
@@ -1347,7 +1353,7 @@ ALTER TABLE `examen`
 -- AUTO_INCREMENT de la tabla `gestor`
 --
 ALTER TABLE `gestor`
-  MODIFY `idGestor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idGestor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `mencion`
 --
@@ -1357,32 +1363,32 @@ ALTER TABLE `mencion`
 -- AUTO_INCREMENT de la tabla `mensaje_alumno`
 --
 ALTER TABLE `mensaje_alumno`
-  MODIFY `idMensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `idMensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT de la tabla `mensaje_padre`
 --
 ALTER TABLE `mensaje_padre`
-  MODIFY `idMensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idMensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `mensaje_profesor`
 --
 ALTER TABLE `mensaje_profesor`
-  MODIFY `idMensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idMensaje` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `padre`
 --
 ALTER TABLE `padre`
-  MODIFY `idPadre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idPadre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT de la tabla `profesor`
 --
 ALTER TABLE `profesor`
-  MODIFY `idProfesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `idProfesor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 --
 -- AUTO_INCREMENT de la tabla `tarea`
 --
 ALTER TABLE `tarea`
-  MODIFY `idTarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `idTarea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT de la tabla `tipocentro`
 --
