@@ -71,14 +71,10 @@
 
                 <div class="col-md-2">
                     <ul class="nav nav-pills nav-stacked">
-                       <li role="presentation" class="active"><a href="mensajesRecibProfe.html" class="btn btn-default">Pendientes</a></li>
+                       <li role="presentation" class="active"><a href="mensajesRecibProfe.html" class="btn btn-default">Pendientes <p ng-if="mensaje.notifi">*</p></a></li>
                         <li role="presentation"><a href="mensajesEnviadosProfe.html" class="btn btn-default">Hechos</a></li>
                         <li role="presentation"><a href="mensajeNuevoProfe.html" class="btn btn-default">Nuevo Mensaje</a></li>
                     </ul>
-                </div>
-
-                <div class="col-md-10" ng-if="mensaje.vacio">
-                    <p>No hay mensajes nuevos</p>
                 </div>
 
                 <div class="col-md-10">
@@ -93,11 +89,15 @@
                             Mensajes de alumnos
                         </h2>
                     </div>
+                    <div class="col-lg-12" ng-if="mensaje.vacio">
+                        <p>No hay mensajes nuevos</p>
+                    </div>
                     <div class="col-lg-12" ng-repeat="item in mensaje.deAlumnos" ng-show="!mensaje.leido">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="col-xs-2">
-                                    <a href="conversacionProfe.html" target="_blank" ng-click="mensaje.selectDatos(item.idProfesor, item.idAsignatura, item.NombreAlumno, item.NombreAsignatura, 'alumno')" class="btn btn-primary active btn-xs-2"> Ver</a>
+                                    <a href="conversacionProfe.html" target="_blank" ng-click="mensaje.selectDatos(item.idProfesor, 
+                                     item.idAsignatura, item.NombreAlumno, item.NombreAsignatura, 'alumno')" class="btn btn-primary active btn-xs-2"> Ver</a>
                                 </div>
                                 <h4>
                                     De: {{item.NombreAlumno}}
@@ -111,14 +111,18 @@
                             Mensajes de padres
                         </h2>
                     </div>
+                    <div class="col-lg-12" ng-if="mensaje.vacioPadre">
+                        <p>No hay mensajes nuevos</p>
+                    </div>
                     <div class="col-lg-12" ng-repeat="item in mensaje.dePadres" ng-show="!mensaje.leido">
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <div class="col-xs-2">
-                                    <a href="conversacionProfe.html" target="_blank" ng-click="mensaje.selectDatos(item.idProfesor, item.idAsignatura, item.NombrePadre, item.NombreAsignatura, 'padre')" class="btn btn-primary active btn-xs-2"> Ver</a>
+                                    <a href="conversacionProfe.html" target="_blank" ng-click="mensaje.selectDatos(item.idProfesor, 
+                                     item.idAsignatura, item.NombrePadre, item.NombreAsignatura, 'padre')" class="btn btn-primary active btn-xs-2"> Ver</a>
                                 </div>
                                 <h4>
-                                    De: {{item.NombrePadre}} 
+                                    De: {{item.NombrePadre}}
                                 </h4>
                             </div>
                         </div>

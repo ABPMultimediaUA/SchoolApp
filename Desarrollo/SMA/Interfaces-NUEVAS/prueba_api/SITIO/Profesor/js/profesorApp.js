@@ -1,15 +1,17 @@
     var sesionLocal = false;
     var sesionSesion = false;
-    if(localStorage.user == "null"){
-        if(sessionStorage.getItem('user2') == "null"){
-            window.location.replace("/prueba_api/SITIO/PagPrincipal/index.html");
+
+    if(typeof localStorage.user == 'undefined' || localStorage.user == "null"){
+        console.log("hola1")
+        if(typeof sessionStorage.getItem('user2') == 'undefined' || sessionStorage.getItem('user2') == null){
+        console.log("hola2")
+            window.location.replace("/prueba_api/SITIO/LandingPage/index.html");
         }else{
             sesionSesion = true;
         }     
     }else{
         sesionLocal = true; 
     }
-
 
     angular.module('profesorApp', ['htmlToPdfSave'])
     .controller('navController', navController)
