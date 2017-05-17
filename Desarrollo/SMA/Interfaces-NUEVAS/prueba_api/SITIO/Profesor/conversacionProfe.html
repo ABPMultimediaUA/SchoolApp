@@ -69,42 +69,38 @@
             <!-- Marketing Icons Section -->
             <div class="row">
 
-                 <div class="col-md-2">
+                 <div class="col-md-1">
                     <ul class="nav nav-pills nav-stacked">
-                       <li role="presentation"><a href="mensajesRecibProfe.html" class="btn btn-default">Pendientes</a></li>
-                        <li role="presentation"><a href="mensajesEnviadosProfe.html" class="btn btn-default">Hechos</a></li>
-                        <li role="presentation"><a href="mensajeNuevoProfe.html" class="btn btn-default">Nuevo Mensaje</a></li>
+                        <li role="presentation"><a href="mensajesEnviadosProfe.html" class="btn btn-default">Atrás</a></li>
                     </ul>
                 </div>
                 
-                <div class="col-md-10">
-               
+                <div class="col-md-11">
                     <div class="col-lg-12" ng-init="msghechos.init()">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 style="font-weight: bold;">
+                                <h3><b>
                                     {{msghechos.nPersona}}
-                                </h4>
+                                </b></h3>
                             </div>
 
                             <div class="panel-body" ng-repeat="item in msghechos.todos">
-                            
-                            <!--Profesor-->
+                                <!--Profesor-->
                                 <div class="form-group pull-left" ng-if="$even">
-                                  <p style="font-weight: bold;">{{msghechos.nPersona}}:</p>
+                                    <p><b>{{msghechos.nPersona}}:</b></p>
                                     <p>{{item.texto}}</p>                                 
                                     <p>{{item.fecha}}</p>
                                 </div>
-                            <!--Alumno-->
+                                <!--Alumno-->
                                 <div class="form-group pull-right" ng-if="$odd">
-                                    <p style="font-weight: bold;">Yo:</p>
+                                    <p><b>Yo:</b></p>
                                     <p>{{item.texto}}</p>                                 
                                     <p>{{item.fecha}}</p>
                                 </div>
                             </div>
 
                             <div class="panel-body" ng-if="msghechos.respon">
-                                <div class="form-group pull-right">
+                                <div class="form-group">
                                     <p>Yo:</p>
                                     <p>{{msghechos.formMensaje}}</p>                                 
                                 </div>
@@ -113,8 +109,8 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-2" ng-show="!ocult">
-                        <button ng-disabled="msghechos.dis == 1" ng-click="msghechos.responder=true; ocult=true" class="btn btn-primary active btn-xs-2 btn-block">
+                    <div class="col-md-12" ng-show="!ocult">
+                        <button ng-disabled="msghechos.dis == 1" ng-click="msghechos.responder=true; ocult=true" class="btn btn-primary btn-md pull-right">
                             <span class="glyphicon glyphicon-edit"></span> Responder
                         </button>
                     </div>  
