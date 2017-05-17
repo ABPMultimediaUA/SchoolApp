@@ -79,7 +79,7 @@
     </header>
     
     <section class="content">
-        <div class="container" ng-controller = "datosPadreController as padre">
+        <div class="container" ng-controller = "navController as nav">
             <div class="row">
                 <div class="col-md-1">
                     <ul class="nav nav-pills nav-stacked">
@@ -93,38 +93,34 @@
                     </div>
 
                     <!-- Formulario -->
-                    <form class="form-horizontal col-md-12" role="form" ng-repeat = "datos in alumno.datos">
-                        <div class="form-group">
-                            <label for="nombre" class="col-md-2 control-label">Nº Expediente</label>
-                            <div class="col-md-4">
-                              <p class="form-control-static">{{datos.InformeAlumno_numExpediente}}</p>
-                            </div>
-                        </div> 
+                    <form id="datosdeusuario" class="form-horizontal col-md-10" role="form">
                         <div class="form-group">
                             <label for="nombre" class="col-md-2 control-label">Nombre</label>
                             <div class="col-md-4">
-                              <p class="form-control-static">{{datos.nombre}}</p>
+                              <p class="form-control-static">{{nav.nombre}}</p>
                             </div>
                         </div> 
                         <div class="form-group">
                             <label for="apellidos" class="col-md-2 control-label">Apellidos</label>
                             <div class="col-md-4">
-                                <p class="form-control-static">{{datos.apellidos}}</p>
+                                <p class="form-control-static">{{nav.apellidos}}</p>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="curso" class="col-md-2 control-label">Curso</label>
-                            <div class="col-md-4">
-                                <p class="form-control-static">{{datos.curso_idCurso}}</p>
-                            </div>
-                        </div>
+                        
                         <div class="form-group">
                             <label for="inputPassword2" class="col-md-2 control-label">Email</label>
                             <div class="col-md-4">
-                               <p class="form-control-static">{{datos.email}}</p>
+                               <p class="form-control-static">{{nav.email}}</p>
+                            </div>
+                        </div>                        
+                           
+                        <div class="form-group">
+                            <label for="inputPassword2" class="col-md-2 control-label">Teléfono</label>
+                            <div class="col-md-4">
+                               <p class="form-control-static">{{nav.telefono}}</p>
                             </div>
                         </div>
-                        <button type="button" class="btn btn-primary">Error de Datos</button>                
+                        <a href="ajustes.html"><button type="button" class="btn btn-primary">Cambiar contraseña</button></a>                
                     </form>
                 </div>
             </div>
