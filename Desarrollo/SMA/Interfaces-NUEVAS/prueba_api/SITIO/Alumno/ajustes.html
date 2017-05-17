@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+
+    <title>Ajustes</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+    
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+    <!-- archivos de angular -->
+
+    <!-- archivos de angular -->
+    <script src="js/alumnoApp.js"></script>
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>    
+    <!-- cdn for modernizr, if you haven't included it already -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/extras/modernizr-custom.js"></script>
+    <!-- polyfiller file to detect and load polyfills -->
+    <script src="http://cdn.jsdelivr.net/webshim/1.12.4/polyfiller.js"></script>
+    <script>
+      webshims.setOptions('waitReady', false);
+      webshims.setOptions('forms-ext', {types: 'date'});
+      webshims.polyfill('forms forms-ext');
+    </script> 
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script> 
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+
+</head>
+
+<body ng-app = "alumnoApp">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageAlumno.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosAlum.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12"></br>
+                    <h2 id="h2Titulo">AJUSTES
+                        <small>Modifica tus datos</small>
+                    </h1>
+                </div>
+
+                <!-- Formulario -->
+                <form class="form-horizontal col-md-10" role="form">
+                    <div class="form-group">
+                        <label class="col-md-2 control-label">Email</label>
+                        <div class="col-md-4">
+                          <p class="form-control-static">email@ejemplo.com</p>
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="inputPassword" class="col-md-2 control-label">Contraseña</label>
+                        <div class="col-md-4">
+                          <input type="password" class="form-control" id="inputPassword" placeholder="Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="inputPassword2" class="col-md-2 control-label">Repite la contraseña</label>
+                        <div class="col-md-4">
+                          <input type="password" class="form-control" id="inputPassword2" placeholder="Contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-10 pull-right">
+                            <button type="button" class="btn btn-primary">Cambiar contraseña</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+   <!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

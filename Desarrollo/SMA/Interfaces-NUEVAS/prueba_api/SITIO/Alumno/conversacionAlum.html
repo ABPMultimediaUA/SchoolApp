@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chat</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+   
+    <!-- archivos de angular -->
+    <script src="js/alumnoApp.js"></script>
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+
+</head>
+
+<body ng-app = "alumnoApp">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageAlumno.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosAlum.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">
+        <div class="container" ng-controller = "msgHechosController as msghechos">
+            <!-- Marketing Icons Section -->
+            <div class="row">
+
+                <div class="col-md-1">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="mensajesEnviadosAlum.html" class="btn btn-default">Atrás</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-11">
+                    <!--div class="col-lg-12">
+                        <h2 id="h2Titulo">
+                            CHAT
+                        </h2>
+                     </div-->
+
+                    <div class="col-lg-12" ng-init="msghechos.init()">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3><b>
+                                    {{msghechos.nProfesor}}, profesor de {{msghechos.nAsignatura}}
+                                </b></h3>
+                            </div>
+
+                            <div class="panel-body" ng-repeat="item in msghechos.todos">
+                                <!--Profesor-->
+                                <div class="form-group pull-left" ng-if="$odd">
+                                    <p><b>{{msghechos.nProfesor}}:</b></p><br>
+                                    <p>{{item.texto}}</p>                                 
+                                    <p>{{item.fecha}}</p>
+                                </div>
+                                <!--Alumno-->
+                                <div class="form-group pull-right" ng-if="$even">
+                                    <p><b>Yo:</b></p><br>
+                                    <p>{{item.texto}}</p>                                 
+                                    <p>{{item.fecha}}</p>
+                                </div>
+                            </div>
+                               <div  class="panel-body" ng-if="msghechos.respon">
+                                    <div class="form-group pull-right" >
+                                       <p>Yo:</p><br>
+                                        <p>{{msghechos.formMensaje}}</p>                                 
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12" ng-show="!ocult">
+                        <button ng-disabled="msghechos.dis == 1" ng-click="msghechos.responder=true; ocult=true" class="btn btn-primary btn-md pull-right">
+                            <span class="glyphicon glyphicon-edit"></span> Responder
+                        </button>
+                    </div>  
+                    <div class="col-xs-2" ng-if="msghechos.llegit==0">
+                        <a ng-click="msghechos.marcarLeido(no); leido=true" class="btn btn-primary active btn-xs-2 btn-block">Marca como leído</a>
+                    </div>
+                    <div class="col-lg-12" ng-if="msghechos.responder">
+                        <form name = "nuevoMensajeForm" class="form-horizontal col-xs-12" ng-submit = "msghechos.responderMensaje(); ocult=true">
+                            <div class="form-group col-md-12">
+                                <div class="col-md-12">
+                                  <label for="comment">Respuesta:</label>
+                                  <textarea ng-model = "msghechos.formMensaje" class="form-control" rows="6" id="comment"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-md-4">      
+
+                                <div class="col-sm-offset-2 col-xs-2 col-sm-2">
+                                    <button type="submit" class="btn btn-info active btn-md" ng-disabled="!(!!msghechos.formMensaje)">
+                                        <span class="glyphicon glyphicon-send"></span> Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
