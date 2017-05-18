@@ -86,7 +86,7 @@
                                 <label for="sel1">Asignatura: </label>
                                 <select ng-model = "evaluacion.selectedVal" ng-change="evaluacion.selectAsignatura()" class="form-control" id="sel1">
                                     <!-- ASIGNATURAS DE CADA ALUMNO-->
-                                    <option>Todos</option>
+                                    <option value = "0,true">Todos</option>
                                     <option ng-repeat = "item in evaluacion.asignaturas" value = "{{item.idAsignatura}},true">{{item.nombre}}</option>
                                 </select>
                             </div>

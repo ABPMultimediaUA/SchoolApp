@@ -62,7 +62,7 @@
         </div>
     </header>
 
-    <section class="content">
+    <section class="content" ng-controller = "principalController as prin">
         <div class="container">
             <div class="row">
                 <div class="grid_12">
@@ -71,14 +71,18 @@
                             <div class="flex-item">
                                 <a href="mensajesRecibAlum.html" class="gal_item" target="_blank">
                                     <img src="img/mensajes.jpg" alt="">
-                                    <div class="gal_caption">Mensajes</div>
+                                    <div ng-if="!prin.mensaje" class="gal_caption">Mensajes</div>
+                                    <div ng-if="prin.mensaje" class="gal_caption">
+                                        * Mensajes 
+                                    </div>
                                     <span class="gal_magnify"></span->
                                 </a>
                             </div>
                             <div class="flex-item">
                                 <a href="anuncios.html" class="gal_item" target="_blank">
                                     <img src="img/anuncio.jpg" alt="">
-                                    <div class="gal_caption">Anuncios</div>
+                                    <div ng-if="!prin.anucnio" class="gal_caption">Anuncios</div>
+                                    <div ng-if="prin.anucnio" class="gal_caption">Anuncios *</div>
                                 </a>
                             </div>
                             <div class="flex-item">
@@ -112,18 +116,22 @@
                                 </a>
                             </div>
                             
+<!--
                             <div class="flex-item">
                                 <a href="materialesSinDescargarAlum.html" class="gal_item" target="_blank">
                                     <img src="img/materiales.jpg" alt="">
                                     <div class="gal_caption">Materiales</div>
                                 </a>
                             </div>                                                      
+-->
+<!--
                             <div class="flex-item">
                                 <a href="horario.html" class="gal_item" target="_blank">
                                     <img src="img/horario.jpg" alt="">
                                     <div class="gal_caption">Horario</div>
                                 </a>
                             </div>
+-->
                             <div class="flex-item">
                                 <a href="faltaAsistenciaAlum.html" class="gal_item" target="_blank">
                                     <img src="img/faltas.jpg" alt="">
@@ -143,9 +151,9 @@
             <div class="row">
                 <div class="grid_12">
                     <div class="footer_socials">
-                        <a href="#" class="fa fa-twitter"></a>
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-google-plus"></a>
+                        <a href="https://twitter.com/AlphaSchool_UA" target="_blank" class="fa fa-twitter"></a>
+                        <a href="#" target="_blank" class="fa fa-facebook"></a>
+                        <a href="#" target="_blank" class="fa fa-google-plus"></a>
                     </div>
                     <div class="copy">
                         <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>

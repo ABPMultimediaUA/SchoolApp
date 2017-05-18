@@ -2,9 +2,7 @@
     var sesionSesion = false;
 
     if(typeof localStorage.user == 'undefined' || localStorage.user == "null"){
-        console.log("hola1")
         if(typeof sessionStorage.getItem('user2') == 'undefined' || sessionStorage.getItem('user2') == null){
-        console.log("hola2")
             window.location.replace("/prueba_api/SITIO/LandingPage/index.html");
         }else{
             sesionSesion = true;
@@ -50,7 +48,8 @@
         })
          .then(function(response) {
             prin.total = angular.fromJson(response.data);
-            for(var j=0;j<prin.total.length;j++){
+            prin.anucnio = false;
+            for(var j=0;j<prin.total.length && prin.anucnio==false;j++){
                 if(prin.total[j].leidoPadre == false && typeof prin.total[j].idAsignatura != 'undefined'){
                     prin.anucnio = true;
                 }
@@ -68,7 +67,7 @@
             prin.noLeidos = angular.fromJson(response.data);
             prin.mensaje = true;
         }, function errorCallback(response) {
-                    
+            prin.mensaje = false;
             });
     }  
         
@@ -420,7 +419,7 @@
             idAlumnoParam="idAlumno/"+idAlumno;
             var evaluacion = this;
             examAntic = idAlumnoParam + "/pasados/true";
-            evaluacion.numero = "X";
+            evaluacion.numero = "todas";
             //LLAMADA PARA COGER EXAMENES ANTIGUOAS
             $http({
                 url: "http://localhost/prueba_api/alpha2/index.php/examen/examen/",
@@ -431,7 +430,6 @@
              .then(function(response) {
                 evaluacion.compuesto = angular.fromJson(response.data); 
                 evaluacion.lista = evaluacion.compuesto;
-                console.log(evaluacion.compuesto[0])
                 }, function errorCallback(response) {
                     console.log("No hay examenes")
             });
@@ -444,7 +442,6 @@
             })
              .then(function(response) {
                 evaluacion.asignaturas = angular.fromJson(response.data);
-                console.log()
             }, function errorCallback(response) {
                 conosle.log("No hay asignaturas")
             });
@@ -460,7 +457,6 @@
              .then(function(response) {
                 evaluacion.proxCompuesto = angular.fromJson(response.data); 
                 evaluacion.proxLista = evaluacion.proxCompuesto;
-                console.log(evaluacion.proxCompuesto[0])
                 }, function errorCallback(response) {
                     evaluacion.noHay = true;
                     console.log("No hay exmanes")
@@ -502,9 +498,14 @@
                     evaluacion.proxLista = [];
                     for(var i=0;i<evaluacion.proxCompuesto.length;i++){  
                         if(evaluacion.proxCompuesto[i].idAsignatura == evaluacion.id){
-                                evaluacion.proxLista[num] = evaluacion.proxCompuesto[i];
-                                    num++;
+                            evaluacion.proxLista[num] = evaluacion.proxCompuesto[i];
+                            num++;
+                        }else{
+                            evaluacion.proxLista = [];
                         }
+                    }
+                    if(evaluacion.id == 0){
+                        evaluacion.proxLista = evaluacion.proxCompuesto;
                     }
                 }
                     
@@ -516,23 +517,41 @@
                 evaluacion.numero = evaluacion.selectedItem;
                 
                 if(evaluacion.id == 0){
-                    evaluacion.lista = [];
-                    for(var i=0;i<evaluacion.compuesto.length;i++){  
-                        if(evaluacion.compuesto[i].evaluacion == evaluacion.selectedItem){
-                                evaluacion.lista[con] = evaluacion.compuesto[i];
-                                con++;
+                    if(evaluacion.numero == 0){
+                        evaluacion.numero = "todas";
+                        evaluacion.lista = evaluacion.compuesto;
+                    }else{
+                        evaluacion.lista = [];
+                        for(var i=0;i<evaluacion.compuesto.length;i++){ 
+                            if(evaluacion.compuesto[i].evaluacion == evaluacion.selectedItem){
+                                    evaluacion.lista[con] = evaluacion.compuesto[i];
+                                    con++;
+                            }
                         }
                     }
                 }else{
-                    tam = 0;
-                    evaluacion.lista = [];
-                    for(var i=0;i<evaluacion.compuesto.length;i++){  
-                        if(evaluacion.compuesto[i].idAsignatura == evaluacion.id 
-                           && evaluacion.compuesto[i].evaluacion == evaluacion.selectedItem){
-                                evaluacion.lista[tam] = evaluacion.compuesto[i];
-                                tam++;
+                    if(evaluacion.numero == 0){
+                        evaluacion.numero = "todas";
+                        tam = 0;
+                        evaluacion.lista = [];
+                        for(var i=0;i<evaluacion.compuesto.length;i++){  
+                            if(evaluacion.compuesto[i].idAsignatura == evaluacion.id){
+                                    evaluacion.lista[tam] = evaluacion.compuesto[i];
+                                    tam++;
+                            }
                         }
+                    }else{
+                        tam = 0;
+                        evaluacion.lista = [];
+                        for(var i=0;i<evaluacion.compuesto.length;i++){  
+                            if(evaluacion.compuesto[i].idAsignatura == evaluacion.id 
+                               && evaluacion.compuesto[i].evaluacion == evaluacion.selectedItem){
+                                    evaluacion.lista[tam] = evaluacion.compuesto[i];
+                                    tam++;
+                            }
+                        }                        
                     }
+
                 }
             }
     }
@@ -753,14 +772,16 @@
                 if(mesLetras == "Dec")
                     mes = "12";
                 
-                asistencia.fec = dia+"-"+mes+"-"+anyo;
+                asistencia.fec = dia+"/"+mes+"/"+anyo;
                 asistencia.fechaParam = dia+mes+anyo;
                 
                 //Si ha sido cambiada solo la asignatura
                 if(asistencia.asig == 0){
                     var aux = 0;
+                    console.log(asistencia.fec)
                     asistencia.lista = [];
-                    for(var i=0;i<asistencia.compuesto.length;i++){  
+                    for(var i=0;i<asistencia.compuesto.length;i++){ 
+                        console.log(asistencia.compuesto[i].fecha)
                         if(asistencia.compuesto[i].fecha == asistencia.fec){
                                 asistencia.lista[aux] = asistencia.compuesto[i];
                                 aux++;
@@ -850,7 +871,6 @@
             }).then(function(response){
                 just.compuesto = angular.fromJson(response.data);
                 just.justificantes = just.compuesto;
-                        console.log(just.justificantes)
                 var con = 0;
                 just.justi = [];
                 for(var i=0;i<just.justificantes.length;i++){
@@ -861,16 +881,22 @@
                 }
             })
             just.mostrar = true;
+            just.muestreo = true;
                     //FILTRAR POR ASIGNATURA
             just.selectAsignatura = function(){
                 var aux = 0;
                 just.profesor = "";
-                for(var i=0;i<just.faltas.length;i++){
-                    if(just.faltas[i].idAsignatura == just.selectedItem){
-                        just.profesor = just.faltas[i].nombreProfesor;
+                console.log(just.faltas)
+                just.stop = false;
+                for(var i=0;i<just.faltas.length && !just.stop;i++){
+                    if(just.faltas[i].idAsignatura == just.selectedItem
+                        && just.faltas[i].justificada == 0){
+                        just.profesor = just.faltas[i].profesor;
                         just.idAsignatura = just.faltas[i].idAsignatura;
-                        just.mostrar = false;
+                        just.muestreo = false;
                         just.falta = false;
+                        just.stop = true;
+                        console.log(just.mostrar)
                         //LLAMADA PARA RECOGER LAS FALTAS
                         $http({
                             url: "http://localhost/prueba_api/alpha2/index.php/asistencia/asistencia/", 
@@ -893,6 +919,7 @@
                         });
                     }else{
                         just.mostrar = true;
+                        just.muestreo = true;
                         just.falta = true;
                     }
                 }

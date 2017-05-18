@@ -2,9 +2,7 @@
     var sesionSesion = false;
 
     if(typeof localStorage.user == 'undefined' || localStorage.user == "null"){
-        console.log("hola1")
         if(typeof sessionStorage.getItem('user2') == 'undefined' || sessionStorage.getItem('user2') == null){
-        console.log("hola2")
             window.location.replace("/prueba_api/SITIO/LandingPage/index.html");
         }else{
             sesionSesion = true;
@@ -930,7 +928,6 @@
             })
              .then(function(response) {
                 mensaje.noLeidos = angular.fromJson(response.data); 
-                console.log(mensaje.noLeidos)
                 mensaje.deAlumnos = mensaje.noLeidos.Alumno;
                 mensaje.dePadres = mensaje.noLeidos.Padre;
                 mensaje.notifi = true;
@@ -946,13 +943,14 @@
                     mensaje.notifi = false;
             });
         
-            mensaje.selectDatos = function(idProfesor, idAsignatura, persona, asignatura, rol){
+            mensaje.selectDatos = function(idProfesor, idAsignatura, persona, asignatura, rol, idPerson){
                 if(sesionLocal){
                     localStorage.setItem('persona', persona);
                     localStorage.setItem('asignatura', asignatura);
                     localStorage.setItem('idProfesor2', idProfesor);
                     localStorage.setItem('idAsignatura', idAsignatura);
                     localStorage.setItem('rol', rol);
+                    localStorage.setItem('idPerson', idPerson);
                 }
                 if(sesionSesion){
                     sessionStorage.setItem('persona', persona);
@@ -960,6 +958,7 @@
                     sessionStorage.setItem('idProfesor2', idProfesor);
                     sessionStorage.setItem('idAsignatura', idAsignatura);
                     sessionStorage.setItem('rol', rol);
+                    sessionStorage.setItem('idPerson', idPerson);
                 }
             }
         
@@ -1045,7 +1044,6 @@
                     sessionStorage.setItem('rol', rol);
                     sessionStorage.setItem('idPerson', idPerson);
                 }
-                
                       
             }
             
@@ -1057,6 +1055,7 @@
                     msghechos.rol = localStorage.rol;
                     msghechos.idPerson = localStorage.idPerson;
                     var idAsignatura = localStorage.idAsignatura;
+                    console.log(msghechos.idPerson)
                 }
                 if(sesionSesion){    
                     msghechos.nPersona = sessionStorage.getItem('persona');
@@ -1065,6 +1064,7 @@
                     msghechos.rol = sessionStorage.getItem('rol');
                     msghechos.idPerson = sessionStorage.getItem('idPerson');
                     var idAsignatura = sessionStorage.getItem('idAsignatura');
+                    console.log(msghechos.idPerson)
                 }
                 msghechos.idPro = idProfesor;
                 //LLAMADA PARA RECOGER MENSAJES LEIDOS
@@ -1129,6 +1129,7 @@
                                 con++;
                             }
                         }
+                        console.log(msghechos.idPerson)
                         msghechos.idPadre = msghechos.idPerson;
                         msghechos.menProf = msghechos.conver.MensajesProfesor;    
                         if(msghechos.conver.MensajesPadre != null){ 
@@ -1172,6 +1173,7 @@
                                 }
                                 if(msghechos.todos.length % 2 == 0){
                                     //
+                                    
                                     msghechos.llegit = msghechos.todos[msghechos.todos.length-1].leido;
                                 }else{
                                     msghechos.llegit = 1;
@@ -1202,7 +1204,7 @@
                                 msghechos.idM = msghechos.todos[msghechos.todos.length-1].idMensaje;  
                             }                               
                             }
-                        }else{ //El profesor lo crea y el padre aun no ha respndido
+                        }else{ //El profesor lo crea y el padre aun no ha respndido 
                             msghechos.menPerson = [];
                             msghechos.profesorCrea = true;
                             var par = 0;
@@ -1214,10 +1216,10 @@
                             }
                             if(msghechos.todos.length % 2 != 0){
                                 //msghechos.llegit = msghechos.todos[msghechos.todos.length-1].leido;
-                                
-                            }else{
                                 msghechos.llegit = 1;
                                 msghechos.dis = 1;
+                            }else{
+                                
                             }
                             msghechos.idM = msghechos.todos[msghechos.todos.length-1].idMensaje;
                         }

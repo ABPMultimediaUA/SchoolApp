@@ -74,9 +74,11 @@
                             <div class="flex-item">
                                 <a href="mensajesRecibProfe.html" class="gal_item" target="_blank">
                                     <img src="img/mensajes.jpg" alt="">
-                                    <div class="gal_caption">
-                                       <p ng-if="prin.mensaje">*</p>
-                                        Mensajes
+                                    <div ng-if="!prin.mensaje" class="gal_caption">
+                                        Mensajes 
+                                    </div>
+                                    <div ng-if="prin.mensaje" class="gal_caption">
+                                        * Mensajes 
                                     </div>
                                     <span class="gal_magnify"></span->
                                 </a>
@@ -134,8 +136,8 @@
                 <div class="grid_12">
                     <div class="footer_socials">
                         <a href="https://twitter.com/AlphaSchool_UA" target="_blank" class="fa fa-twitter"></a>
-                        <a href="#"  target="_blank" class="fa fa-facebook"></a>
-                        <a href="#" target="_blank"  class="fa fa-google-plus"></a>
+                        <a href="#" target="_blank" class="fa fa-facebook"></a>
+                        <a href="#" target="_blank" class="fa fa-google-plus"></a>
                     </div>
                     <div class="copy">
                         <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>

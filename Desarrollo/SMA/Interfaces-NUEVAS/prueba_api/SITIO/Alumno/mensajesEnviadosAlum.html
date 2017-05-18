@@ -71,7 +71,8 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li role="presentation"><a href="pageAlumno.html" class="btn btn-default">Atrás</a></li>
                         <br>
-                        <li role="presentation"><a href="mensajesRecibAlum.html" class="btn btn-default">Pendientes</a></li>
+                        <li ng-if="!msghechos.notifi" role="presentation"><a href="mensajesRecibAlum.html" class="btn btn-default">Pendientes</a></li>
+                        <li ng-if="msghechos.notifi" role="presentation"><a href="mensajesRecibAlum.html" class="btn btn-default">Pendientes *</a></li>
                         <li role="presentation" class="active"><a href="mensajesEnviadosAlum.html" class="btn btn-default">Hechos</a></li>
                         <li role="presentation"><a href="mensajeNuevoAlum.html" class="btn btn-default">Nuevo Mensaje</a></li>
                     </ul>

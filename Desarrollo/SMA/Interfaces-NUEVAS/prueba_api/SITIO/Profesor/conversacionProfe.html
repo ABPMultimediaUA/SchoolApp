@@ -84,20 +84,50 @@
                                 </b></h3>
                             </div>
 
-                            <div class="panel-body" ng-repeat="item in msghechos.todos">
-                                <!--Profesor-->
+<!--                            <div class="panel-body" ng-repeat="item in msghechos.todos">
+                                <!--Profesor
                                 <div class="form-group pull-left" ng-if="$even">
                                     <p><b>{{msghechos.nPersona}}:</b></p>
                                     <p>{{item.texto}}</p>                                 
                                     <p>{{item.fecha}}</p>
                                 </div>
-                                <!--Alumno-->
+                                <!--Alumno
                                 <div class="form-group pull-right" ng-if="$odd">
                                     <p><b>Yo:</b></p>
                                     <p>{{item.texto}}</p>                                 
                                     <p>{{item.fecha}}</p>
                                 </div>
                             </div>
+-->
+                    <div class="panel-body" ng-repeat="item in msghechos.todos" ng-if="msghechos.profesorCrea">
+<!--                       Profesor-->
+                        <div class="form-group pull-right" ng-if="$even">
+                           <p>Yo:</p><br>
+                           <p>{{item.fecha}}</p>
+                            <p>{{item.texto}}</p>                                  
+                        </div>
+<!--                       Otro-->
+                        <div class="form-group pull-left" ng-if="$odd">
+                          <p>{{msghechos.nPersona}}:</p><br>
+                           <p>{{item.fecha}}</p>
+                            <p>{{item.texto}}</p>              
+                        </div>
+                    </div>
+                                        
+                    <div class="panel-body" ng-repeat="item in msghechos.todos" ng-if="msghechos.padreCrea">
+<!--                       Profesor-->
+                        <div class="form-group pull-left" ng-if="$even">
+                          <p>{{msghechos.nPersona}}:</p><br>
+                           <p>{{item.fecha}}</p>
+                            <p>{{item.texto}}</p>                                 
+                        </div>
+<!--                       Otro-->
+                        <div class="form-group pull-right" ng-if="$odd">
+                           <p>Yo:</p><br>
+                           <p>{{item.fecha}}</p>
+                            <p>{{item.texto}}</p>                                 
+                        </div>
+                    </div>
 
                             <div class="panel-body" ng-if="msghechos.respon">
                                 <div class="form-group">

@@ -113,14 +113,14 @@
                             </div>
                         </div>
 
-                        <div class="form-group col-md-12" ng-if="!just.mostrar">
+                        <div class="form-group col-md-12" ng-if="!just.muestreo">
                             <label for="sel1" class= "col-md-6">Para: </label>
                                 <div class="col-md-8">
                                     <p>{{just.profesor}}</p>
                                 </div>
                         </div>
 
-                        <div class="form-group col-md-12" ng-if="!just.mostrar">
+                        <div class="form-group col-md-12" ng-if="!just.muestreo">
                             <div class="panel-heading">
                                 <h3>JUSTIFICANTE DE AUSENCIA DEL ALUMNADO AL CENTRO EDUCATIVO</h3>
                             </div>
@@ -144,7 +144,7 @@
                                     </div>
 
                                 </div>
-                            <div class="form-group col-md-4" ng-if="!just.mostrar">  
+                            <div class="form-group col-md-4" ng-if="!just.muestreo">  
                                 <div class="col-sm-offset-2 col-sm-2">
                                     <button type="submit" class="btn btn-info btn-md active" ng-disabled="!(!!just.selectedId) || !(!!just.descrip)">
                                         <span class="glyphicon glyphicon-send"></span> Enviar
