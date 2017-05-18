@@ -201,7 +201,7 @@ class Examen_model extends CI_Model {
 		{
 
 				$examen = $this->_setexamen($data);
-				$this->db->where('examen_idExamen', $data['idExamen']);
+				$this->db->where('idExamen', $data['idExamen']);
 				$res = $this->db->update('examen', $data);
 				return $res;
 		}

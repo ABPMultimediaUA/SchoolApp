@@ -50,12 +50,29 @@ class Padre extends REST_Controller {
        $user = $this->get('usuario');
 	   $hijos = $this->get('hijos');
 	   $id = $this->get('id');
+	   $idAlumno = $this->get('idAlumno');
 		if($id==NULL &&$this->get('idPadre')!=NULL) $id = $this->get('idPadre');
 
 
         // If the id parameter doesn't exist return all the padre
-
-		if($id != NULL && $hijos != NULL && $hijos)
+		if($idAlumno != NULL && $id == NULL)
+		{
+			$padres = $this->padre_model->get_padresByAlumno($idAlumno);
+			 if (!empty($padres))
+            {
+                // Set the response and exit
+                $this->response($padres, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+            }
+            else
+            {
+                // Set the response and exit
+                $this->response([
+                    'status' => FALSE,
+                    'message' => 'No padres were found'
+                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+            }
+		}
+		else if($id != NULL && $hijos != NULL && $hijos)
 		{
 			$hijos = $this->padre_model->get_alumnos($id);
 			if (!empty($hijos))
@@ -71,7 +88,7 @@ class Padre extends REST_Controller {
             }
 		}
 
-        else if ($id === NULL && $user === NULL)
+        else if ($id === NULL && $user === NULL && $idAlumno === NULL)
         {
 
             

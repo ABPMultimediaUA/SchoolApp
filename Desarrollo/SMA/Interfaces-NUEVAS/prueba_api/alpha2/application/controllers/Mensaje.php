@@ -214,6 +214,8 @@ class mensaje extends REST_Controller {
 							if($conversacion){array_push($mensajesrecibidos, $mensajes1);}
 						}
 					}
+					if(count($mensajesrecibidos)<1){$mensajes = NULL;}
+					else
 					$mensajes = $mensajesrecibidos[0];
 				}
 				else if($leidos!=NULL && $leidos)

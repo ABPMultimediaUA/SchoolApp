@@ -54,7 +54,24 @@ class Asignatura extends REST_Controller {
 		$idCurso = $this->get('idCurso');
 
 
-		if($idCurso!=NULL)
+		
+		if($idCurso!=NULL && $idProfesor != NULL)
+		{
+                $res = $this->asignatura_model->get_asignaturasByCursoByProfesor($idCurso, $idProfesor);
+            
+            if(!empty($res))
+            {
+                $this->response($res, REST_Controller::HTTP_OK);
+            }
+            else{
+				$this->response([
+				   'status' => FALSE,
+				   'message' => 'No asignatura were found'
+			   ], REST_Controller::HTTP_NOT_FOUND);
+            }
+		}
+
+		else if($idCurso!=NULL && $idProfesor == NULL)
 		{
                 $res = $this->asignatura_model->get_asignaturasByCurso($idCurso);
             
@@ -69,7 +86,7 @@ class Asignatura extends REST_Controller {
 			   ], REST_Controller::HTTP_NOT_FOUND);
             }
 		}
-		else if($idProfesor != NULL)
+		else if($idProfesor != NULL && $idCurso == NULL)
         {
             $idProfesor = (int) $idProfesor;
             if($idProfesor>0)
@@ -243,9 +260,10 @@ class Asignatura extends REST_Controller {
      public function asignatura_put()
     {
                 $res = $this->asignatura_model->put_asignatura($this->put());
-
-                $this->output->set_output($res, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
-
+				if($res)
+                $this->response($res, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
+				else
+				 $this->response($res, REST_Controller::HTTP_BAD_REQUEST);
     }
 
 

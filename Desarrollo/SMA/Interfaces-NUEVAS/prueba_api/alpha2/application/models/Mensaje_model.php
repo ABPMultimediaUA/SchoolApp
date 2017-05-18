@@ -148,14 +148,61 @@ class Mensaje_model extends CI_Model {
 		 {
 
 			 $mensajes_padre = $this->db->get_where('mensaje_padre', array('idPadre'=>$idPadre))->result_array();
-			 if(!empty($mensajes_padre)){
+			 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idPadre'=> $idPadre))->result_array();
+			 $res=[];
+			 if(!empty($mensajes_padre)  ){
 			 function idp2($n)
 			 {
 				 return($n["idProfesor"]);
 			 }
 			 $profesores = array_map('idp2', $mensajes_padre);
 			 $profesores = array_unique($profesores);
-			 $res=[];
+			 
+			 foreach($profesores as $idProfesor){
+				 $mensajes_padre = $this->db->get_where('mensaje_padre', array('idProfesor'=>$idProfesor, 'idPadre'=>$idPadre))->result_array();
+				 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor, 'idPadre'=>$idPadre))->result_array();
+				  if(!empty($mensajes_padre))
+				 {
+							for ($i=0;$i<count($mensajes_padre);$i++)
+					 {
+						 $fecha = $mensajes_padre[$i]["fecha"];
+						 $fecha = new DateTime($fecha);
+						 $mensajes_padre[$i]["fecha"] = date_format($fecha, 'd/m/Y H:i:s');
+					 }
+				}
+				 if(!empty($mensajes_profesor))
+				 {
+							for ($i=0;$i<count($mensajes_profesor);$i++)
+					 {
+						 $fecha = $mensajes_profesor[$i]["fecha"];
+						 $fecha = new DateTime($fecha);
+						 $mensajes_profesor[$i]["fecha"] = date_format($fecha, 'd/m/Y H:i:s');
+					 }
+				}
+				 $nombreProfesor = $this->db->get_where('profesor', array('idProfesor' => $idProfesor));
+				 $nombreProfesor = $nombreProfesor->row_array();
+				 $nombreProfesor = $nombreProfesor["nombre"]." ".$nombreProfesor["apellidos"];
+				 $nombrePadre = $this->db->get_where('padre', array('idPadre' => $idPadre));
+				 $nombrePadre = $nombrePadre->row_array();
+				  if(count($mensajes_padre)<1) $mensajes_padre = NULL;
+				  if(count($mensajes_profesor)<1) $mensajes_profesor = NULL;
+				 $nombrePadre = $nombrePadre["nombre"]." ".$nombrePadre["apellidos"];
+				  if(!empty($mensajes_profesor)){$idAsignatura = $mensajes_profesor[0]['idAsignatura'];}else{$idAsignatura = $mensajes_padre[0]['idAsignatura'];}
+				 $asignatura = $this->db->get_where('asignatura', array('idAsignatura'=>$idAsignatura))->row_array();
+				 $asignatura = $asignatura["nombre"];
+				 $mens = array('NombreAsignatura'=>$asignatura, 'idAsignatura' => $idAsignatura ,'NombreProfesor'=>$nombreProfesor, 'idProfesor'=>$idProfesor, 'MensajesProfesor' => $mensajes_profesor, 'NombrePadre'=>$nombrePadre, 'MensajesPadre' => $mensajes_padre);
+				 array_push($res, $mens);
+			 }
+			}
+			else if(!empty($mensajes_profesor))
+			{
+				 function idp2($n)
+			 {
+				 return($n["idProfesor"]);
+			 }
+			 $profesores = array_map('idp2', $mensajes_profesor);
+			 $profesores = array_unique($profesores);
+			 
 			 foreach($profesores as $idProfesor){
 				 $mensajes_padre = $this->db->get_where('mensaje_padre', array('idProfesor'=>$idProfesor, 'idPadre'=>$idPadre))->result_array();
 				 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor, 'idPadre'=>$idPadre))->result_array();
@@ -183,6 +230,8 @@ class Mensaje_model extends CI_Model {
 				 $nombrePadre = $this->db->get_where('padre', array('idPadre' => $idPadre));
 				 $nombrePadre = $nombrePadre->row_array();
 				 $nombrePadre = $nombrePadre["nombre"]." ".$nombrePadre["apellidos"];
+				  if(count($mensajes_padre)<1) $mensajes_padre = NULL;
+				  if(count($mensajes_profesor)<1) $mensajes_profesor = NULL;
 				  if(!empty($mensajes_profesor)){$idAsignatura = $mensajes_profesor[0]['idAsignatura'];}else{$idAsignatura = $mensajes_padre[0]['idAsignatura'];}
 				 $asignatura = $this->db->get_where('asignatura', array('idAsignatura'=>$idAsignatura))->row_array();
 				 $asignatura = $asignatura["nombre"];
@@ -196,37 +245,7 @@ class Mensaje_model extends CI_Model {
 		  public function get_mensajesByProfesor($idProfesor)
 		 {
 				
-			/*$this->db->order_by('fecha', 'DESC');
-			 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor))->result_array();
-			 $this->db->order_by('fecha', 'DESC');
-			$mensajes_alumno = $this->db->get_where('mensaje_alumno', array('idProfesor'=>$idProfesor))->result_array();
-			$this->db->order_by('fecha', 'DESC');
-			$mensajes_padre = $this->db->get_where('mensaje_padre', array('idProfesor'=>$idProfesor))->result_array();
-			$resAl = [];
-			$resPa = [];
-			foreach($mensajes_alumno as $mensaje_alumno)
-			{
-				$alumno = $this->db->get_where('alumno', array('idAlumno'=>$mensaje_alumno['idAlumno']))->row_array();
-				$mensaje_alumno['NombreAlumno'] = $alumno['nombre'];
-				$mensaje_alumno['ApellidoAlumno'] = $alumno['apellidos'];
-				array_push($resAl, $mensaje_alumno);
-			}
-			foreach($mensajes_padre as $mensaje_padre)
-			{
-				$padre = $this->db->get_where('padre', array('idPadre'=>$mensaje_padre['idPadre']))->row_array();
-				$mensaje_padre['NombrePadre'] = $padre['nombre'];
-				$mensaje_padre['ApellidoPadre'] = $padre['apellidos'];
-				$alumno = $this->db->get_where('alumno_has_padre', array('Padre_idPadre'=>$mensaje_padre['idPadre']))->row_array();
-				$alumno = $this->db->get_where('alumno', array('idAlumno'=>$alumno['Alumno_idAlumno']))->row_array();
-				$mensaje_padre['NombreAlumno'] = $alumno['nombre'];
-				$mensaje_padre['ApellidoAlumno'] = $alumno['apellidos'];
-				$mensaje_padre['idAlumno'] = $alumno['idAlumno'];
-				array_push($resPa, $mensaje_padre);
-			}
-			$res=[];
-			$res["MensajesProfesor"] = $mensajes_profesor;
-			$res["MensajesAlumno"] = $mensajes_alumno;
-			$res["MensajesPadre"] = $mensajes_padre;*/
+		
 			$res['Padre'] = $this->ayuda_get_mensajesPadreByProfesor($idProfesor);
 			$res['Alumno'] = $this->ayuda_get_mensajesAlumnoByProfesor($idProfesor);
 					 
@@ -237,18 +256,22 @@ class Mensaje_model extends CI_Model {
 		 {
 			$res=NULL;
 			 $mensajes_alumno = $this->db->get_where('mensaje_alumno', array('idProfesor'=>$idProfesor))->result_array();
+			 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor))->result_array();
+			 $arraylleno = $mensajes_profesor;
+			 if(empty($mensajes_profesor)){$arraylleno = $mensajes_alumno;} 
 			// if (!function_exists('idp'))
-			if(!empty($mensajes_alumno)){
+			if(!empty($arraylleno)){
 				 function ida($n)
 				 {
 					//if(isset($n["idAlumno"]))
 					 return($n["idAlumno"]);
 				 }
 			 
-			 $alumnos = array_map('ida', $mensajes_alumno);
+			 $alumnos = array_map('ida', $arraylleno);
 			 $alumnos = array_unique($alumnos);
 			 $res=[];
 			 foreach($alumnos as $idAlumno){
+			 if($idAlumno!=NULL){
 				 $mensajes_alumno = $this->db->get_where('mensaje_alumno', array('idProfesor'=>$idProfesor, 'idAlumno'=>$idAlumno))->result_array();
 				 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor, 'idAlumno'=>$idAlumno))->result_array();
 
@@ -262,7 +285,7 @@ class Mensaje_model extends CI_Model {
 				 $asignatura = $this->db->get_where('asignatura', array('idAsignatura'=>$idAsignatura))->row_array();
 				 $asignatura = $asignatura["nombre"];
 				 $mens = array('NombreAsignatura'=>$asignatura, 'idAsignatura' => $idAsignatura ,'NombreProfesor'=>$nombreProfesor, 'idProfesor'=>$idProfesor, 'MensajesProfesor' => $mensajes_profesor, 'NombreAlumno'=>$nombreAlumno, 'MensajesAlumno' => $mensajes_alumno);
-				 array_push($res, $mens);
+				 array_push($res, $mens);}
 			 }
 			 }
 			 return $res;
@@ -271,8 +294,12 @@ class Mensaje_model extends CI_Model {
 		 public function ayuda_get_mensajesPadreByProfesor($idProfesor)
 		 {
 			$res=NULL;
+			 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor))->result_array();
+			
 			 $mensajes_padre = $this->db->get_where('mensaje_padre', array('idProfesor'=>$idProfesor))->result_array();
-			 if(!empty($mensajes_padre)){
+			 $arraylleno = $mensajes_profesor;
+			 if(empty($mensajes_profesor)){$arraylleno = $mensajes_padre;} 
+			 
 			if (!function_exists('idp'))
 			{
    		 
@@ -282,10 +309,11 @@ class Mensaje_model extends CI_Model {
 					 return($n["idPadre"]);
 				 }
 			 }
-			 $padres = array_map('idp', $mensajes_padre);
+			 $padres = array_map('idp', $arraylleno);
 			 $padres = array_unique($padres);
 			 $res=[];
 			 foreach($padres as $idPadre){
+			 if($idPadre!=NULL){
 				 $mensajes_padre = $this->db->get_where('mensaje_padre', array('idProfesor'=>$idProfesor, 'idPadre'=>$idPadre))->result_array();
 				 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor, 'idPadre'=>$idPadre))->result_array();
 
@@ -295,12 +323,107 @@ class Mensaje_model extends CI_Model {
 				 $nombrePadre = $this->db->get_where('padre', array('idPadre' => $idPadre));
 				 $nombrePadre = $nombrePadre->row_array();
 				 $nombrePadre = $nombrePadre["nombre"]." ".$nombrePadre["apellidos"];
+
 				   if(!empty($mensajes_profesor)){$idAsignatura = $mensajes_profesor[0]['idAsignatura'];}else{$idAsignatura = $mensajes_padre[0]['idAsignatura'];}
 				 $asignatura = $this->db->get_where('asignatura', array('idAsignatura'=>$idAsignatura))->row_array();
 				 $asignatura = $asignatura["nombre"];
-				 $mens = array('NombreAsignatura'=>$asignatura, 'idAsignatura' => $idAsignatura ,'NombreProfesor'=>$nombreProfesor, 'idProfesor'=>$idProfesor, 'MensajesProfesor' => $mensajes_profesor, 'NombrePadre'=>$nombrePadre, 'MensajesPadre' => $mensajes_padre);
-				 array_push($res, $mens);
-			 }}
+				  if(count($mensajes_padre)<1) $mensajes_padre = NULL;
+				  if(count($mensajes_profesor)<1) $mensajes_profesor = NULL;
+				 $mens = array('NombreAsignatura'=>$asignatura, 'idAsignatura' => $idAsignatura ,'NombreProfesor'=>$nombreProfesor, 'idProfesor'=>$idProfesor, 'MensajesProfesor' => $mensajes_profesor, 'idPadre'=>$idPadre, 'NombrePadre'=>$nombrePadre, 'MensajesPadre' => $mensajes_padre);
+				 array_push($res, $mens);}
+			 }
+			 
+			
+			 return $res;
+		 }
+
+		  public function ayuda_get_mensajesNoLeidosPadreByProfesor($idProfesor)
+		 {
+			$res=NULL;
+			 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor))->result_array();
+			
+			 $mensajes_padre = $this->db->get_where('mensaje_padre', array('idProfesor'=>$idProfesor))->result_array();
+			 $arraylleno = $mensajes_profesor;
+			 if(empty($mensajes_profesor)){$arraylleno = $mensajes_padre;} 
+			 
+			if (!function_exists('idp'))
+			{
+   		 
+				function idp($n)
+				 {
+					if(isset($n["idPadre"]))
+					 return($n["idPadre"]);
+				 }
+			 }
+			 $padres = array_map('idp', $arraylleno);
+			 $padres = array_unique($padres);
+			 $res=[];
+			 foreach($padres as $idPadre){
+			 if($idPadre!=NULL){
+				 $mensajes_padre = $this->db->get_where('mensaje_padre', array('idProfesor'=>$idProfesor, 'idPadre'=>$idPadre))->result_array();
+				 if($this->saberSiHayNoLeidos($mensajes_padre)){
+				 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor, 'idPadre'=>$idPadre))->result_array();
+
+				 $nombreProfesor = $this->db->get_where('profesor', array('idProfesor' => $idProfesor));
+				 $nombreProfesor = $nombreProfesor->row_array();
+				 $nombreProfesor = $nombreProfesor["nombre"]." ".$nombreProfesor["apellidos"];
+				 $nombrePadre = $this->db->get_where('padre', array('idPadre' => $idPadre));
+				 $nombrePadre = $nombrePadre->row_array();
+				 $nombrePadre = $nombrePadre["nombre"]." ".$nombrePadre["apellidos"];
+
+				   if(!empty($mensajes_profesor)){$idAsignatura = $mensajes_profesor[0]['idAsignatura'];}else{$idAsignatura = $mensajes_padre[0]['idAsignatura'];}
+				 $asignatura = $this->db->get_where('asignatura', array('idAsignatura'=>$idAsignatura))->row_array();
+				 $asignatura = $asignatura["nombre"];
+				  if(count($mensajes_padre)<1) $mensajes_padre = NULL;
+				  if(count($mensajes_profesor)<1) $mensajes_profesor = NULL;
+				  if($mensajes_padre!=NULL){
+				 $mens = array('NombreAsignatura'=>$asignatura, 'idAsignatura' => $idAsignatura ,'NombreProfesor'=>$nombreProfesor, 'idProfesor'=>$idProfesor, 'MensajesProfesor' => $mensajes_profesor, 'idPadre'=>$idPadre, 'NombrePadre'=>$nombrePadre, 'MensajesPadre' => $mensajes_padre);
+				 array_push($res, $mens);}}}
+			 }
+			 
+			
+			 return $res;
+		 }
+		 public function ayuda_get_mensajesNoLeidosAlumnoByProfesor($idProfesor)
+		 {
+			$res=NULL;
+			 $mensajes_alumno = $this->db->get_where('mensaje_alumno', array('idProfesor'=>$idProfesor))->result_array();
+			 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor))->result_array();
+			 $arraylleno = $mensajes_profesor;
+			 if(empty($mensajes_profesor)){$arraylleno = $mensajes_alumno;} 
+			// if (!function_exists('idp'))
+			if(!empty($arraylleno)){
+				 function ida($n)
+				 {
+					//if(isset($n["idAlumno"]))
+					 return($n["idAlumno"]);
+				 }
+			 
+			 $alumnos = array_map('ida', $arraylleno);
+			 $alumnos = array_unique($alumnos);
+			 $res=[];
+			 foreach($alumnos as $idAlumno){
+			 if($idAlumno!=NULL){
+				 $mensajes_alumno = $this->db->get_where('mensaje_alumno', array('idProfesor'=>$idProfesor, 'idAlumno'=>$idAlumno))->result_array();
+				 if($this->saberSiHayNoLeidos($mensajes_alumno)){
+				 $mensajes_profesor = $this->db->get_where('mensaje_profesor', array('idProfesor'=>$idProfesor, 'idAlumno'=>$idAlumno))->result_array();
+
+				 $nombreProfesor = $this->db->get_where('profesor', array('idProfesor' => $idProfesor));
+				 $nombreProfesor = $nombreProfesor->row_array();
+				 $nombreProfesor = $nombreProfesor["nombre"]." ".$nombreProfesor["apellidos"];
+				 $nombreAlumno = $this->db->get_where('alumno', array('idAlumno' => $idAlumno));
+				 $nombreAlumno = $nombreAlumno->row_array();
+				 $nombreAlumno = $nombreAlumno["nombre"]." ".$nombreAlumno["apellidos"];
+				   if(!empty($mensajes_profesor)){$idAsignatura = $mensajes_profesor[0]['idAsignatura'];}else{$idAsignatura = $mensajes_alumno[0]['idAsignatura'];}
+				 $asignatura = $this->db->get_where('asignatura', array('idAsignatura'=>$idAsignatura))->row_array();
+				 $asignatura = $asignatura["nombre"];
+				  if(count($mensajes_alumno)<1) $mensajes_alumno = NULL;
+				  if(count($mensajes_profesor)<1) $mensajes_profesor = NULL;
+				  if($mensajes_alumno!=NULL){
+				 $mens = array('NombreAsignatura'=>$asignatura, 'idAsignatura' => $idAsignatura ,'NombreProfesor'=>$nombreProfesor, 'idProfesor'=>$idProfesor, 'MensajesProfesor' => $mensajes_profesor, 'NombreAlumno'=>$nombreAlumno, 'MensajesAlumno' => $mensajes_alumno);
+				 array_push($res, $mens);}}}
+			 }
+			 }
 			 return $res;
 		 }
 
@@ -434,24 +557,26 @@ class Mensaje_model extends CI_Model {
 			 }
 			 return $res;
 		 }
-
+		 public function saberSiHayNoLeidos($mensajes){
+		 $res = FALSE;
+			
+				foreach($mensajes as $mensaje)
+				{
+					if($mensaje['leido']==0){$res = TRUE;}
+				}
+		return $res;
+			
+}
 		  public function get_noLeidosByProfesor($idProfesor)
 		 {
 
-			 $mensajes_padre = $this->db->get_where('mensaje_padre', array('idProfesor'=>$idProfesor))->result_array();
-			 $mensajes_alumno =  $this->db->get_where('mensaje_alumno', array('idProfesor'=>$idProfesor))->result_array();
-			 
-			 $resPa=[];
-			 $resAl=[];
-			 foreach($mensajes_alumno as $mensaje){
-				if($mensaje['leido']==0){array_push($resAl, $mensaje);}
-			 }
-			 foreach($mensajes_padre as $mensaje){
-				if($mensaje['leido']==0){array_push($resPa, $mensaje);}
-			 }
-			 $res=[];
+			$resAl=$this->ayuda_get_mensajesNoLeidosAlumnoByProfesor($idProfesor);
+			$resPa=$this->ayuda_get_mensajesNoLeidosPadreByProfesor($idProfesor);
+			if(count($resAl)<1) $resAl = NULL;
+			if(count($resPa)<1) $resPa = NULL;
 			 $res['Alumno'] = $resAl;
 			 $res['Padre'] = $resPa;
+			 if($res['Alumno'] == NULL && $res['Padre'] == NULL){$res = '';}
 			 return $res;
 		 }
 
@@ -532,6 +657,8 @@ class Mensaje_model extends CI_Model {
 		        $res = array('NombreProfesor'=>$nombreProfesor, 'MensajesProfesor' => $mensajes_profesor, 'NombrePadre'=>$nombrePadre, 'MensajesPadre' => $mensajes_padre);
 		        return $res;
 		}
+
+		
 
 		public function get_profesor($id = FALSE)
 		{

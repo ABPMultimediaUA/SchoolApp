@@ -172,6 +172,44 @@ class Asignatura_model extends CI_Model {
 			return $asignaturas;
 		}
 
+		public function get_asignaturasByCursoByProfesor($idCurso, $idProfesor)
+		{
+		
+
+			$query = $this->db->get_where('asignatura_has_curso_has_centro', array('Profesor_idProfesor' => $idProfesor, 'Curso_idCurso'=>$idCurso));
+			$resquery = $query->result_array();
+			$asignaturas=[];
+
+			foreach($resquery as $row )
+			{
+				$asig1 = $this->db->get_where('asignatura', array('idAsignatura' => $row["Asignatura_idAsignatura"]));
+				$alumnos = $this->db->get_where('asignatura_has_curso_has_alumno', array('idAsignatura'=>$row['Asignatura_idAsignatura'], 'idCurso' => $idCurso, 'idProfesor'=>$idProfesor))->result_array();
+				$listaAlumnos = [];
+				foreach($alumnos as $alumno)
+				{
+					$alu = $this->db->get_where('alumno', array('idAlumno' => $alumno["idAlumno"]))->row_array();
+					array_push($listaAlumnos, $alu);
+				}
+
+				$asig2 = $asig1->row_array();
+				$centro = $this->db->get_where('centro', array('idCentro' => $row["centro_idCentro"]))->row_array();
+				$curso = $this->db->get_where('curso', array('idCurso' => $row["Curso_idCurso"]))->row_array();
+				$dia = $this->db->get_where('dia_semana', array('idDia' => $row["diaSemana"]))->row_array();
+				$asig2["hora"] = $row["hora"];
+				$asig2["diaSemana"] = $dia["letra"];
+				$asig2["centro"] = $centro["nombre"];
+				$asig2["grupo"] = $curso["grupo"];
+				$asig2["idCurso"] = $curso["idCurso"];
+				$asig2["grupo"] = $curso["grupo"];
+				$asig2['alumnos'] = $listaAlumnos;
+
+				array_push($asignaturas, $asig2);
+
+			}
+
+			return $asignaturas;
+		}
+
 		public function post_asignatura($asignatura)
 		{
 				$setAsignatura = array('nombre'=> $asignatura['nombre']);
@@ -191,7 +229,15 @@ class Asignatura_model extends CI_Model {
 				$ahchc = $this->db->get_where('asignatura_has_curso_has_centro', $array )->row_array();
 				$this->db->where($array);
 				$array['Profesor_idProfesor']=$data['idProfesor'];
-				$res = $this->db->update('asignatura_has_curso_has_centro', $array);
+				$res1 = $this->db->update('asignatura_has_curso_has_centro', $array);
+				$array2  = array('idAsignatura' => $data['idAsignatura'], 'idCurso' => $data['idCurso']);
+				$array2['idProfesor']=$data['idProfesor'];
+				$this->db->where('idAsignatura',$data['idAsignatura'] );
+				$this->db->where('idCurso',$data['idCurso'] );
+				$this->db->where('idCentro',$data['idCentro'] );
+				$res2 = $this->db->update('asignatura_has_curso_has_alumno', array('idProfesor' => $array2['idProfesor']));
+				$res = array("step 1" => $res1, "step 2" => $res2);
+
 					}
 					else $res = FALSE;
 				return $res;

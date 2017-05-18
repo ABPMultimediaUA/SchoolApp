@@ -21,31 +21,6 @@ class Comunicado_model extends CI_Model {
 		        return $query->row_array();
 		}
 
-		public function get_anunciosGestor($idCentro)
-		{
-		        
-		        $query = $this->db->get_where('anuncio_gestor', array('idCentro'=>$idCentro))->result_array();
-		        return $query;
-		}
-
-		public function anuncios_gestor($array, $anuncios)
-		{
-			foreach($anuncios as $anuncio)
-			{
-				$anuncio['leidoAlumno'] = FALSE;
-				$anuncio['leidoPadre'] = FALSE;
-				 if(isset($anuncio['fecha'])){
-				 $retrieved = $anuncio['fecha'];
-				$date = DateTime::createFromFormat('Y-m-d', $retrieved);
-				$fecha = $date->format('d/m/Y');
-				$anuncio["fecha"] = $fecha;
-				$anuncio['creacion'] = $this->changeDateFormat($anuncio['creacion']);
-				}
-				array_push($array, $anuncio);
-			}
-			return $array;
-		}
-
 		 public function get_comunicadosByUserAlumno($user= FALSE)
 		{
 		        if ($user === FALSE)
@@ -58,13 +33,10 @@ class Comunicado_model extends CI_Model {
 		        $idAlumno = $alumno->row_array()["idAlumno"];
 		        $query = $this->db->get_where('confirmacion_comunicado', array('alumno_idAlumno' => $idAlumno));
 		        $comunicados=[];
-				 $alumno = $this->db->get_where('alumno', array('idAlumno' => $idAlumno))->row_array();
-			  $comunicadosGestor = $this->db->get_where('anuncio_gestor', array('idCentro'=>$alumno['idCentro']))->result_array();
 		        foreach($query as $row)
 		        {
 		        	array_push($comunicados, $this->db->get_where('comunicado', array('idComunicado'=>$row["comunicado_idComunicado"])));
 		        }
-				$comunicados = $this->anuncios_gestor($comunicados, $comunicadosGestor);
 		        return $comunicados;
 		}
 
@@ -78,8 +50,6 @@ class Comunicado_model extends CI_Model {
 
 			 $query = $this->db->get_where('confirmacion_comunicado', array('alumno_idAlumno' => $idAlumno));
 			 $comunicados=[];
-			 $alumno = $this->db->get_where('alumno', array('idAlumno' => $idAlumno))->row_array();
-			  $comunicadosGestor = $this->db->get_where('anuncio_gestor', array('idCentro'=>$alumno['idCentro']))->result_array();
 			 foreach($query->result_array() as $row)
 			 {
 				 $comunicado = $this->db->get_where('comunicado', array('idComunicado'=>$row["comunicado_idComunicado"]))->row_array();
@@ -89,12 +59,10 @@ class Comunicado_model extends CI_Model {
 				 $comunicado["profesor"] = $profesor["nombre"]." ".$profesor["apellidos"];
 				 $comunicado["tipoComunicado"] = $tipo["nombre"];
 				 $comunicado["asignatura"] = $asignatura["nombre"];
-				 if(isset($comunicado['fecha'])){
 				 $retrieved = $comunicado['fecha'];
 				$date = DateTime::createFromFormat('Y-m-d', $retrieved);
 				$fecha = $date->format('d/m/Y');
-				$comunicado["fecha"] = $fecha;}
-				if(isset($comunicado['creacion']))$comunicado['creacion'] = $this->changeDateFormat($comunicado['creacion']);
+				$comunicado["fecha"] = $fecha;
 				 $leido = false;
 				 $leidoPadre = false;
 				 if($row["leidoAlumno"]==1){$leido = true;}
@@ -103,25 +71,13 @@ class Comunicado_model extends CI_Model {
 				 $comunicado["leidoPadre"] = $leidoPadre;
 				 array_push($comunicados, $comunicado);
 			 }
-			 $comunicados = $this->anuncios_gestor($comunicados, $comunicadosGestor);
 			 return $comunicados;
-		 }
-
-		 public function changeDateFormat($date)
-		 {
-			 $retrieved = $date;
-				$date = DateTime::createFromFormat('Y-m-d H:i:s', $retrieved);
-				$fecha = $date->format('d/m/Y H:i:s');
-				$date = $fecha;
-				return $date;
 		 }
 
 		  public function get_comunicadosByAlumnoFirmados($idAlumno, $numtipo)
 		 {
 			 $query = $this->db->get_where('confirmacion_comunicado', array('alumno_idAlumno' => $idAlumno));
 			 $comunicados=[];
-			  $alumno = $this->db->get_where('alumno', array('idAlumno' => $idAlumno))->row_array();
-			  $comunicadosGestor = $this->db->get_where('anuncio_gestor', array('idCentro'=>$alumno['idCentro']))->result_array();
 			 foreach($query->result_array() as $row)
 			 {
 				 $comunicado = $this->db->get_where('comunicado', array('idComunicado'=>$row["comunicado_idComunicado"]))->row_array();
@@ -137,7 +93,6 @@ class Comunicado_model extends CI_Model {
 				$date = DateTime::createFromFormat('Y-m-d', $retrieved);
 				$fecha = $date->format('d/m/Y');
 				$comunicado["fecha"] = $fecha;
-				if(isset($comunicado['creacion']))$comunicado['creacion'] = $this->changeDateFormat($comunicado['creacion']);
 				 if($row["leidoAlumno"]==1){$leido = true;}
 				 $comunicado["leidoAlumno"] = $leido;
 				  if($row["leidoPadre"]==1){$leidoPadre = true;}
@@ -145,7 +100,6 @@ class Comunicado_model extends CI_Model {
 				 if($row["firmado"]==1  && $comunicado["tipo"]==$numtipo)
 				 array_push($comunicados, $comunicado);
 			 }
-			 $comunicados = $this->anuncios_gestor($comunicados, $comunicadosGestor);
 			 return $comunicados;
 		 }
 		  public function get_comunicadosByAlumnoNoFirmados($idAlumno, $numtipo)
@@ -153,8 +107,6 @@ class Comunicado_model extends CI_Model {
 
 			 $query = $this->db->get_where('confirmacion_comunicado', array('alumno_idAlumno' => $idAlumno));
 			 $comunicados=[];
-			  $alumno = $this->db->get_where('alumno', array('idAlumno' => $idAlumno))->row_array();
-			  $comunicadosGestor = $this->db->get_where('anuncio_gestor', array('idCentro'=>$alumno['idCentro']))->result_array();
 			 foreach($query->result_array() as $row)
 			 {
 				 $comunicado = $this->db->get_where('comunicado', array('idComunicado'=>$row["comunicado_idComunicado"]))->row_array();
@@ -168,7 +120,6 @@ class Comunicado_model extends CI_Model {
 				$date = DateTime::createFromFormat('Y-m-d', $retrieved);
 				$fecha = $date->format('d/m/Y');
 				$comunicado["fecha"] = $fecha;
-				if(isset($comunicado['creacion']))$comunicado['creacion'] = $this->changeDateFormat($comunicado['creacion']);
 				 $leido = false;
 				 $leidoPadre = false;
 				 if($row["leidoAlumno"]==1){$leido = true;}
@@ -178,7 +129,6 @@ class Comunicado_model extends CI_Model {
 				 if($row["firmado"]==0 && $comunicado["tipo"]==$numtipo)
 				 array_push($comunicados, $comunicado);
 			 }
-			 $comunicados = $this->anuncios_gestor($comunicados, $comunicadosGestor);
 			 return $comunicados;
 		 }
 
@@ -189,8 +139,6 @@ class Comunicado_model extends CI_Model {
 		               $query = $this->db->get('comunicado');
 		                return $query->result_array();
 		        }
-				 $profesor = $this->db->get_where('profesor', array('idProfesor' => $id))->row_array();
-			  $comunicadosGestor = $this->db->get_where('anuncio_gestor', array('idCentro'=>$profesor['idCentro']))->result_array();
 
 		        $query = $this->db->get_where('comunicado', array('idProfesor' => $id));
 		        $comunicados=[];
@@ -198,7 +146,6 @@ class Comunicado_model extends CI_Model {
 		        {
 		        	array_push($comunicados, $this->db->get_where('comunicado', array('idComunicado'=>$row["idComunicado"]))->row_array());
 		        }
-				$comunicados = $this->anuncios_gestor($comunicados, $comunicadosGestor);
 		        return $comunicados;
 		}
 
@@ -235,7 +182,6 @@ class Comunicado_model extends CI_Model {
 					 $comunicado["nombreCurso"] = $curso["nombre"];
 					$comunicado["grupo"] = $curso["grupo"];
 					$comunicado["fecha"] = date("d/m/Y", strtotime($comunicado['fecha']));
-					if(isset($comunicado['creacion']))$comunicado['creacion'] = $this->changeDateFormat($comunicado['creacion']);
 				 array_push($comunicados,$comunicado);}
 			 }
 			 return $comunicados;
@@ -277,20 +223,12 @@ class Comunicado_model extends CI_Model {
 
 		}
 
-		public function post_anuncio_gestor($comunicado)
-		{
-			$res = $this->db->set( $comunicado )->insert("anuncio_gestor");
-			return $res;
-		}
-
 		public function post_comunicado($comunicado)
 		{
-				if(isset($comunicado['idGestor'])){$res = $this->post_anuncio_gestor($comunicado);}
-				else{
 		        $res=$this->db->set( $this->_setcomunicado($comunicado) )->insert("comunicado");
 				$this->db->select_max('idComunicado');
 				$idComunicado  = $this->db->get('comunicado')->row_array()['idComunicado'];
-				$this->post_confirmacion($idComunicado);}
+				$this->post_confirmacion($idComunicado);
 		        return $res;
 
 		}
@@ -364,21 +302,6 @@ class Comunicado_model extends CI_Model {
 				if (!empty($test))
             {
 		        $res=$this->db->delete('comunicado', array('idComunicado' => $id));
-		    }
-
-		    else
-		    	{$res = FALSE;}
-
-		        return $res;
-		}
-
-		public function delete_anuncioGestor($id)
-		{
-		         $test = $this->db->get_where('anuncio_gestor', array('idAnuncio' => $id));
-
-				if (!empty($test))
-            {
-		        $res=$this->db->delete('anuncio_gestor', array('idAnuncio' => $id));
 		    }
 
 		    else

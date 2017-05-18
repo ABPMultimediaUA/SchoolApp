@@ -44,16 +44,9 @@ class Curso_model extends CI_Model {
 		{
 
 
-			$query = $this->db->get_where('centro_has_curso_has_tutor', array('idCentro' => $idCentro));
-			$cursos=[];
-			foreach($query->result_array() as $row)
-			{
-				$curso =  $this->db->get_where('curso', array('idCurso' => $row["idCurso"]))->row_array();
-				//$curso["nombre"]=$curso["nombre"]." ".$curso["grupo"];
-				if(!in_array($curso, $cursos))
-				array_push($cursos, $curso);
-			}
-			return $cursos;
+			$query = $this->db->get_where('curso', array('centro_idCentro' => $idCentro))->result_array();
+			
+			return $query;
 		}
 
 
@@ -104,14 +97,8 @@ class Curso_model extends CI_Model {
 
 		public function post_curso($curso)
 		{
-		        $this->db->set( $this->_setcurso($curso) )->insert("curso");
-
-		        if($this->db->affected_rows()===1)
-		        {
-		        	return TRUE;
-		        }
-
-		        return NULL;
+		       $res = $this->db->set( $this->_setcurso($curso) )->insert("curso");
+		        return $res;
 		}
 
 		public function put_curso($data)
@@ -119,7 +106,8 @@ class Curso_model extends CI_Model {
 
 				$curso = $this->_setcurso($data);
 				$this->db->where('idCurso', $data['idCurso']);
-				$res = $this->db->update('curso', $data);
+				$this->db->where('centro_idCentro', $data['idCentro']);
+				$res = $this->db->update('curso', $curso);
 				return $res;
 		}
 
@@ -140,15 +128,12 @@ class Curso_model extends CI_Model {
 
 		public function _setcurso($curso)
 		{
-			$data1 = array(
+			$data1 = array();
 
-		        'centro_idCentro' => $curso["centro_idCentro"],
-		        'Profesor_idProfesor' => $curso["Profesor_idProfesor"],
-		        'grupo' => $curso["grupo"],
-		        'nombre' => $curso["nombre"]
-
-
-	        );
+		       if(isset($curso["idProfesor"]))$data1['Profesor_idProfesor'] = $curso["idProfesor"];
+		       if(isset($curso['grupo'])) $data1['grupo'] = $curso["grupo"];
+		       if(isset($curso[ 'nombre'])) $data1['nombre'] = $curso["nombre"];
+			   if(isset($curso['idCentro'])) $data1['centro_idCentro'] = $curso["idCentro"];
 
 	        return $data1;
 		}

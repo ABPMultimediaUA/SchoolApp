@@ -70,6 +70,19 @@ class Alumno_model extends CI_Model {
 		        return $query->row_array();
 		}
 
+		public function get_padresByAlumno($idAlumno)
+		{
+			$padres = $this->db->get_where('alumno_has_padre', array('Alumno_idAlumno'=>$idAlumno))->result_array();
+			$res = [];
+			foreach($padres as $row)
+			{
+				$padre = $this->db->get_where('padre', array('idPadre'=>$row['Padre_idPadre']))->result_array();
+				array_push($res, $padre);
+			}
+
+			return $res;
+		}
+
 		public function get_alumnoByAsignaturaByCurso($idAsignatura, $idCurso)
 		{
 			$alumnos = $this->db->get_where('asignatura_has_curso_has_alumno', array('idCurso'=>$idCurso, 'idAsignatura'=>$idAsignatura))->result_array();
@@ -77,6 +90,19 @@ class Alumno_model extends CI_Model {
 			foreach($alumnos as $alumno)
 			{
 				$alumno=$this->db->get_where('alumno', array('idAlumno'=>$alumno['idAlumno']))->row_array();
+				array_push($lista_alumnos, $alumno);
+			}
+			return $lista_alumnos;
+		}
+
+		public function get_NotaAlumnoByAsignaturaByCurso($idAsignatura, $idCurso)
+		{
+			$alumnos = $this->db->get_where('asignatura_has_curso_has_alumno', array('idCurso'=>$idCurso, 'idAsignatura'=>$idAsignatura))->result_array();
+			$lista_alumnos=[];
+			foreach($alumnos as $alumno)
+			{	$notaFinal = $alumno['NotaFinal'];
+				$alumno=$this->db->get_where('alumno', array('idAlumno'=>$alumno['idAlumno']))->row_array();
+				$alumno['NotaFinal'] = $notaFinal;
 				array_push($lista_alumnos, $alumno);
 			}
 			return $lista_alumnos;
@@ -225,7 +251,7 @@ class Alumno_model extends CI_Model {
 		public function _setalumno($alumno)
 		{
 			$data1 = array();
-
+				if(isset($alumno["idAlumno"]))$data1['idAlumno'] = $alumno["idAlumno"];
 		        if(isset($alumno["nombre"]))$data1['nombre'] = $alumno["nombre"];
 		        if(isset($alumno['email'])) $data1["email"] = $alumno["email"];
 		        if(isset($alumno['apellidos'])) $data1["apellidos"] = $alumno["apellidos"];

@@ -222,31 +222,11 @@ class Curso extends REST_Controller {
 
     public function curso_post()
     {
-        $centro = $this->curso_model->get_centro($this->post('centro_idCentro'));
-        $idcurso = $this->curso_model->get_idcurso($this->post('idCurso'));
-        $profesor = $this->curso_model->get_profesor($this->post('Profesor_idProfesor'));
-        if($centro=="")
-        {
-            $this->output->set_output("El centro indicado no existe en la base de datos", REST_Controller::HTTP_BAD_REQUEST);
-        }
-        else if($profesor=="")
-        {
-            $this->output->set_output("El profesor indicado no existe en la base de datos", REST_Controller::HTTP_BAD_REQUEST);
-        }
-
-        else if($idcurso!="")
-        {
-            $this->output->set_output("La ID de curso indicada ya existe en la base de datos", REST_Controller::HTTP_BAD_REQUEST);
-        }
-
-        else
-        {
-
-
-            $this->curso_model->post_curso($this->post());
-
-            $this->output->set_output("Curso added to database", REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
-        }
+       
+        $exp=$this->curso_model->post_curso($this->post());
+            if($exp==1){$exp="Comunicado added to database ";}
+            //else{$exp="El chat indicado ya existe o no es valido.";}
+            $this->response($exp, REST_Controller::HTTP_CREATED); // CREATED (201) being the HTTP response code
     }
 
     public function curso_delete()

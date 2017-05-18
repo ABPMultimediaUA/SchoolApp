@@ -27,6 +27,18 @@ class Padre_model extends CI_Model {
 		        return $alumnos;
 		}
 
+		public function get_padresByAlumno($idAlumno)
+		{
+			$padres = $this->db->get_where('alumno_has_padre', array('Alumno_idAlumno'=>$idAlumno))->result_array();
+			$res = [];
+			foreach($padres as $row)
+			{
+				$padre = $this->db->get_where('padre', array('idPadre'=>$row['Padre_idPadre']))->row_array();
+				array_push($res, $padre);
+			}
+
+			return $res;
+		}
 		
 
 		
@@ -101,18 +113,16 @@ class Padre_model extends CI_Model {
 
 		public function _setPadre($padre)
 		{
-			$data1 = array(
-
-		        'nombre' => $padre["nombre"],
-		        'email' => $padre["email"],
-		        'apellidos' => $padre["apellidos"],
-		        'user' => $padre["user"],
-		        'password' => $padre["password"],
-		        'telefono' => $padre["telefono"],
-		        'dni' => $padre["dni"]
-	        
-	        );
-
+			$data1 = array();
+				if(isset($padre['idPadre'])) $data1['idPadre'] = $padre["idPadre"];
+		       if(isset($padre['nombre'])) $data1['nombre'] = $padre["nombre"];
+		        if(isset($padre['email'])) $data1['email'] = $padre["email"];
+		        if(isset($padre['apellidos'])) $data1['apellidos'] = $padre["apellidos"];
+		        if(isset($padre['user'])) $data1['user'] = $padre["user"];
+		        if(isset($padre['password'])) $data1['password'] = $padre["password"];
+		        if(isset($padre['telefono'])) $data1['telefono'] = $padre["telefono"];
+		        if(isset($padre['dni'])) $data1['dni'] = $padre["dni"];
+	     
 	        return $data1;
 		}
 

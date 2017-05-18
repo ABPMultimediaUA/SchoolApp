@@ -61,13 +61,32 @@ class Alumno extends REST_Controller {
 		$idAsignatura = $this->get('idAsignatura');
 		$idCurso = $this->get('idCurso');
 		$idCentro = $this->get('idCentro');
+		$padres = $this->get('padres');
+		$notas = $this->get('notas');
+
 
 
 
 
         // If the id parameter doesn't exist return all the alumno
-
-		if($idCentro!=NULL && $idCurso!=NULL)
+		if($padres != NULL && $id != NULL )
+		{
+			$padres = $this->alumno_model->get_padresByAlumno($id);
+			 if (!empty($padres))
+            {
+                // Set the response and exit
+                $this->response($padres, REST_Controller::HTTP_OK); // OK (200) being the HTTP response code
+            }
+            else
+            {
+                // Set the response and exit
+                $this->response([
+                    'status' => FALSE,
+                    'message' => 'No padres were found'
+                ], REST_Controller::HTTP_NOT_FOUND); // NOT_FOUND (404) being the HTTP response code
+            }
+		}
+		else if($idCentro!=NULL && $idCurso!=NULL)
 		{
 			$alumnos = $this->alumno_model->get_alumnoByCentroByCurso($idCentro, $idCurso);
 			 if (!empty($alumnos))
@@ -87,7 +106,8 @@ class Alumno extends REST_Controller {
 
 		else if($idAsignatura!=NULL && $idCurso!=NULL)
 		{
-			$alumnos = $this->alumno_model->get_alumnoByAsignaturaByCurso($idAsignatura, $idCurso);
+			if($notas!=NULL){$alumnos = $this->alumno_model->get_NotaAlumnoByAsignaturaByCurso($idAsignatura, $idCurso);}
+			else{$alumnos = $this->alumno_model->get_alumnoByAsignaturaByCurso($idAsignatura, $idCurso);}
 			 if (!empty($alumnos))
             {
                 // Set the response and exit
