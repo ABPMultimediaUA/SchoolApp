@@ -29,7 +29,9 @@
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>
     
-    
+
+        <script type="text/javascript" src="js/canvasjs.min.js"></script>
+        <script type="text/javascript" src="js/jquery-2.2.3.min.js"></script>
     <!-- archivos de angular -->
     <script src="antonio.js"></script>
     <!-- Exportar a pdf-->
@@ -80,9 +82,9 @@
     </header>
     </br>   
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" ng-controller = "notasController as crear">
         <!-- Marketing Icons Section -->
-        <div class="row" ng-controller = "notasController as crear">
+        <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">
                     Prueba
@@ -113,6 +115,12 @@
 
         </div>
         <hr>
+
+
+
+
+        <div id="chart">
+        </div>
 
         <!-- Footer -->
         <footer>

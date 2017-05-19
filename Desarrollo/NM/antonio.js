@@ -1,65 +1,7 @@
-//    var sesionLocal = false;
-//    var sesionSesion = false;
-//
-//    if(typeof localStorage.user == 'undefined' || localStorage.user == "null"){
-//        if(typeof sessionStorage.getItem('user2') == 'undefined' || sessionStorage.getItem('user2') == null){
-//            window.location.replace("/prueba_api/SITIO/LandingPage/index.html");
-//        }else{
-//            sesionSesion = true;
-//        }     
-//    }else{
-//        sesionLocal = true; 
-//    }
 
     angular.module('gestorApp', [])
     .controller('navController', navController)
     .controller("notasController", notasController);
-
-    navController.$inject = ['$scope', '$http', '$window'];
-    function navController($scope, $http, $window){        
-        var nav = this;
-        
-        nav.user1 = "";
-//        if(sesionLocal){
-//            nav.user1 = localStorage.user;
-//        }
-//        if(sesionSesion){  
-//            nav.user1 = sessionStorage.getItem('user2');
-//        }
-        
-        SUser="usuario/"+nav.user1
-
-        //LLAMADA HTTP
-        $http({
-            url: "http://localhost/prueba_api/alpha2/index.php/gestor/gestor/", 
-            method: "GET",
-            params: {usuario: "polonio2016"}
-        })
-         .then(function(response) {
-            nav.compuesto = angular.fromJson(response.data);
-            nav.nombre = nav.compuesto.nombre;
-            nav.apellidos = nav.compuesto.apellidos;
-//            if(sesionLocal)
-                localStorage.setItem('idGestor', nav.compuesto.idGestor);
-                localStorage.setItem('idCentro', nav.compuesto.idCentro);
-//            if(sesionSesion)    
-                sessionStorage.setItem('idGestor', nav.compuesto.idGestor);
-                sessionStorage.setItem('idCentro', nav.compuesto.idCentro);
-        }, function errorCallback(response) {
-            //$window.location.href = '/prueba_api/SITIO/PagPrincipal/index.html';
-        });
-        //LOG OUT
-//        nav.logOut = function (){
-//            if(sesionLocal){
-//                localStorage.setItem('user', "null");
-//                $window.location.href = '/prueba_api/SITIO/LandingPage/index.html';
-//            }
-//            if(sesionSesion){  
-//                sessionStorage.setItem('user2', "null");
-//                $window.location.href = '/prueba_api/SITIO/LandingPage/index.html';
-//            }
-//        }
-    };
 
     notasController.$inject = ['$scope', '$http', '$window'];
     function notasController($scope, $http, $window){        
@@ -111,9 +53,50 @@
              .then(function(response) {
                 crear.compuesto = angular.fromJson(response.data);
                 console.log(crear.compuesto);
+                crear.load();
             }, function errorCallback(response) {
                 //$window.location.href = '/prueba_api/SITIO/PagPrincipal/index.html';
             });
         }
+
+            crear.load = function () {
+                var dataLength = 0;
+                var datos=[];
+                var dps=[];
+                
+                    if(crear.compuesto.length > 0){
+                        for(var i = dataLength; i < crear.compuesto.length; i++){
+                            datos.push({
+                                x: crear.compuesto[i].apellidos,
+                                y: parseFloat(crear.compuesto[i].NotaFinal)
+                            });
+                        }
+                        dataLength = crear.compuesto.length;
+
+                        
+                        //chart.render();
+                    }
+                    $.each(datos, function(i, item){
+                    dps.push({label: item.x, y: item.y});
+
+                });
+
+                
+                var updateInterval = 1000;
+                                var chart = new CanvasJS.Chart("chart", {
+                    title: {
+                        text: "Notas finales de alumnos"
+                    },
+                    axisX: {
+                        title: "Alumnos",
+                    },
+                    axisY: {
+                        title: "Notas", maximum:10,
+                    },
+                    data: [{type: "column", dataPoints: dps}]
+                });
+                    chart.render();
+            }
+
 
     };
