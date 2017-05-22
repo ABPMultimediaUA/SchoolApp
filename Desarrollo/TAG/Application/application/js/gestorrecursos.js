@@ -224,6 +224,77 @@ TRecursoMalla.prototype.cargarFichero = function(nombre,termina){
 
 }
 
+
+
+
+/*** DRAW DE TRECURSOMALLA ***/
+
+TRecursoMalla.prototype.draw = function(){
+    
+    
+    mat4.identity(mvMatrix);
+    mat4.multiply(mvMatrix, mvMatrix, matrizActual); //multiplicar por las transformaciones
+    mat4.multiply(mvMatrix, mvMatrix, motor.getCamaraActiva().matriz);
+
+
+    //Rotación de los objetos, no de la cámara
+    var radY = yRot * Math.PI / 180;
+    var radX = xRot * Math.PI / 180;
+    mat4.rotate(mvMatrix, mvMatrix, radX, [1, 0, 0]);
+    mat4.rotate(mvMatrix, mvMatrix, radY, [0, 1, 0]);
+    
+    
+    for(var i in this.mallas){
+        
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.mallas[i].vertexBuffer);
+        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, this.mallas[i].vertexBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+        // si tiene texturas
+        if(this.textura){
+            // uniform booleano que permite saber en el fragment cómo calcular el gl_FragColor
+            gl.uniform1i(shaderProgram.uUseTextures, true);
+
+            gl.enableVertexAttribArray(shaderProgram.vertexTextureCoords);
+            gl.bindBuffer(gl.ARRAY_BUFFER, this.mallas[i].textureBuffer);
+            gl.vertexAttribPointer(shaderProgram.vertexTextureCoords, 2, gl.FLOAT, false, 0, 0);
+
+            gl.activeTexture(gl.TEXTURE0);
+            gl.bindTexture(gl.TEXTURE_2D, this.textura.textura);
+            gl.uniform1i(shaderProgram.uSampler, 0);
+        }else{ //si no tiene texturas
+            gl.uniform1i(shaderProgram.uUseTextures, false);
+        }
+        
+                gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+        gl.bindBuffer(gl.ARRAY_BUFFER, this.mallas[i].normBuffer);
+        gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, this.mallas[i].normBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, this.mallas[i].indexBuffer);
+
+        mat4.identity(nMatrix);
+        mat4.copy(nMatrix, mvMatrix);
+        mat4.invert(nMatrix, nMatrix);
+        mat4.transpose(nMatrix, nMatrix);
+
+        setMatrixUniforms();
+
+        gl.drawElements(gl.TRIANGLES, this.mallas[i].indexBuffer.numItems, gl.UNSIGNED_SHORT, 0);
+
+        //desvincular una vez acabado el dibujado
+        gl.bindBuffer(gl.ARRAY_BUFFER, null);
+        gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, null);
+
+        gl.disableVertexAttribArray(shaderProgram.vertexNormalAttribute);
+    }
+
+}
+
+
+/*** END DRAW TRECURSOMALLA ***/
+
+
+
+
 /*** RECURSO TEXTURA ***/
 function TRecursoTextura(nombre){
   this.setNombre(nombre);

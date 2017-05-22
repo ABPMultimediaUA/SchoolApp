@@ -243,10 +243,10 @@ TMotorTAG.prototype.draw = function(){
     var tcam = nodoCamara.getEntity();
     if(tcam.esPerspectiva){
         mat4.perspective(pMatrix, gradToRad(tcam.fovy), tcam.aspect, tcam.near, tcam.far);
-        document.getElementById("fovy").disabled = false;
+//        document.getElementById("fovy").disabled = false;
     }else{
          mat4.ortho(pMatrix,tcam.left,tcam.right,tcam.bottom,tcam.top,tcam.near,tcam.far);
-         document.getElementById("fovy").disabled = true;
+//         document.getElementById("fovy").disabled = true;
     }
 
     setMatrixUniforms();

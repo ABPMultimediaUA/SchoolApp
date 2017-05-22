@@ -121,7 +121,7 @@ function handleKeyUp(event) {
 }
 
 function drawScene() {
-    requestAnimFrame(drawScene); //ejecutamos 60 veces por segundo
+    window.requestAnimationFrame(drawScene); //ejecutamos 60 veces por segundo
     handleKeys();
     motor.draw();
     animate();
@@ -196,6 +196,9 @@ function webGLStart() {
     var malla = motor.crearMallaConText('dummy_obj.obj','dummy_wood.jpg');
 
 
+    //HASTA AQUI BIEN
+    
+    
     /** nodos **/
     
     var NTrLuz = motor.crearNodo(motor.escena, transLuz);
