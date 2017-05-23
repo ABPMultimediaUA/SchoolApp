@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+
+    <title>Ver anuncios</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"> 
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="font-awesome/css/bootstrap-social.css" rel="stylesheet" type="text/css">   
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- archivos de angular -->
+    <script src="js/gestorApp.js"></script>
+    <script src="js/checklist-model.js" type="text/javascript"></script>
+
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+
+</head>
+
+<body ng-app="gestorApp" id="body">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageGestor.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosPad.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="content">
+        <div class="container" ng-controller="comunicadoController as comunicado">
+            <div class="row">
+
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="pageGestor.html" class="btn btn-default">Atrás</a></li><br>
+                        <li role="presentation"><a href="publicarAnuncioGestor.html" class="btn btn-default">Publicar Anuncio</a></li>
+                        <li role="presentation" class="active"><a href="verAnuncios.html" class="btn btn-default">Ver anuncios</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-10">
+                    <div class="col-lg-12">
+                        <h2 id="h2Titulo">
+                            ANUNCIOS
+                        </h2>
+                    </div>
+            
+                    <!--<a href="publicarAnuncioGestor.html">
+                       <button>Crear anuncio</button>
+                    </a>-->
+                    <div class="col-lg-12" ng-repeat-start = "item in comunicado.total" ng-if="!comunicado.borrado">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <button class="btn btn-primary pull-right"  ng-click="comunicado.borrar(item.idAnuncio)">Eliminar</button>
+                                <h4><i class="fa fa-fw fa-check"></i> {{item.titulo}}</h4>
+                            </div>
+                            <div class="panel-body" id="quitar{{$index}}">   
+                                <p> {{item.texto}}</p>
+                                <br>
+                                <p>{{item.creacion}}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div ng-repeat-end class="col-lg-12" ng-if="comunicado.borrado">
+                        Borrado!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

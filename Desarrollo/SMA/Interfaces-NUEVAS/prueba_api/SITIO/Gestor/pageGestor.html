@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+
+    <title>Página Gestor</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+        
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- archivos de angular -->
+    <script src="js/gestorApp.js"></script>
+    
+    <script src="js/checklist-model.js"></script>
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+
+</head>
+
+<body ng-app="gestorApp">
+    <header>
+        <div id="stuck">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageGestor.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosAlum.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="content" ng-controller = "principalController as prin">
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="gallery">
+                        <div class="flex-container"> 
+                            <div class="flex-item">
+                                <a href="publicarAnuncioGestor.html" class="gal_item" target="_blank">
+                                    <img src="img/anuncio.png" alt="">
+                                    <div class="gal_caption">Publicar Anuncio</div>
+                                </a>
+                            </div>
+                            <div class="flex-item">
+                                <a href="nuevoUsuario.html" class="gal_item" target="_blank">
+                                    <img src="img/tareas.png" alt="">
+                                    <div class="gal_caption">Nuevo Usuario</div>
+                                </a>
+                            </div>
+                            <div class="flex-item">
+                                <a href="nuevaAsignatura.html" class="gal_item" target="_blank">
+                                    <img src="img/asignatura.png" alt="">
+                                    <div class="gal_caption">Nueva Asignatura</div>
+                                </a>
+                            </div> 
+                            <div class="flex-item">
+                                <a href="nuevoCurso.html" class="gal_item" target="_blank">
+                                    <img src="img/curso.png" alt="">
+                                    <div class="gal_caption">Nuevo Curso</div>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+    </section>
+
+    <!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="footer_socials">
+                        <a href="https://twitter.com/AlphaSchool_UA" target="_blank" class="fa fa-twitter"></a>
+                        <a href="#" target="_blank" class="fa fa-facebook"></a>
+                        <a href="#" target="_blank" class="fa fa-google-plus"></a>
+                    </div>
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

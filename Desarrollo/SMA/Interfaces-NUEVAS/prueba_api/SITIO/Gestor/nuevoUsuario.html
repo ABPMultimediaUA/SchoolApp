@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+
+    <title>Nuevo Usuario</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- archivos de angular -->
+    <script src="js/gestorApp.js" type="text/javascript"></script>
+    <script src="js/checklist-model.js" type="text/javascript"></script>
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+
+</head>
+
+<body ng-app="gestorApp" id="body">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageGestor.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosPad.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="content">
+        <div class="container" ng-controller="crearUsuarioController as crear">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="col-lg-1">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li role="presentation"><a href="pageGestor.html" class="btn btn-default">Atrás</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-11">
+                        <h2 id="h2Titulo">NUEVO USUARIO</h2>
+                    </div>
+                </div>
+           
+                    <div ng-if="crear.todoOK">
+                        <p>USUARIO CREADO CORRECTAMENTE</p>
+                        <a href="nuevoUsuario.html"><button>Crear otro usuario</button></a>
+                    </div>
+        
+                    <form name="formulario" ng-submit="crear.randomPass()" ng-if="!crear.todoOK">
+                        <input type="hidden" id="password" value="">
+                        <div class="form-group">
+                            <label for="seleccionRol">Tipo de Usuario</label>
+                            <select class="form-control" id="seleccionRol" ng-change="crear.clickUser()" ng-model="crear.selectedItem">
+                               <option value="default">--</option>
+                                <option value="alumno">Alumno</option>
+                                <option value="padre">Padre</option>
+                                <option value="profesor">Profesor</option>
+                                <option value="gestor">Gestor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                           <label for="nom">Nombre</label>
+                           <input type="text" class="form-control" id="nombreUsuario" placeholder="Nombre" ng-model="crear.nombreF">
+                       </div>
+                        <div class="form-group">
+                            <label>Apellidos</label>
+                            <input type="text" class="form-control" id="nombreApellidos" placeholder="Apellidos" ng-model="crear.apellidosF">
+                        </div>
+                        <div class="form-group">
+                            <label for="emailUsuario">E-Mail</label>
+                            <input type="email" class="form-control" id="emailUsuario" placeholder="E-Mail" ng-model="crear.email">
+                        </div>
+                        <div class="form-group" ng-if="crear.denei">
+                            <label for="DNIUsuario">DNI</label>
+                            <input type="text" class="form-control" id="DNIUsuario" maxlength="9" placeholder="DNI" ng-model="crear.dni">
+                        </div>
+                        <div class="form-group">
+                            <label for="telefonoUsuario">Teléfono</label>
+                            <input type="text" class="form-control" id="telefonoUsuario" placeholder="Teléfono" ng-model="crear.telefono">
+                        </div>
+                        <div class="form-group" ng-if="crear.padreT || crear.alum">
+                            <label for="seleccionRol">Curso y grupo</label>
+                            <select class="form-control" id="seleccionRol" ng-model="crear.idCurso" ng-change="crear.clickCurso()">
+                               <option value="default">--</option>
+                                <option ng-repeat="item in crear.cursos" value="{{item.idCurso}}">{{item.nombre}} {{item.grupo}}</option>
+                            </select>
+                        </div>        
+                        <div class="form-group" ng-if="crear.padr">
+                            <label for="seleccionRol">Hijo</label>
+                            <select class="form-control" id="seleccionHijo" ng-model="crear.idAlumno" ng-change="crear.clickHijo(1)">
+                               <option value="default">--</option>
+                                <option ng-repeat="item in crear.hijos" value="{{item.idAlumno}}">{{item.nombre}} {{item.apellidos}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-if="crear.padr2">
+                            <label for="seleccionRol">2º Hijo</label>
+                            <select class="form-control" id="seleccionHijo2" ng-model="crear.idAlumno2" ng-change="crear.clickHijo(2)">
+                               <option value="default">--</option>
+                                <option ng-repeat="item in crear.hijos" value="{{item.idAlumno}}">{{item.nombre}} {{item.apellidos}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-if="crear.padr3">
+                            <label for="seleccionRol">3º Hijo</label>
+                            <select class="form-control" id="seleccionHijo3" ng-model="crear.idAlumno3" ng-change="crear.clickHijo(3)">
+                               <option value="default">--</option>
+                                <option ng-repeat="item in crear.hijos" value="{{item.idAlumno}}">{{item.nombre}} {{item.apellidos}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-if="crear.alum">
+                            <label for="seleccionRol">Año académico</label>
+                            <select class="form-control" id="seleccanyo" ng-model="crear.anyo">
+                               <option value="default">--</option>
+                                <option ng-repeat="item in crear.anyos" value="{{item}}">{{item}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-if="crear.gest">
+                            <label for="seleccionRol">Centro</label>
+                            <select class="form-control" id="seleccanyo" ng-model="crear.gestor">
+                               <option value="default">--</option>
+                                <option ng-repeat="item in crear.listGest" value="{{item.idCentro}}">{{item.nombre}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group" ng-if="crear.asig">
+                            <label for="seleccionAsigl">Asignaturas</label><br>
+                            <label ng-repeat="item in crear.asignaturas" for="item.nombre">
+                                <input type="checkbox" 
+                                   checklist-model="crear.user" checklist-value="item.idAsignatura">{{item.nombre}}
+                            </label><br>
+                            <button type="button" ng-click="crear.checkAll()">Seleccionar todas</button>
+                            <button type="button" ng-click="crear.uncheckAll()">Deseleccionar todas</button>
+                        </div>
+                        
+
+                        <button ng-if="crear.alum" type="submit" class="btn btn-primary" ng-disabled="!(!!crear.nombreF) || !(!!crear.apellidosF)
+                             ">Crear usuario</button>            
+                            
+                        <button ng-if="crear.padreT" type="submit" class="btn btn-primary" ng-disabled="!(!!crear.nombreF) || !(!!crear.apellidosF)
+                             || !(!!crear.dni) || !(!!crear.telefono)">Crear usuario</button>
+                             
+                        <button ng-if="crear.profe" type="submit" class="btn btn-primary" ng-disabled="!(!!crear.nombreF)
+                             || !(!!crear.dni)">Crear usuario</button>
+                             
+                        <button ng-if="crear.gest" type="submit" class="btn btn-primary" ng-disabled="!(!!crear.nombreF)
+                             || !(!!crear.gestor)">Crear usuario</button>        
+                    </form>
+                </div>
+             </div>
+        </div>
+    </section>
+    
+<!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+</body>
+</html>

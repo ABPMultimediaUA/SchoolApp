@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="alphaschool landing page">
+    <meta name="author" content="cerberus-team">
+
+    <title>Nueva Asignatura</title>
+
+    <link rel="icon" href="img/logo-icon.ico" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="css/stuck.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/superfish.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">   
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Angular -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script> 
+
+    <!-- archivos de angular -->
+    <script src="js/gestorApp.js"></script>
+    <script src="js/checklist-model.js" type="text/javascript"></script>
+
+    <!-- Exportar a pdf-->
+    <script src="https://cdn.rawgit.com/niklasvh/html2canvas/0.5.0-alpha2/dist/html2canvas.min.js"></script>
+    <script src="/prueba_api/toPDF/jsPDF/dist/jspdf.debug.js"></script>
+    <script src="/prueba_api/toPDF/dist/saveHtmlToPdf.min.js"></script>
+
+</head>
+
+<body ng-app="gestorApp" id="body">
+    <header>
+        <div id="stuck_container">
+            <div class="container">
+                <div class="row">
+                    <div class="grid_12">
+                        <h1>
+                            <a href="pageGestor.html">
+                                <img src="img/logoAlpha.png" alt="Your Happy Family">
+                            </a>
+                        </h1>
+                        <div class="menu_block">
+                            <nav class="horizontal-nav full-width horizontalNav-notprocessed" ng-controller="navController as nav">
+                                <ul class="sf-menu">
+                                    <li><a href="datosPad.html" target="_blank">{{nav.apellidos}}, {{nav.nombre}} </a></li>
+
+                                    <li><a href="ajustes.html"><i class="fa fa-cogs" aria-hidden="true"></i></a></li>
+                                    <li>
+                                        <button type = "button"  class="botonHeader" ng-click = "nav.logOut()"><i class="fa fa-sign-out" aria-hidden="true"></i></button>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="contenido">
+        <div class="container" ng-controller="asignaturaController as asig">
+            <div ng-if="asig.todoOK">
+                <p>Asignatura Creada Correctamente</p>
+                <a href="nuevaAsignatura.html"><button>Crear otra asignatura</button></a>
+            </div>
+            <div class="row">
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li role="presentation"><a href="pageGestor.html" class="btn btn-default">Atrás</a></li><br>
+                        <li role="presentation" class="active"><a href="nuevaAsignatura.html" class="btn btn-default">Nueva Asignatura</a></li>
+                        <li role="presentation"><a href="asignarAsignatura.html" class="btn btn-default">Asignar asignatura</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-10">
+                    <div class="col-lg-12">
+                        <h2 id="h2Titulo">NUEVA ASIGNATURA</h2>
+                    </div>
+                              
+                    <form ng-submit="asig.crearAsignatura()">
+                        <div class="form-group">
+                            <label for="seleccionRol">Curso y grupo</label>
+                            <select class="form-control" id="seleccionRol" ng-model="asig.idCurso">
+                               <option value="default">--</option>
+                                <option ng-repeat="item in asig.cursos" value="{{item.idCurso}}">{{item.nombre}} {{item.grupo}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="nombreNuevaAsignatura">Nombre</label>
+                            <input type="text" ng-model="asig.nombre" class="form-control" id="nombreNuevaAsignatura" placeholder="Nombre">
+                        </div>
+                        <button type="submit" class="btn btn-primary"  ng-disabled="!(!!asig.nombre)
+                                 || !(!!asig.idCurso)">Crear asignatura</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+<!--==============================footer=================================-->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="grid_12">
+                    <div class="copy">
+                        <span class="brand">Alpha-School</span> &copy; <span id="copyright-year"></span> | <a href="#">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
