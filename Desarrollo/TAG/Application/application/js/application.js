@@ -121,10 +121,11 @@ function handleKeyUp(event) {
 }
 
 function drawScene() {
-    window.requestAnimationFrame(drawScene); //ejecutamos 60 veces por segundo
+     //ejecutamos 60 veces por segundo
     handleKeys();
     motor.draw();
     animate();
+    window.requestAnimationFrame(drawScene);
 }
 
 
@@ -134,7 +135,7 @@ function drawScene() {
 
 function webGLStart() {
     var canvas = document.getElementById("test");
-    alert(canvas);
+    //alert(canvas);
     initGL(canvas);
     initShaders();
 
@@ -193,6 +194,7 @@ function webGLStart() {
 
     //var malla2 = motor.crearMallaConMat('*.obj','*.mtl');
     var malla = motor.crearMalla('dummy_obj.obj');
+    setTimeout(webGLStart, 500);
 //    var malla = motor.crearMallaConText('dummy_obj.obj','dummy_wood.jpg');
 
 
@@ -245,6 +247,7 @@ function webGLStart() {
     document.onkeydown = handleKeyDown;
     document.onkeyup = handleKeyUp;
 
+    //drawScene();
 }
 
 
