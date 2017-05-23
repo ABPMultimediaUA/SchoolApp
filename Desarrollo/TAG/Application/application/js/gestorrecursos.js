@@ -264,7 +264,8 @@ TRecursoMalla.prototype.draw = function(){
         }else{ //si no tiene texturas
             gl.uniform1i(shaderProgram.uUseTextures, false);
         }
-        
+        gl.uniform3fv(shaderProgram.uKa, [ukambient,ukambient,ukambient]);
+            gl.uniform3fv(shaderProgram.uKs, [ukspecular,ukspecular,ukspecular]);
                 gl.enableVertexAttribArray(shaderProgram.vertexNormalAttribute);
         gl.bindBuffer(gl.ARRAY_BUFFER, this.mallas[i].normBuffer);
         gl.vertexAttribPointer(shaderProgram.vertexNormalAttribute, this.mallas[i].normBuffer.itemSize, gl.FLOAT, false, 0, 0);

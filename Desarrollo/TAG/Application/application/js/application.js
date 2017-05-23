@@ -192,8 +192,8 @@ function webGLStart() {
     camara2.setEsParalela(-20, 20, -20, 20, 0.1, 100);
 
     //var malla2 = motor.crearMallaConMat('*.obj','*.mtl');
-    //var malla = motor.crearMalla('cabeza.obj');
-    var malla = motor.crearMallaConText('dummy_obj.obj','dummy_wood.jpg');
+    var malla = motor.crearMalla('dummy_obj.obj');
+//    var malla = motor.crearMallaConText('dummy_obj.obj','dummy_wood.jpg');
 
 
     //HASTA AQUI BIEN
