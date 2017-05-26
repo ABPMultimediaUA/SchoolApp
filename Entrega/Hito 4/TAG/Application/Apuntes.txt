@@ -1,0 +1,9 @@
+En application/js se encuentran los javascript con las distintas clases
+necesarias para la ejecución.
+
+application.js es el ejecutable principal
+arbolescena.js es el árbol de la escena
+fachada.js es la fachada del motor
+gestorrecursos.js es el gestor
+
+El resto de javascripts son de utilidades, como three, objloader, glmatrix, etc.
