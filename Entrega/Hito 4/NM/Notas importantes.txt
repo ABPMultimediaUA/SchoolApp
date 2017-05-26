@@ -1,0 +1,10 @@
+Para testear la página en su versión en línea y comprobar la parte de
+la asignatura de Negocio y Multimedia, seguimos los siguientes pasos:
+
+1.- Entramos en alphaschool.com.es
+2.- Hacemos login con el usuario cm48, pass: 1234
+3.- Entramos en el apartado de seguimiento
+4.- Una vez ahí, seleccionamos en el menú lateral una de las 3 opciones
+    que tenemos de cuadros de mando.
+5.- Introducimos las variables.
+6.- Comprobamos el resultado.
